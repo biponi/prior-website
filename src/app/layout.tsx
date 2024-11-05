@@ -50,7 +50,7 @@ export default function RootLayout({
         <CartProvider>
           <>
             <Navbar />
-            {children}
+            "Comming Soon"
             <Footer />
           </>
         </CartProvider>
