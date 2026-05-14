@@ -26,6 +26,7 @@ export interface CartItem {
   discount: number;
   description: string;
   thumbnail: string;
+  variantImage?: string;  // Variant-specific image (if different from thumbnail)
   productCode: string;
   totalPrice: number;
   categoryName?: string;

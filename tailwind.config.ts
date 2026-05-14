@@ -24,6 +24,9 @@ const config = {
         oswald: ["var(--font-oswald)", "sans-serif"],
         sans: ["var(--font-oswald)", "sans-serif"],
         serif: ["var(--font-alegreya)", "serif"],
+        // Baby Bloom fonts
+        inter: ["var(--font-inter)", "sans-serif"],
+        publicSans: ["var(--font-public-sans)", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -58,6 +61,27 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        // Design system specific colors (using CSS variables)
+        "ds-primary": "rgb(var(--ds-primary))",
+        "ds-secondary": "rgb(var(--ds-secondary))",
+        "ds-background": "rgb(var(--ds-background))",
+        "ds-foreground": "rgb(var(--ds-foreground))",
+        "ds-card": "rgb(var(--ds-card))",
+        "ds-border": "rgb(var(--ds-border))",
+        "ds-muted": "rgb(var(--ds-muted))",
+        "ds-accent": "rgb(var(--ds-accent))",
+        "ds-success": "rgb(var(--ds-success))",
+        "ds-warning": "rgb(var(--ds-warning))",
+        "ds-error": "rgb(var(--ds-error))",
+        // Baby Bloom specific colors
+        babybloom: {
+          pink: "#CD2A75",
+          "pink-light": "#FDF5F8",
+          green: "#30AD2E",
+          orange: "#FF7E05",
+          alert: "#EE5858",
+          yellow: "#FFD34D",
         },
       },
       borderRadius: {

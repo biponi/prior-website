@@ -14,20 +14,20 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 interface ProductCardProps {
   product: Product;
   className?: string;
-  variant?: "luxury" | "minimal" | "bold" | "editorial";
 }
 
+const variant: string = "babybloom";
 /**
- * ProductCard Component - Beautiful fashion-focused design with 4 variants
+ * ProductCard Component - Beautiful fashion-focused design with 5 variants
  * - Luxury: Sophisticated high-end aesthetic with elegant animations
  * - Minimal: Clean Scandinavian design with generous whitespace
  * - Bold: Eye-catching energetic design with dramatic effects
  * - Editorial: Magazine-style layout with artistic presentation
+ * - Baby Bloom: Pink-themed BD market design with star ratings and Bengali CTAs
  */
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   className = "",
-  variant = "editorial",
 }) => {
   // Add rainbow border animation styles
   const rainbowBorderStyles = `
@@ -726,6 +726,170 @@ const ProductCard: React.FC<ProductCardProps> = ({
           open={quickAddOpen}
           onOpenChange={setQuickAddOpen}
         />
+      </>
+    );
+  }
+
+  // ========== BABY BLOOM VARIANT ==========
+  if (variant === "babybloom") {
+    return (
+      <>
+        <div className={cn("group relative bg-white", className)}>
+          <Link href={`/collections/${product.slug || product.id}`}>
+            <div
+              className='relative'
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}>
+              {/* Image Container with 4:3 ratio and rounded corners */}
+              <div className='relative aspect-square bg-[#FDF5F8] rounded-lg overflow-hidden border-2 border-[#E3E3E3] transition-all duration-300 group-hover:border-[#CD2A75] group-hover:shadow-lg'>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  quality={95}
+                  sizes='(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw'
+                  className={cn(
+                    "object-contain p-3 transition-transform duration-500 will-change-transform",
+                    isHovered ? "scale-110" : "scale-100",
+                  )}
+                  priority={isMobile}
+                />
+
+                {/* Discount Badge with backdrop blur */}
+                {hasDiscount && discountPercentage >= 5 && (
+                  <div className='absolute top-3 left-3 z-10'>
+                    <span className='bg-[#CD2A75]/95 backdrop-blur-sm text-white text-xs font-bold uppercase px-3 py-1.5 rounded-md shadow-sm inline-block animate-pulse'>
+                      -{discountPercentage}%
+                    </span>
+                  </div>
+                )}
+
+                {/* New/Hot Badge */}
+                {!hasDiscount && (product.isNew || product.isHot) && (
+                  <div className='absolute top-3 left-3 z-10'>
+                    <span
+                      className={cn(
+                        "text-white text-xs font-bold uppercase px-3 py-1.5 rounded-md shadow-sm backdrop-blur-sm inline-block",
+                        product.isNew
+                          ? "bg-green-500/95"
+                          : "bg-orange-500/95 animate-pulse",
+                      )}>
+                      {product.isNew ? "NEW" : "HOT"}
+                    </span>
+                  </div>
+                )}
+
+                {/* Wishlist Button */}
+                <button
+                  onClick={handleWishlist}
+                  className={cn(
+                    "absolute top-3 right-3 p-2 rounded-full transition-all duration-300 z-10",
+                    isWishlisted
+                      ? "bg-[#CD2A75] text-white"
+                      : "bg-white/90 text-[#CD2A75] hover:bg-white hover:scale-110 shadow-sm",
+                  )}
+                  aria-label='Add to wishlist'>
+                  <Heart
+                    className={cn(
+                      "w-4 h-4 transition-all",
+                      isWishlisted ? "fill-current" : "",
+                    )}
+                  />
+                </button>
+
+                {/* Out of Stock Overlay */}
+                {isOutOfStock && (
+                  <div className='absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center'>
+                    <span className='text-sm font-bold text-neutral-900 uppercase tracking-wider bg-white px-4 py-2 rounded-lg shadow-md'>
+                      Sold Out
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Product Info Section */}
+              <div className='mt-3 space-y-2'>
+                {/* Product Name */}
+                <h3 className='text-sm font-medium text-[#191C1F] line-clamp-2 leading-snug min-h-[40px] group-hover:text-[#CD2A75] transition-colors'>
+                  {product.name}
+                </h3>
+
+                {/* Category */}
+                {product.category && (
+                  <p className='text-xs text-[#A3A3A3] uppercase tracking-wide'>
+                    {product.category}
+                  </p>
+                )}
+
+                {/* Prices */}
+                <div className='flex items-baseline gap-2'>
+                  {hasDiscount ? (
+                    <>
+                      <span className='text-lg font-bold text-[#CD2A75]'>
+                        {formatPrice(product.price)}
+                      </span>
+                      <span className='text-sm text-[#A3A3A3] line-through'>
+                        {formatPrice(product.originalPrice!)}
+                      </span>
+                    </>
+                  ) : (
+                    <span className='text-lg font-bold text-[#CD2A75]'>
+                      {formatPrice(product.price)}
+                    </span>
+                  )}
+                </div>
+
+                {/* Star Rating - Always Visible */}
+                {product.rating > 0 && (
+                  <div className='flex items-center gap-1.5'>
+                    <div className='flex'>
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={cn(
+                            "w-3.5 h-3.5",
+                            i < Math.floor(product.rating)
+                              ? "fill-[#FF7E05] text-[#FF7E05]"
+                              : "text-neutral-300",
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <span className='text-xs text-neutral-500'>
+                      ({product.reviewCount})
+                    </span>
+                  </div>
+                )}
+
+                {/* Add to Cart Button */}
+                <Button
+                  onClick={handleQuickAdd}
+                  disabled={isOutOfStock}
+                  className={cn(
+                    "w-full h-10 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm",
+                    isOutOfStock
+                      ? "bg-neutral-300 text-neutral-600 cursor-not-allowed"
+                      : "bg-[#CD2A75] text-white hover:bg-[#B02462] hover:shadow-md",
+                  )}>
+                  {isOutOfStock ? (
+                    "Out of Stock"
+                  ) : (
+                    <>
+                      <ShoppingCart className='w-4 h-4 mr-2' />
+                      Add to Cart
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </Link>
+
+          <QuickAddSheet
+            productId={product.id}
+            open={quickAddOpen}
+            onOpenChange={setQuickAddOpen}
+          />
+        </div>
       </>
     );
   }

@@ -1,5 +1,6 @@
 import { title } from "process";
 import { getRandomCollection, getRandomSeoFromFirstSetCollection, getRandomSeoFromHeaderSetCollection, getRandomSeoFromSecondSetCollection, getRandomSeoFromThridSetCollection } from "./contentSet";
+import { brandConfig } from "@/config/brand";
 
 export const headerSection= {title:getRandomSeoFromHeaderSetCollection().title,description:getRandomSeoFromHeaderSetCollection().description};
 export const headerSectionMBL= {title:getRandomSeoFromHeaderSetCollection().title,description:getRandomSeoFromThridSetCollection().description};
@@ -15,7 +16,7 @@ export const productsSection = {heading:getRandomSeoFromSecondSetCollection().he
 export const prices = ["Below 3000", "Below 4000", "Below 8000", "Below 10000"];
 
 export const promotionTag = {
-  heading: "Prior Your Priority",
+  heading: brandConfig.identity.tagline,
   description:
     getRandomCollection().description
 };
@@ -29,7 +30,7 @@ export const newProductPageContent = {title:getRandomSeoFromFirstSetCollection()
 
 export const footerData = {
   description:
-    "Dhaka, Dhanmondi 27, Genetic Plaza, Shop no : 134\nMobile: +8801700534317\nEmail: prior.retailshop.info.bd@gmail.com",
+    `${brandConfig.contact.address.full}\nMobile: ${brandConfig.contact.phone.display}\nEmail: ${brandConfig.contact.email.display}`,
   footerLinks: [
     {
       title: "Main Pages",

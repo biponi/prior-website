@@ -1,5 +1,5 @@
 "use client";
-
+import DOMPurify from "dompurify";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Plus, Minus, ShoppingCart, Loader2, X, Zap } from "lucide-react";
@@ -288,9 +288,12 @@ export default function QuickAddSheet({
               <h4 className='text-xs font-serif tracking-[0.2em] uppercase text-neutral-700'>
                 Details
               </h4>
-              <p className='text-sm font-serif leading-relaxed text-neutral-600'>
-                {product.description}
-              </p>
+              <div
+                className='text-sm font-serif leading-relaxed text-neutral-600'
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(product.description),
+                }}
+              />
             </div>
           )}
 

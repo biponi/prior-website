@@ -68,6 +68,36 @@ span,
     --chart-5: 27 87% 67%;
   }
 
+  /* Editorial Design System Overrides */
+  [data-design-system="editorial"] {
+    --ds-primary: 11 51 147; /* #0b3393 */
+    --ds-secondary: 107 114 128; /* #6B7280 */
+    --ds-background: 0 0% 100%; /* #FFFFFF */
+    --ds-foreground: 0 0% 10%; /* #191C1F */
+    --ds-card: 0 0% 100%; /* #FFFFFF */
+    --ds-border: 227.3 19.7% 89.2%; /* #E3E3E3 */
+    --ds-muted: 0 0% 96%; /* #F5F5F5 */
+    --ds-accent: 11 51 147; /* #0b3393 */
+    --ds-success: 123 58% 37%; /* #30AD2E */
+    --ds-warning: 25 100% 50%; /* #FF7E05 */
+    --ds-error: 0 72% 57%; /* #EE5858 */
+  }
+
+  /* Baby Bloom Design System Overrides */
+  [data-design-system="babybloom"] {
+    --ds-primary: 338 66% 47%; /* #CD2A75 - Pink */
+    --ds-secondary: 107 114 128; /* #6B7280 */
+    --ds-background: 0 0% 100%; /* #FFFFFF */
+    --ds-foreground: 0 0% 10%; /* #191C1F */
+    --ds-card: 0 0% 100%; /* #FFFFFF */
+    --ds-border: 338 66% 47% 0.14; /* rgba(205, 42, 117, 0.14) */
+    --ds-muted: 350 50% 98%; /* #FDF5F8 - Light pink tint */
+    --ds-accent: 338 66% 47%; /* #CD2A75 */
+    --ds-success: 123 58% 37%; /* #30AD2E */
+    --ds-warning: 25 100% 50%; /* #FF7E05 */
+    --ds-error: 0 72% 57%; /* #EE5858 */
+  }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;

@@ -7,14 +7,14 @@ import Image from "next/image";
 import BkashLogo from "@/images/BKash-Icon-Logo.wine.png";
 interface Props {
   prePaymentAmount?: number;
-  district?: string;
+  deliveryCharge?: number;
   paymentMethod: string;
   handlePaymentMethodChange: (value: string) => void;
 }
 
 const PaymentMethod: FC<Props> = ({
   prePaymentAmount = 0,
-  district = "",
+  deliveryCharge = 0,
   paymentMethod,
   handlePaymentMethodChange,
 }) => {
@@ -47,13 +47,9 @@ const PaymentMethod: FC<Props> = ({
             <Banknote className='mr-2 size-5' />{" "}
             {!!prePaymentAmount && prePaymentAmount > 0
               ? `Cash On Delivery (Advance ${prePaymentAmount}TK)`
-              : district.toLowerCase().includes("dhaka")
-              ? "Cash On Delivery"
-              : ["gazipur", "tongi", "narayanganj", "savar"].includes(
-                  district.replace(/\s*\(.*?\)\s*/g, "").toLowerCase()
-                )
-              ? "Cash On Delivery (Advance 130TK)"
-              : "Cash On Delivery (Advance 150TK)"}
+              : deliveryCharge >= 80
+              ? `Cash On Delivery (Advance ${deliveryCharge}TK)`
+              : "Cash On Delivery"}
           </Button>
           <Button
             className={`flex justify-center items-center font-serif tracking-wide transition-all duration-300 ${

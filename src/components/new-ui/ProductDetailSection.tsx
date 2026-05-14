@@ -56,19 +56,16 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
     "description" | "details" | "reviews"
   >("description");
 
-  // Extract unique colors and sizes
+  // Extract unique colors and sizes (including empty values)
   useEffect(() => {
     if (product) {
-      setUniqueColors([
-        ...new Set(
-          product.variation?.filter((c) => !!c.color).map((v) => v.color) ?? [],
-        ),
-      ]);
-      setUniqueSizes([
-        ...new Set(
-          product.variation?.filter((s) => !!s.size).map((v) => v.size) ?? [],
-        ),
-      ]);
+      // Get all unique colors, including empty string for variants without color
+      const colors = product.variation?.map((v) => v.color || "") ?? [];
+      setUniqueColors([...new Set(colors)]);
+
+      // Get all unique sizes, including empty string for variants without size
+      const sizes = product.variation?.map((v) => v.size || "") ?? [];
+      setUniqueSizes([...new Set(sizes)]);
     }
   }, [product]);
 
@@ -316,7 +313,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
             <Separator />
 
             {/* Variant Selectors */}
-            {uniqueColors.length > 0 && (
+            {product.hasVariation && uniqueColors.length > 0 && (
               <EnhancedVariantSelector
                 type='color'
                 list={uniqueColors}
@@ -330,7 +327,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
               />
             )}
 
-            {uniqueSizes.length > 0 && (
+            {product.hasVariation && uniqueSizes.length > 0 && (
               <EnhancedVariantSelector
                 type='size'
                 list={uniqueSizes}
