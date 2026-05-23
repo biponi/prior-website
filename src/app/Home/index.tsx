@@ -6,16 +6,23 @@ import { adaptProductsToNewFormat } from "@/lib/adapters/productAdapter";
 import ProductGrid from "@/components/new-ui/ProductGrid";
 import EditorialHeroCarousel from "./HeroSectionV2";
 import { heroSlides } from "@/utils/heroSectionContents";
-import FeatureCard from "@/components/new-ui/FeatureCard";
 import PriorOutletSection from "@/components/new-ui/PriorOutletSection";
+import CategoryShowcase from "@/components/design-system-agnostic/CategoryShowcase/CategoryShowcase";
+import { useDesignSystem } from "@/lib/design-system/DesignSystemProvider";
+import { CategoryShowcase as CategoryProps } from "@/hooks/useCategories";
+import LuxuryOutletSection from "@/components/new-ui/LuxuryOutletSection";
 
 // Define the interface for the component props
 interface HomePageProps {
   products: IProduct[];
+  categories: CategoryProps[];
 }
 
 // Define the HomePage component with typed props
-const HomePage: React.FC<HomePageProps> = ({ products }) => {
+const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
+  // Get design system
+  const { isBabyBloom } = useDesignSystem();
+
   // Adapt products to new UI format
   const newProducts = adaptProductsToNewFormat(products || []);
 
@@ -74,42 +81,8 @@ const HomePage: React.FC<HomePageProps> = ({ products }) => {
       {/* Main Content Area */}
       <main className='w-full'>
         {/* Category Showcase */}
-        <section className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 md:py-16 lg:py-24'>
-          <div className='text-center mb-8 sm:mb-10 md:mb-12 space-y-2 sm:space-y-3'>
-            <p className='text-[10px] sm:text-xs font-serif tracking-[0.2em] uppercase text-neutral-700'>
-              Explore Our Collections
-            </p>
-            <h2 className='text-2xl sm:text-3xl md:text-4xl font-serif tracking-wide text-neutral-900 leading-tight px-4'>
-              Crafted for You
-            </h2>
-          </div>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8'>
-            {/* Bags Category */}
-            <FeatureCard
-              title="Women's Bags"
-              href='/category/fed3dffe-c6c1-46fd-b020-eb8ca8f3ca8c'
-              description='Timeless elegance meets modern functionality'
-              imageSrc='/images/category/bag.jpg'
-            />
-
-            {/* Shoes Category */}
-            <FeatureCard
-              title="Women's Footwear"
-              href='/category/4506b4bb-e6a4-44c5-bb0c-ad77c1c3c967'
-              description='Step into comfort and style'
-              imageSrc='/images/category/shoes.jpg'
-            />
-
-            {/* Hijabs Category */}
-            <FeatureCard
-              title="Women's Hijabs"
-              href='/category/e425d9b7-bdf6-4268-b203-390dd28d984f'
-              description='Grace and modesty in every fabric'
-              imageSrc='/images/category/hijab.jpg'
-            />
-          </div>
-        </section>
+        <CategoryShowcase categories={categories} loading={false} />
 
         {/* New Arrivals Section */}
         <ProductGrid
@@ -235,7 +208,7 @@ const HomePage: React.FC<HomePageProps> = ({ products }) => {
         />
 
         {/* Prior Outlet Section */}
-        <PriorOutletSection />
+        {isBabyBloom ? <LuxuryOutletSection /> : <PriorOutletSection />}
 
         {/* Customer Testimonials */}
         {/* <section className='py-10 sm:py-12 md:py-16 lg:py-24 border-t border-neutral-200'>

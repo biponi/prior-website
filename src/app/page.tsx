@@ -1,4 +1,5 @@
-import HomePage from "@/components/pages/Home";
+import HomePage from "@/app/Home";
+import { fetchCategoriesForShowcase } from "@/lib/server/fetchCategories";
 import { config } from "@/lib/config";
 
 async function fetchCategoriesAndProducts() {
@@ -23,11 +24,14 @@ async function fetchCategoriesAndProducts() {
 }
 
 export default async function Home() {
+  console.log("[page] before Promise.all");
   const { products } = await fetchCategoriesAndProducts();
+  const categories = await fetchCategoriesForShowcase();
 
+  console.log("[page] categories result:", categories);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      <HomePage products={products} />
+    <main className='flex min-h-screen flex-col items-center justify-between'>
+      <HomePage products={products} categories={categories} />
     </main>
   );
 }

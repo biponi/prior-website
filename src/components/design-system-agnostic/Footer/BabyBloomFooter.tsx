@@ -16,9 +16,7 @@ import { brandConfig } from "@/config/brand";
 
 const BabyBloomFooter: React.FC = () => {
   return (
-    <footer
-      aria-labelledby='footer-heading'
-      className='bg-white border-t border-ds-border'>
+    <footer aria-labelledby='footer-heading' className='bg-[#CD2A75]/80 '>
       <h2 id='footer-heading' className='sr-only'>
         Footer
       </h2>
@@ -26,10 +24,10 @@ const BabyBloomFooter: React.FC = () => {
       {/* Newsletter Section */}
       <div className='bg-ds-muted py-8 px-4 hidden'>
         <div className='container mx-auto max-w-2xl text-center'>
-          <h3 className='text-xl font-bold text-ds-primary mb-2'>
+          <h3 className='text-xl font-bold text-white mb-2'>
             Subscribe to Newsletter
           </h3>
-          <p className='text-sm text-ds-foreground mb-4'>
+          <p className='text-sm text-white mb-4'>
             Get the latest offers and new collection updates
           </p>
           <form className='flex flex-col sm:flex-row gap-2 max-w-md mx-auto'>
@@ -40,11 +38,11 @@ const BabyBloomFooter: React.FC = () => {
               required
               placeholder='Enter your email'
               autoComplete='email'
-              className='flex-1 px-4 py-2 border border-ds-border rounded focus:outline-none focus:ring-2 focus:ring-ds-primary'
+              className='flex-1 px-4 py-2 border border-ds-border rounded focus:outline-none focus:ring-2 focus:ring-white'
             />
             <button
               type='submit'
-              className='bg-ds-primary text-white px-6 py-2 rounded font-medium hover:bg-opacity-90 transition-colors'>
+              className='bg-white text-white px-6 py-2 rounded font-medium hover:bg-opacity-90 transition-colors'>
               Subscribe
             </button>
           </form>
@@ -52,21 +50,21 @@ const BabyBloomFooter: React.FC = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className='container mx-auto px-4 py-12 bg-pink-50'>
+      <div className='container mx-auto px-4 py-12 bg-transparent'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
           {/* Contact Info */}
           <div>
-            <h4 className='text-lg font-bold text-ds-primary mb-4'>Contact</h4>
+            <h4 className='text-lg font-bold text-white mb-4'>Contact</h4>
             <div className='space-y-3'>
               <a
                 href={brandConfig.contact.phone.link}
-                className='flex items-center gap-2 text-ds-foreground hover:text-ds-primary'>
+                className='flex items-center gap-2 text-white hover:text-white'>
                 <Phone size={18} />
                 <span>{brandConfig.contact.phone.display}</span>
               </a>
               <a
                 href={`mailto:${brandConfig.contact.email.address}`}
-                className='flex items-center gap-2 text-ds-foreground hover:text-ds-primary'>
+                className='flex items-center gap-2 text-white hover:text-white'>
                 <Mail size={18} />
                 <span>{brandConfig.contact.email.display}</span>
               </a>
@@ -74,38 +72,40 @@ const BabyBloomFooter: React.FC = () => {
 
             {/* Social Links */}
             <div className='flex gap-4 mt-6'>
-              {brandConfig.social.facebook.enabled && brandConfig.social.facebook.url && (
-                <a
-                  href={brandConfig.social.facebook.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-ds-foreground hover:text-ds-primary transition-colors'
-                  aria-label='Facebook'>
-                  <Facebook size={24} />
-                </a>
-              )}
-              {brandConfig.social.instagram.enabled && brandConfig.social.instagram.url && (
-                <a
-                  href={brandConfig.social.instagram.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-ds-foreground hover:text-ds-primary transition-colors'
-                  aria-label='Instagram'>
-                  <Instagram size={24} />
-                </a>
-              )}
+              {brandConfig.social.facebook.enabled &&
+                brandConfig.social.facebook.url && (
+                  <a
+                    href={brandConfig.social.facebook.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-white hover:text-white transition-colors'
+                    aria-label='Facebook'>
+                    <Facebook size={24} />
+                  </a>
+                )}
+              {brandConfig.social.instagram.enabled &&
+                brandConfig.social.instagram.url && (
+                  <a
+                    href={brandConfig.social.instagram.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-white hover:text-white transition-colors'
+                    aria-label='Instagram'>
+                    <Instagram size={24} />
+                  </a>
+                )}
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h4 className='text-lg font-bold text-ds-primary mb-4'>Company</h4>
+            <h4 className='text-lg font-bold text-white mb-4'>Company</h4>
             <ul role='list' className='space-y-2'>
               {brandConfig.navigation.company.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className='text-sm text-ds-foreground hover:text-ds-primary transition-colors'>
+                    className='text-sm text-white hover:text-white transition-colors'>
                     {item.name}
                   </Link>
                 </li>
@@ -115,9 +115,7 @@ const BabyBloomFooter: React.FC = () => {
 
           {/* Legal & Customer Service */}
           <div>
-            <h4 className='text-lg font-bold text-ds-primary mb-4'>
-              Information
-            </h4>
+            <h4 className='text-lg font-bold text-white mb-4'>Information</h4>
             <div className='grid grid-cols-2 gap-4'>
               <div>
                 <ul role='list' className='space-y-2'>
@@ -125,7 +123,7 @@ const BabyBloomFooter: React.FC = () => {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className='text-sm text-ds-foreground hover:text-ds-primary transition-colors'>
+                        className='text-sm text-white hover:text-white transition-colors'>
                         {item.name}
                       </Link>
                     </li>
@@ -138,7 +136,7 @@ const BabyBloomFooter: React.FC = () => {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className='text-sm text-ds-foreground hover:text-ds-primary transition-colors'>
+                        className='text-sm text-white hover:text-white transition-colors'>
                         {item.name}
                       </Link>
                     </li>
@@ -151,13 +149,13 @@ const BabyBloomFooter: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className='border-t border-ds-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4'>
-          <p className='text-sm text-ds-secondary text-center md:text-left'>
+          <p className='text-sm text-white text-center md:text-left'>
             {brandConfig.legal.copyright}
           </p>
           <div className='flex items-center gap-4'>
             <Image
-              src={brandConfig.assets.paymentMethods}
-              alt='Payment Methods'
+              src={brandConfig.assets.logo}
+              alt='Company Logo'
               width={100}
               height={32}
               className='h-8 w-auto'

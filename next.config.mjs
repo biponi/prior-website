@@ -119,7 +119,10 @@ const nextConfig = {
   ],
   async rewrites() {
     return [
-      // Add rewrites if needed
+      {
+        source: '/api/:path*',
+        destination: 'https://api.luxuryonlinemart.com/:path*'
+      }
     ];
   },
 };

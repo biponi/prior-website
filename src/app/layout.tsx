@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Devanagari, Inter, Public_Sans } from "next/font/google";
+import { Noto_Sans_Devanagari, Inter, Public_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
@@ -41,6 +41,14 @@ const publicSans = Public_Sans({
   display: "swap",
   preload: true,
   variable: "--font-public-sans",
+});
+
+// Fraunces for CategoryShowcase headings (Baby Bloom)
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-fraunces",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -147,7 +155,7 @@ export default function RootLayout({
           strategy='lazyOnload'
         /> */}
       </head>
-      <body className={`${notoSansDevanagari.variable} ${inter.variable} ${publicSans.variable}`}>
+      <body className={`${notoSansDevanagari.variable} ${inter.variable} ${publicSans.variable} ${fraunces.variable}`}>
         {/* Google Tag Manager - noscript fallback */}
         <noscript>
           <iframe

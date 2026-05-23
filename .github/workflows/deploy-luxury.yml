@@ -1,0 +1,99 @@
+name: Deploy Luxury Branch to DigitalOcean
+
+on:
+  push:
+    branches:
+      - luxury
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Next.js application
+        run: yarn build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
+          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+          NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID }}
+          NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
+
+      - name: Create production dependencies bundle
+        run: |
+          yarn install --production
+          tar -czf node_modules.tar.gz node_modules/
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DO_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DO_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to DigitalOcean
+        run: |
+          # Create deployment directory if it doesn't exist
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} \
+            "mkdir -p /luxury-website"
+
+          # Upload build artifacts and production files
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            --exclude-from='.deployignore' \
+            .next/ \
+            public/ \
+            package.json \
+            yarn.lock \
+            next.config.mjs \
+            node_modules.tar.gz \
+            ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }}:/luxury-website/
+
+          # Install dependencies and restart with PM2
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'ENDSSH'
+            cd /luxury-website
+
+            # Extract production dependencies
+            tar -xzf node_modules.tar.gz
+            rm node_modules.tar.gz
+
+            # Restart application with PM2
+            if pm2 describe prior-luxury > /dev/null 2>&1; then
+              pm2 restart prior-luxury
+            else
+              pm2 start ecosystem.config.js
+            fi
+
+            pm2 save
+          ENDSSH
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+      - name: Deployment summary
+        run: |
+          echo "## Deployment Summary :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** luxury" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Server:** ${{ secrets.DO_HOST }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Directory:** /luxury-website" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** Successfully deployed :white_check_mark:" >> $GITHUB_STEP_SUMMARY

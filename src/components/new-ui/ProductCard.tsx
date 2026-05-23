@@ -746,10 +746,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   src={product.image}
                   alt={product.name}
                   fill
-                  quality={95}
+                  quality={100}
                   sizes='(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw'
                   className={cn(
-                    "object-contain p-3 transition-transform duration-500 will-change-transform",
+                    "object-cover object-center transition-transform duration-500 will-change-transform",
                     isHovered ? "scale-110" : "scale-100",
                   )}
                   priority={isMobile}
@@ -810,7 +810,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               {/* Product Info Section */}
               <div className='mt-3 space-y-2'>
                 {/* Product Name */}
-                <h3 className='text-sm font-medium text-[#191C1F] line-clamp-2 leading-snug min-h-[40px] group-hover:text-[#CD2A75] transition-colors'>
+                <h3 className='text-sm font-medium text-[#191C1F] line-clamp-2 leading-snug  group-hover:text-[#CD2A75] transition-colors'>
                   {product.name}
                 </h3>
 
@@ -838,28 +838,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     </span>
                   )}
                 </div>
-
-                {/* Star Rating - Always Visible */}
-                {product.rating > 0 && (
-                  <div className='flex items-center gap-1.5'>
-                    <div className='flex'>
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={cn(
-                            "w-3.5 h-3.5",
-                            i < Math.floor(product.rating)
-                              ? "fill-[#FF7E05] text-[#FF7E05]"
-                              : "text-neutral-300",
-                          )}
-                        />
-                      ))}
-                    </div>
-                    <span className='text-xs text-neutral-500'>
-                      ({product.reviewCount})
-                    </span>
-                  </div>
-                )}
 
                 {/* Add to Cart Button */}
                 <Button

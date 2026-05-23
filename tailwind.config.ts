@@ -27,6 +27,7 @@ const config = {
         // Baby Bloom fonts
         inter: ["var(--font-inter)", "sans-serif"],
         publicSans: ["var(--font-public-sans)", "sans-serif"],
+        fraunces: ["var(--font-fraunces)", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -36,8 +36,8 @@ export type Variation = {
   sku: string;
   unitPrice: number;
   quantity: number;
-  image?: string;  // Variant-specific image (optional)
-  images?: string[];  // Multiple images for this variant (optional)
+  image?: string; // Variant-specific image (optional)
+  images?: string[]; // Multiple images for this variant (optional)
 };
 
 export type Category = {
@@ -48,6 +48,7 @@ export type Category = {
   img: string;
   level: number;
   ancestors: string[];
+  totalProducts?: number;
 };
 
 export type RatingDetailsType = {

@@ -23,38 +23,21 @@ interface PriorOutletSectionProps {
 
 const DEFAULT_OUTLETS: Outlet[] = [
   {
-    id: "outlet-2",
-    name: "Wari",
-    image: "/images/stores/wari.jpg",
-    mapUrl: "https://maps.app.goo.gl/56iuM1DmTCZzpptZ7",
-    address: "",
-    location:
-      "Rankin Square, Shop 05, Rankin Street (Opposite Bata, Men's World Building)",
-  },
-  {
     id: "outlet-3",
     name: "Uttara",
-    image: "/images/stores/uttara.jpg",
+    image: "/images/stores/luxury/uttara.jpeg",
     mapUrl: "https://maps.app.goo.gl/xTXgxXLNzRs3Hiwg9",
     address: "",
     location:
       "Uttara Square Shopping Complex, Shop 12 (Semi Basement), Beside Zam Zam Tower, Sector 13",
   },
-  {
-    id: "outlet-1",
-    name: "Dhanmondi",
-    image: "/images/stores/dhanmondi.jpg",
-    mapUrl: "https://maps.app.goo.gl/rTq3eNZ872pMMxqA7",
-    address: "",
-    location: "Dhanmondi 27, Genetic Plaza, Shop 134",
-  },
 ];
 
-const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
+const LuxuryOutletSection: React.FC<PriorOutletSectionProps> = ({
   outlets = DEFAULT_OUTLETS,
   sectionLabel = "Our Locations",
-  sectionTitle = "Visit Our Outlets",
-  sectionDescription = "Experience our collections in person at any of our three conveniently located outlets. Find your nearest destination and visit us today.",
+  sectionTitle = "Visit Our Outlet",
+  sectionDescription = "Experience our collections in person at any of our located outlets. Find your nearest destination and visit us today.",
   buttonText = "Get Directions",
 }) => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
@@ -161,7 +144,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
           {/* ─── SHOWCASE LAYOUT ─────────────────────────────── */}
           {/* ─── TAB NAVIGATION ─────────────────────────────── */}
           <div className='hidden md:block border border-b-0 border-neutral-200'>
-            <nav className='grid grid-cols-3'>
+            <nav className=' grid-cols-3 hidden'>
               {outlets.map((outlet, idx) => (
                 <button
                   key={outlet.id}
@@ -187,7 +170,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
               ))}
             </nav>
           </div>
-          <div className='w-full'>
+          <div className='w-full relative'>
             {/* IMAGE SHOWCASE */}
             <div
               className='relative w-full overflow-hidden bg-neutral-800'
@@ -205,6 +188,8 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
                   w-full md:max-w-[1440px] md:max-h-[1000px] mx-auto
                   ${isTransitioning ? "outlet-img-exit" : "outlet-img-enter"}
                 `}>
+                {/* Black overlay for text readability */}
+                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/60 z-50' />
                 {currentOutlet?.image ? (
                   <Image
                     src={currentOutlet.image}
@@ -230,7 +215,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
                 {/* <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none' /> */}
 
                 {/* Title and Location - Mobile: 30% from top, Desktop: middle */}
-                <div className='absolute inset-x-0 flex flex-col items-center justify-center text-white px-4 top-[15%] md:top-[40%]'>
+                <div className='absolute inset-x-0 flex flex-col items-center justify-center text-white px-4 top-[15%] md:top-[40%] z-[99999]'>
                   <div className='text-center space-y-2 md:space-y-3 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full'>
                     <p className='text-xl sm:text-2xl md:text-3xl lg:text-4xl !font-serif tracking-wide  uppercase text-white'>
                       VISIT OUR
@@ -303,7 +288,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
             </div>
 
             {/* ─── TAB NAVIGATION ─────────────────────────────── */}
-            <div className=' md:hidden border border-t-0 border-neutral-200'>
+            <div className=' hidden border border-t-0 border-neutral-200'>
               <nav className='grid grid-cols-3'>
                 {outlets.map((outlet, idx) => (
                   <button
@@ -346,4 +331,4 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
   );
 };
 
-export default PriorOutletSection;
+export default LuxuryOutletSection;

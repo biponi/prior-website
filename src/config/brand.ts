@@ -26,20 +26,20 @@ export const brandConfig = {
   // =========================================================================
   contact: {
     phone: {
-      display: "+880 1700 534317",
-      link: "tel:+8801700534317",
-      whatsapp: "+8801700534317",
+      display: "+8801306915635",
+      link: "tel:+8801306915635",
+      whatsapp: "+8801306915635",
     },
     email: {
-      display: "info@priorbd.com",
-      address: "prior.retailshop.info.bd@gmail.com",
+      display: "hello@luxuryonlinemart.com",
+      address: "hello@luxuryonlinemart.com",
     },
     address: {
-      full: "Dhaka, Dhanmondi 27, Genetic Plaza, Shop no : 134",
+      full: "39 & 41 Sonargaon Janapath Road, Sector 13, Uttara, Dhaka Shop no : 05",
       city: "Dhaka",
       area: "Dhanmondi",
-      building: "Genetic Plaza",
-      shopNumber: "134",
+      building: "Uttara Square Shopping Mall",
+      shopNumber: "05",
       country: "Bangladesh",
       // For Google Maps embed
       coordinates: {
@@ -54,13 +54,13 @@ export const brandConfig = {
   // =========================================================================
   social: {
     facebook: {
-      url: "https://www.facebook.com/Prioryourpriority",
-      username: "@Prioryourpriority",
+      url: "https://www.facebook.com/luxuryonlinemart",
+      username: "@luxuryonlinemart",
       enabled: true,
     },
     instagram: {
       url: "#",
-      username: "@prior",
+      username: "@luxuryonlinemart",
       enabled: false,
     },
     twitter: {
@@ -100,22 +100,25 @@ export const brandConfig = {
   // SEO METADATA
   // =========================================================================
   seo: {
-    title: "Women's Shoes and Bags | Prior - Your Priority in Fashion",
+    title: "Baby Products & Kids Accessories | Luxury Online Mart",
     description:
-      "Discover Prior's latest collection of women's shoes and bags. Shop trendy footwear, handbags, and accessories with fast shipping across Bangladesh. Your priority in fashion.",
+      "Shop baby products, kids accessories, toys, clothing, feeding essentials, diapers, baby care, and nursery items at Luxury Online Mart. Fast delivery across Bangladesh.",
     keywords: [
-      "women's shoes",
-      "ladies footwear",
-      "handbags",
-      "fashion accessories",
-      "Prior",
-      "Bangladesh fashion",
-      "online shopping",
-      "shoes BD",
-      "bags BD",
+      "baby products",
+      "kids accessories",
+      "baby shop Bangladesh",
+      "baby care products",
+      "baby toys",
+      "baby clothing",
+      "newborn essentials",
+      "diapers Bangladesh",
+      "feeding accessories",
+      "Luxury Online Mart",
+      "online baby store",
+      "baby fashion BD",
     ],
     twitterCard: "summary_large_image",
-    siteName: "Prior",
+    siteName: "Luxury Online Mart",
     locale: "en_US",
     type: "website",
   },
@@ -124,7 +127,7 @@ export const brandConfig = {
   // EXTERNAL SERVICES
   // =========================================================================
   services: {
-    apiUrl: process.env.NEXT_PUBLIC_API_URL || "https://app.priorbd.com",
+    apiUrl: process.env.NEXT_PUBLIC_API_URL || "https://localhost:3000",
     gtmId: process.env.NEXT_PUBLIC_GTM_ID || "GTM-T2HZLQ22",
     firebase: {
       apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -140,8 +143,8 @@ export const brandConfig = {
   // LEGAL INFORMATION
   // =========================================================================
   legal: {
-    copyright: `© ${new Date().getFullYear()} ${"Prior"}. All rights reserved.`,
-    companyName: "Prior Your Priority",
+    copyright: `© ${new Date().getFullYear()} ${"Luxury Online Mart"}. All rights reserved.`,
+    companyName: "Luxury Online Mart",
     companyRegistration: "", // Add if applicable
     taxId: "", // Add if applicable
     privacyPolicy: "/privacy-policy",
