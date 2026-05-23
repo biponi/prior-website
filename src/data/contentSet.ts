@@ -1,538 +1,267 @@
-const collections = [
+export const collections = [
   {
-    title: "Discover Your Perfect Pair",
-    description: "Explore our curated collection of stylish shoes and bags designed just for you. Find the perfect match for any occasion with our exclusive range of fashion-forward products.",
+    title: "Tiny Treasures for Little Ones",
+    description:
+      "Discover adorable baby accessories designed to bring comfort, joy, and style to every precious moment of your little one’s journey.",
   },
   {
-    title: "Step Into Elegance",
-    description: "With each step, embrace the elegance that adorns your feet, as our stunning collection whispers tales of beauty and grace.",
+    title: "Made for Sweet Little Smiles",
+    description:
+      "From cozy essentials to playful accessories, explore products crafted to keep your baby happy, safe, and smiling every day.",
   },
   {
-    title: "Chase Your Dreams",
-    description: "Unleash your spirit with our whimsical shoes and bags, crafted to inspire adventures and ignite your passion for fashion.",
+    title: "Gentle Comfort for Every Day",
+    description:
+      "Wrap your baby in softness with thoughtfully designed accessories that combine comfort, care, and charming style.",
   },
   {
-    title: "The Art of Styling",
-    description: "Each piece tells a story; let our stylish shoes and bags be the brushstrokes on your canvas of creativity.",
+    title: "Little Moments, Big Memories",
+    description:
+      "Celebrate every cuddle, giggle, and milestone with baby accessories made to create unforgettable memories for your family.",
   },
   {
-    title: "Sculpted for You",
-    description: "Discover the artistry of design in our collection, where every shoe and bag is sculpted to accentuate your unique beauty.",
+    title: "Cute Essentials for Growing Babies",
+    description:
+      "Find everyday must-haves that blend adorable designs with practical comfort for your growing little bundle of joy.",
   },
   {
-    title: "Dance Through Life",
-    description: "Find the rhythm of style with our delightful shoes and bags, perfect for twirling through life’s joyous moments.",
+    title: "Dreamy Accessories for Tiny Stars",
+    description:
+      "Explore a magical collection of baby accessories crafted to make every nap, outing, and playtime extra special.",
   },
   {
-    title: "A Touch of Glamour",
-    description: "Elevate your ensemble with our exquisite selection, where each piece sparkles with the allure of a starry night.",
+    title: "Softness They’ll Love",
+    description:
+      "Give your little one the gentle touch they deserve with soft, baby-friendly accessories designed for everyday comfort.",
   },
   {
-    title: "Embrace Your Inner Goddess",
-    description: "Step confidently in our collection that celebrates the divine femininity within you, making every day a catwalk.",
+    title: "Playful Styles for Precious Babies",
+    description:
+      "Brighten your baby’s world with colorful, playful accessories that bring charm and happiness to every outfit.",
   },
   {
-    title: "Chic and Unique",
-    description: "Stand out with our bold and beautiful designs, curated for the trendsetter who dares to be different.",
+    title: "Every Baby Deserves the Best",
+    description:
+      "Shop carefully selected baby essentials made with love, comfort, and quality to support your little one every step of the way.",
   },
   {
-    title: "Whispers of Nature",
-    description: "Let the beauty of nature inspire your style with our collection that embodies the essence of earthy elegance.",
-  },
-  {
-    title: "Timeless Treasures",
-    description: "Discover shoes and bags that transcend time, becoming cherished pieces in your fashion journey.",
-  },
-  {
-    title: "Find Your Signature Style",
-    description: "Let our collection guide you in crafting a style that speaks volumes, celebrating your individuality.",
-  },
-  {
-    title: "Journey in Comfort",
-    description: "Experience the perfect blend of comfort and chic with our thoughtfully designed shoes, crafted for every adventure.",
-  },
-  {
-    title: "Radiate Confidence",
-    description: "Step out with poise and confidence, wearing our collection that enhances your natural allure.",
-  },
-  {
-    title: "Playful Patterns",
-    description: "Unleash your fun side with our vibrant shoes and bags, designed to add a splash of joy to your day.",
-  },
-  {
-    title: "Elegance Redefined",
-    description: "Reimagine sophistication with our modern takes on classic styles, blending tradition with contemporary flair.",
-  },
-  {
-    title: "Unveil Your Charm",
-    description: "Let our enchanting collection draw out your charm, making every outfit a delightful expression of who you are.",
-  },
-  {
-    title: "Forever in Bloom",
-    description: "Celebrate the beauty of femininity with our floral-inspired shoes and bags, a perfect match for any occasion.",
-  },
-  {
-    title: "Sparkle in Every Step",
-    description: "Add a twinkle to your stride with our dazzling designs, perfect for those who love to shine.",
-  },
-  {
-    title: "Your Go-To Collection",
-    description: "Find the perfect essentials that seamlessly blend style and function, making them your everyday favorites.",
-  },
-  {
-    title: "Elegance Meets Adventure",
-    description: "Step boldly into the unknown, equipped with our stylish shoes and bags designed for the modern explorer.",
-  },
-  {
-    title: "A Symphony of Style",
-    description: "Compose your unique style with our harmonious collection, where each piece resonates with elegance.",
-  },
-  {
-    title: "Fashion’s Embrace",
-    description: "Let our warm and inviting collection wrap you in fashion’s embrace, making every moment memorable.",
-  },
-  {
-    title: "A Dance of Colors",
-    description: "Express yourself with our colorful collection, a delightful dance of hues that brighten your wardrobe.",
-  },
-  {
-    title: "Moments of Joy",
-    description: "Capture life’s sweetest moments with our collection, designed to add joy and style to your everyday adventures.",
-  },
-  {
-    title: "Whimsical Wonders",
-    description: "Explore our whimsical shoes and bags, crafted for those who dare to dream and delight in fashion.",
-  },
-  {
-    title: "Charming Curations",
-    description: "Each piece is a charm waiting to add a sprinkle of magic to your outfit, making you feel enchanting.",
-  },
-  {
-    title: "Classic Yet Contemporary",
-    description: "Find the perfect balance between classic charm and modern elegance in our curated collection.",
-  },
-  {
-    title: "Elegance in Motion",
-    description: "Discover styles that move with you, embodying elegance and grace in every step you take.",
-  },
-  {
-    title: "Celebrate Your Uniqueness",
-    description: "Find pieces that reflect your individuality, celebrating the beauty of being uniquely you.",
-  },
-  {
-    title: "Fashion-Forward Finds",
-    description: "Stay ahead of the trends with our carefully selected collection that speaks to the modern woman.",
-  },
-  {
-    title: "Step into Serenity",
-    description: "Embrace tranquility with our serene styles, designed to bring peace and harmony to your wardrobe.",
-  },
-  {
-    title: "Chic Comfort",
-    description: "Experience the perfect harmony of style and comfort, ensuring you feel fabulous all day long.",
-  },
-  {
-    title: "Inspired by You",
-    description: "Our collection is a reflection of your desires, inspired by the woman who knows her worth.",
-  },
-  {
-    title: "A Touch of Whimsy",
-    description: "Add a playful twist to your style with our charming designs that are sure to make you smile.",
-  },
-  {
-    title: "Curate Your Dream Wardrobe",
-    description: "Let our collection be the stepping stones in curating a wardrobe that fulfills your fashion dreams.",
-  },
-  {
-    title: "Enchanting Essentials",
-    description: "Discover essential pieces that enchant and elevate your style for any occasion.",
-  },
-  {
-    title: "Style with Heart",
-    description: "Wear your heart on your sleeve, and let your style reflect the beauty within you.",
-  },
-  {
-    title: "Fashion Meets Function",
-    description: "Find the perfect blend of practicality and style, ensuring you never have to compromise.",
-  },
-  {
-    title: "Bloom with Confidence",
-    description: "Let your style blossom, radiating confidence and grace with each step you take.",
-  },
-  {
-    title: "Timeless Trends",
-    description: "Stay stylish with our collection that merges timeless trends with contemporary flair.",
-  },
-  {
-    title: "Glistening Dreams",
-    description: "Let your dreams sparkle with our dazzling collection, designed for the woman who loves to shine.",
-  },
-  {
-    title: "Style Beyond Seasons",
-    description: "Find versatile pieces that transcend seasons, becoming staples in your wardrobe.",
-  },
-  {
-    title: "Your Style Story",
-    description: "Craft your unique style story with our carefully curated collection, celebrating your journey.",
-  },
-  {
-    title: "A Canvas of Colors",
-    description: "Paint your world with our vibrant collection, where each piece adds a splash of color to your life.",
-  },
-  {
-    title: "Sculpt Your Style",
-    description: "Let your style take shape with our sculpted designs, tailored to enhance your elegance.",
-  },
-  {
-    title: "Effortless Chic",
-    description: "Embrace effortless elegance with our collection, making stylish living easy and enjoyable.",
-  },
-  {
-    title: "A Dreamy Collection",
-    description: "Lose yourself in our dreamy collection, designed to evoke feelings of joy and enchantment.",
-  },
-  {
-    title: "Every Step Matters",
-    description: "Each step tells a story; make yours unforgettable with our stunning footwear and bags.",
-  },
-  {
-    title: "Cherished Choices",
-    description: "Find your cherished choices in our collection, where each piece is selected with love and care.",
-  },
-  {
-    title: "Unleash Your Style",
-    description: "Unleash your inner fashionista with our collection, empowering you to express your unique style.",
-  },
-  {
-    title: "The Essence of You",
-    description: "Our collection captures the essence of you, enhancing your natural beauty with each piece.",
+    title: "Adorable Accessories, Endless Smiles",
+    description:
+      "Add sweetness to your baby’s daily adventures with charming accessories designed for comfort and cuteness.",
   },
 ];
 
-
-const seoPoetryMessagesList1 = [
+export const seoPoetryMessagesList1 = [
   {
-    header: "Timeless Styles for Every Occasion",
-    description: "Find the perfect blend of elegance and comfort with our versatile footwear and handbags, designed to accompany you through every moment of your life.",
+    header: "Soft Essentials for Precious Babies",
+    description:
+      "Discover beautifully crafted baby accessories designed to keep your little one cozy, comfortable, and full of smiles every day.",
   },
   {
-    header: "Walk in Comfort, Shine in Style",
-    description: "Let your feet revel in comfort while you make a fashion statement. Our curated collection of shoes offers both elegance and ease for the modern woman.",
+    header: "Adorable Baby Accessories for Every Moment",
+    description:
+      "From feeding time to bedtime, explore charming essentials made to support your baby’s happiest moments.",
   },
   {
-    header: "Luxury Handbags That Speak Elegance",
-    description: "Carry your world in style with our stunning handbags, where elegance meets functionality. Discover pieces that are as unique as you.",
+    header: "Comfort & Care in Every Detail",
+    description:
+      "Our baby accessories are thoughtfully selected to provide softness, safety, and everyday convenience for modern parents.",
   },
   {
-    header: "Heels That Elevate, Flats That Soothe",
-    description: "From glamorous heels that make you stand tall to comfy flats that bring ease to your steps, find shoes that match your every mood.",
+    header: "Tiny Styles for Tiny Smiles",
+    description:
+      "Dress your little one in adorable accessories that combine playful charm with baby-friendly comfort.",
   },
   {
-    header: "Fashion That Inspires Confidence",
-    description: "Discover shoes and handbags that not only elevate your outfit but boost your confidence, making you feel your best with every step.",
+    header: "Made for Little Dreamers",
+    description:
+      "Create magical memories with baby essentials crafted to bring warmth, comfort, and joy to your child’s world.",
   },
   {
-    header: "A Shoe for Every Story You Tell",
-    description: "Whether you're headed to a gala or a casual outing, our collection ensures there's a shoe for every chapter of your life.",
+    header: "Everything Your Baby Needs",
+    description:
+      "Explore must-have baby products designed to make parenting easier while keeping your baby safe and happy.",
   },
   {
-    header: "The Perfect Handbag for Every Journey",
-    description: "Explore handbags designed to complement your everyday adventures, each one crafted to add elegance to your travels near and far.",
+    header: "Cute, Cozy & Baby Approved",
+    description:
+      "Find irresistibly soft accessories and essentials perfect for cuddles, naps, playtime, and everyday adventures.",
   },
   {
-    header: "Grace Meets Glamour in Every Step",
-    description: "Step into a world where grace and glamour go hand in hand, with footwear that reflects your poise and personality.",
+    header: "Everyday Essentials with Extra Love",
+    description:
+      "Our curated baby collection is designed with love to bring comfort, convenience, and adorable style into your routine.",
   },
   {
-    header: "Find Your Dream Pair Today",
-    description: "Fall in love with shoes that are as comfortable as they are beautiful. Discover your dream pair and step into a world of style.",
+    header: "Stylish Comfort for Little Ones",
+    description:
+      "Give your baby the perfect mix of comfort and cuteness with accessories made for every precious stage.",
   },
   {
-    header: "Handbags to Cherish, Designs to Love",
-    description: "Adorn your shoulder with handbags that speak to your heart. Elegant, functional, and forever fashionable.",
-  },
-  {
-    header: "A Style Journey Begins with the Perfect Shoe",
-    description: "Your style journey starts with us. Find the perfect pair that aligns with your unique sense of style and completes your every look.",
-  },
-  {
-    header: "Handbags for the Bold & Beautiful",
-    description: "For the bold, beautiful, and unstoppable woman—our handbag collection is designed to turn heads and hold everything you need.",
-  },
-  {
-    header: "Footwear for All-Day Elegance",
-    description: "Whether you're conquering the boardroom or dancing through the night, our footwear ensures all-day comfort and elegance.",
-  },
-  {
-    header: "Unleash Your Inner Diva with Our Footwear",
-    description: "Slip into shoes that not only reflect your style but let your inner diva shine. Every step is a statement.",
-  },
-  {
-    header: "The Art of Craftsmanship in Every Handbag",
-    description: "Indulge in handbags that showcase the art of craftsmanship. Each piece is a testament to timeless design and enduring quality.",
-  },
-  {
-    header: "Step Into Fashion, Step Into You",
-    description: "Our footwear isn't just about fashion; it's about stepping into the best version of yourself with each stride.",
-  },
-  {
-    header: "Elegant Handbags for Your Everyday Adventures",
-    description: "From workdays to weekends, our handbags are designed to carry your essentials in style, no matter where life takes you.",
-  },
-  {
-    header: "Shoes That Whisper Comfort, Shout Style",
-    description: "Feel the comfort with every step and showcase your style with every glance. Discover shoes that balance both perfectly.",
-  },
-  {
-    header: "The Handbag That Complements Your Aura",
-    description: "Find a handbag that doesn’t just carry your essentials but complements your aura and adds to your chic presence.",
-  },
-  {
-    header: "Shoes Designed to Fit Every Chapter of Life",
-    description: "From your first step into the office to an evening out, our collection is here to support and enhance every chapter of your journey.",
+    header: "Celebrate Every Baby Milestone",
+    description:
+      "Make every smile, cuddle, and milestone extra memorable with baby accessories crafted for joyful moments.",
   },
 ];
 
-
-const seoPoetryMessagesList2 = [
+export const seoPoetryMessagesList2 = [
   {
-    header: "Feel Chic, Stay Comfortable",
-    description: "Who says you can't have it all? Our chic yet comfortable collection of shoes proves that style and ease can go hand in hand.",
+    header: "Sweet Accessories for Growing Babies",
+    description:
+      "Explore baby essentials thoughtfully designed to support your little one’s comfort, growth, and everyday happiness.",
   },
   {
-    header: "Exquisite Handbags for the Elegant Woman",
-    description: "Crafted for elegance and designed for utility, our handbags redefine luxury. Explore pieces that add grace to your day.",
+    header: "Tiny Comforts That Matter",
+    description:
+      "Wrap your baby in softness with carefully selected accessories made for gentle care and cozy moments.",
   },
   {
-    header: "Shoes That Celebrate Every Woman",
-    description: "From high heels to comfy flats, celebrate your unique style with shoes that are made for every woman, every day.",
+    header: "Modern Baby Essentials for Modern Parents",
+    description:
+      "Find practical, stylish, and reliable baby accessories designed to simplify parenting with comfort and ease.",
   },
   {
-    header: "Carry Confidence, Wear Elegance",
-    description: "Step into confidence with shoes and handbags that elevate your everyday wardrobe and make you feel unstoppable.",
+    header: "Made to Keep Babies Smiling",
+    description:
+      "Brighten every day with playful and adorable baby products that bring happiness to little faces.",
   },
   {
-    header: "Sophisticated Shoes for Every Mood",
-    description: "From playful to polished, our footwear collection caters to every mood, occasion, and outfit in your wardrobe.",
+    header: "The Perfect Touch of Baby Cuteness",
+    description:
+      "Add charm and sweetness to your baby’s world with accessories designed for comfort and delightful style.",
   },
   {
-    header: "Handbags that Mirror Your Elegance",
-    description: "Explore handbags that are not just fashion statements but reflections of your elegance and sophistication.",
+    header: "Baby Accessories Crafted with Care",
+    description:
+      "Each product in our collection is selected to ensure quality, softness, and safety for your precious little one.",
   },
   {
-    header: "Heels That Lift You Higher, Flats That Ground You",
-    description: "Discover footwear that empowers you—whether it's the height of a heel or the comfort of a flat, you’re always grounded in style.",
+    header: "Joyful Essentials for Tiny Adventures",
+    description:
+      "Whether at home or on the go, our baby accessories are made to support every tiny adventure comfortably.",
   },
   {
-    header: "Fashion-Forward Shoes for the Modern Woman",
-    description: "Embrace fashion-forward designs that keep you ahead of the style curve while ensuring unmatched comfort.",
+    header: "Little Essentials, Big Love",
+    description:
+      "Discover products made with love to bring comfort, warmth, and convenience into your parenting journey.",
   },
   {
-    header: "Bags that Carry More Than Just Your Essentials",
-    description: "Our handbags are designed to carry more than just your essentials—they carry your confidence, grace, and personal flair.",
+    header: "Gentle Designs for Gentle Moments",
+    description:
+      "Our baby collection is inspired by soft colors, cozy materials, and thoughtful details your baby will love.",
   },
   {
-    header: "Shoes That Make Every Step Count",
-    description: "Walk through life with shoes that blend beauty, comfort, and elegance. Every step you take will be your favorite.",
-  },
-  {
-    header: "Every Handbag, a New Story to Tell",
-    description: "Let each handbag tell a story of sophistication, elegance, and effortless charm—crafted for every woman’s unique narrative.",
-  },
-  {
-    header: "Comfort in Every Sole, Style in Every Stitch",
-    description: "Discover footwear that is intricately crafted for comfort without compromising on style. Every sole tells a story.",
-  },
-  {
-    header: "Your Journey Begins with the Perfect Handbag",
-    description: "Start every adventure with a handbag that carries your essentials and exudes elegance in every thread.",
-  },
-  {
-    header: "Shoes That Speak Volumes About Your Style",
-    description: "Find footwear that speaks volumes about who you are—elegant, bold, and undeniably stylish.",
-  },
-  {
-    header: "Handbags as Unique as You Are",
-    description: "Carry handbags that reflect your individuality, each one designed with careful attention to detail and elegance.",
-  },
-  {
-    header: "A Shoe Collection That Transforms Your Wardrobe",
-    description: "Step up your fashion game with shoes that transform any outfit into a head-turning ensemble.",
-  },
-  {
-    header: "Embrace the Beauty of a Well-Crafted Handbag",
-    description: "Feel the beauty of craftsmanship with handbags that add a touch of elegance to your everyday life.",
-  },
-  {
-    header: "Footwear That Takes You from Day to Night",
-    description: "Our versatile footwear collection is designed to seamlessly take you from day to night in style and comfort.",
-  },
-  {
-    header: "Handbags That Define Effortless Elegance",
-    description: "Effortless elegance comes naturally with our handbags—crafted for the modern woman who loves style and practicality.",
-  },
-  {
-    header: "Shoes That Fit Like a Dream",
-    description: "Find shoes that don’t just fit your feet but fit your dreams, perfectly balancing comfort and sophistication.",
+    header: "Making Parenthood More Beautiful",
+    description:
+      "Enjoy practical and adorable baby accessories that make every parenting moment feel extra special.",
   },
 ];
 
-
-const seoPoetryMessagesList3 = [
+export const seoPoetryMessagesList3 = [
   {
-    header: "Carry Your World in Style",
-    description: "Discover handbags that are designed to carry your world in style, blending luxury, functionality, and elegance.",
+    header: "Tiny Essentials for Everyday Joy",
+    description:
+      "Explore baby accessories designed to bring comfort, happiness, and convenience to every precious moment.",
   },
   {
-    header: "Heels That Lift You Higher, Flats That Ground You",
-    description: "Discover footwear that empowers you—whether it's the height of a heel or the comfort of a flat, you’re always grounded in style.",
+    header: "Where Baby Comfort Comes First",
+    description:
+      "Discover soft, safe, and stylish baby products thoughtfully made for your little one’s everyday needs.",
   },
   {
-    header: "Chic Handbags for Every Occasion",
-    description: "From casual outings to special occasions, our handbags are crafted to complement every moment of your life.",
+    header: "Playful Designs for Precious Babies",
+    description:
+      "Bright colors, adorable patterns, and baby-friendly comfort come together in our charming collection.",
   },
   {
-    header: "Fashion That Inspires Confidence",
-    description: "Discover shoes and handbags that not only elevate your outfit but boost your confidence, making you feel your best with every step.",
+    header: "Snuggly Softness for Little Ones",
+    description:
+      "Wrap your baby in warmth and care with accessories crafted from gentle and cozy materials.",
   },
   {
-    header: "The Handbag That Complements Your Aura",
-    description: "Find a handbag that doesn’t just carry your essentials but complements your aura and adds to your chic presence.",
+    header: "A Collection Full of Tiny Smiles",
+    description:
+      "Find adorable baby essentials that make every cuddle, laugh, and milestone even more memorable.",
   },
   {
-    header: "Find Your Dream Pair Today",
-    description: "Fall in love with shoes that are as comfortable as they are beautiful. Discover your dream pair and step into a world of style.",
+    header: "Designed for Babies, Loved by Parents",
+    description:
+      "Our practical and stylish accessories are made to simplify daily routines while keeping babies comfortable.",
   },
   {
-    header: "A Shoe for Every Story You Tell",
-    description: "Whether you're headed to a gala or a casual outing, our collection ensures there's a shoe for every chapter of your life.",
+    header: "Every Detail Made with Love",
+    description:
+      "From soft textures to playful designs, every accessory is created with your baby’s comfort in mind.",
   },
   {
-    header: "Timeless Styles for Every Occasion",
-    description: "Find the perfect blend of elegance and comfort with our versatile footwear and handbags, designed to accompany you through every moment of your life.",
+    header: "Cute & Cozy Baby Must-Haves",
+    description:
+      "Shop baby essentials that combine functionality, safety, and irresistible cuteness in every detail.",
   },
   {
-    header: "Celebrate Every Step You Take",
-    description: "Our shoes encourage you to celebrate every step you take, offering both comfort and chic style for the modern woman.",
+    header: "Little Accessories, Lasting Memories",
+    description:
+      "Celebrate your parenting journey with charming products that create beautiful everyday memories.",
   },
   {
-    header: "Discover Fashion That Defines You",
-    description: "Let our handbags and shoes reflect your individuality, creating a signature style that defines who you are.",
-  },
-  {
-    header: "Elegance Meets Comfort in Our Collection",
-    description: "Experience the perfect harmony of elegance and comfort with our beautifully crafted footwear and handbags.",
-  },
-  {
-    header: "The Perfect Accessories for Every Outfit",
-    description: "Complete your look with our stunning range of footwear and handbags—your perfect style companions.",
-  },
-  {
-    header: "Step into Fashion, Step into You",
-    description: "Our footwear isn't just about fashion; it's about stepping into the best version of yourself with each stride.",
-  },
-  {
-    header: "Explore Handbags That Make a Statement",
-    description: "Find handbags that not only hold your essentials but also make a bold fashion statement, expressing your unique style.",
-  },
-  {
-    header: "Heels That Celebrate Your Spirit",
-    description: "Dance through life in heels that celebrate your spirit and style, offering both grace and strength.",
-  },
-  {
-    header: "Fashion Forward Footwear for the Modern Woman",
-    description: "Stay ahead of the trends with footwear that blends fashion-forward designs with all-day comfort.",
-  },
-  {
-    header: "Handbags That Carry Your Essence",
-    description: "Our handbags are designed to carry your essence—practical, stylish, and uniquely you.",
-  },
-  {
-    header: "Elevate Your Everyday with Our Handbags",
-    description: "Transform your daily routine into a stylish experience with handbags that elevate every outfit effortlessly.",
-  },
-  {
-    header: "Where Comfort Meets Chic",
-    description: "Discover the ultimate fusion of comfort and chic style with footwear that makes you feel fabulous, all day long.",
-  },
-  {
-    header: "Every Handbag, a New Story to Tell",
-    description: "Let each handbag tell a story of sophistication, elegance, and effortless charm—crafted for every woman’s unique narrative.",
-  },
-  {
-    header: "Step Up Your Style Game",
-    description: "Explore our curated collection of footwear and handbags designed to elevate your style game, making every outfit extraordinary.",
+    header: "Comfort, Care & Baby Charm",
+    description:
+      "Discover the perfect combination of softness, practicality, and adorable style for your little one.",
   },
 ];
 
-const headerSectionMsgList =[
+export const headerSectionMsgList = [
   {
-    title: "Stylish Shoes :: Trendy Footwear",
-    description: "Discover the latest fashion trends in women's shoes. From chic heels to comfy sneakers, find the perfect pair to elevate your style. Whether you're dressing up for a special occasion or keeping it casual, our collection has something for everyone."
+    title: "Baby Accessories :: Cute Essentials",
+    description:
+      "Discover adorable baby accessories designed for comfort, care, and everyday happiness. From feeding essentials to cozy must-haves, find everything your little one needs.",
   },
   {
-    title: "Designer Handbags :: Luxury Bags",
-    description: "Elevate your style with our curated collection of designer handbags. From classic totes to trendy clutches, find the perfect bag to complement your outfit. Experience the epitome of luxury and functionality."
+    title: "Newborn Essentials :: Baby Care Collection",
+    description:
+      "Shop thoughtfully selected newborn essentials crafted to keep your baby safe, comfortable, and smiling through every precious moment.",
   },
   {
-    title: "Women's Footwear :: Fashionable Shoes",
-    description: "Shop the latest women's footwear trends. Find stylish shoes for every occasion, from work to weekend. Our collection features a wide range of styles, including boots, sandals, flats, and heels."
+    title: "Stylish Baby Products :: Everyday Comfort",
+    description:
+      "Explore modern baby accessories that combine adorable designs with practical comfort for growing babies and busy parents.",
   },
   {
-    title: "Fashionable Bags :: Stylish Handbags",
-    description: "Discover a curated collection of stylish handbags to complement your outfit. From classic leather totes to trendy crossbody bags, find the perfect bag to carry your essentials in style."
+    title: "Baby Feeding Accessories :: Mealtime Essentials",
+    description:
+      "Make feeding time easier with safe, durable, and baby-friendly accessories designed for comfort and convenience.",
   },
   {
-    title: "Affordable Luxury :: Designer Fashion",
-    description: "Experience luxury without the high price tag. Shop our collection of affordable designer shoes and bags. Our curated selection offers high-quality, stylish pieces at competitive prices."
+    title: "Cozy Baby Essentials :: Soft & Gentle",
+    description:
+      "Wrap your little one in softness with cozy baby products crafted from gentle materials perfect for delicate skin.",
   },
   {
-    title: "Comfortable Sneakers :: Everyday Footwear",
-    description: "Find comfort and style in our collection of everyday sneakers. Perfect for running errands, working out, or simply relaxing, our sneakers offer the perfect blend of comfort and fashion."
+    title: "Baby Travel Accessories :: On-the-Go Comfort",
+    description:
+      "Travel with ease using practical baby accessories designed to keep your child comfortable and parents organized.",
   },
   {
-    title: "Elegant Heels :: Dress Shoes for Women",
-    description: "Step out in style with our elegant heels, perfect for any occasion. From classic pumps to trendy stilettos, our collection has something for every taste. Elevate your look and feel confident in every step."
+    title: "Cute Baby Fashion :: Adorable Accessories",
+    description:
+      "Add extra charm to your baby’s style with adorable accessories made for comfort, cuteness, and everyday wear.",
   },
   {
-    title: "Casual Flats :: Versatile Footwear",
-    description: "Discover the ultimate comfort and style with our collection of casual flats. Perfect for everyday wear, our flats are both stylish and comfortable. Choose from a variety of colors, patterns, and materials."
+    title: "Premium Baby Collection :: Safe & Stylish",
+    description:
+      "Explore premium-quality baby products carefully designed to provide safety, comfort, and timeless style for your little one.",
   },
   {
-    title: "Trendy Boots :: Winter Footwear",
-    description: "Stay warm and stylish this winter with our trendy boot collection. From knee-high boots to ankle boots, our selection offers a variety of styles to suit your personal taste. Whether you're braving the cold or adding a touch of edge to your outfit, our boots have you covered."
+    title: "Baby Toys & Accessories :: Fun for Little Ones",
+    description:
+      "Discover playful toys and accessories that encourage smiles, curiosity, and joyful moments throughout your baby’s day.",
   },
   {
-    title: "Sporty Sandals :: Summer Footwear",
-    description: "Stay cool and comfortable this summer with our sporty sandal collection. Perfect for beach days, poolside lounging, or casual outings, our sandals offer the perfect blend of style and comfort. Choose from a variety of colors, materials, and heel heights."
+    title: "Baby Essentials Online :: Shop with Ease",
+    description:
+      "Shop baby products online with ease and find everything from daily essentials to adorable accessories all in one place.",
   },
-  {
-    title: "Leather Handbags :: Luxury Accessories",
-    description: "Invest in timeless luxury with our collection of leather handbags. Crafted from premium materials and designed to last, our leather handbags are the perfect accessory to elevate your style. Choose from a variety of styles, including totes, satchels, and shoulder bags."
-  },
-  {
-    title: "Tote Bags :: Spacious and Stylish",
-    description: "Carry your essentials in style with our spacious tote bags. Perfect for work, school, or travel, our tote bags offer ample space for your belongings. Choose from a variety of materials, colors, and patterns to find the perfect tote for your needs."
-  },
-  {
-    title: "Backpacks for Women :: Trendy and Functional",
-    description: "Stay organized and stylish with our range of women's backpacks. Whether you're a student, a commuter, or a traveler, our backpacks offer the perfect blend of functionality and fashion. Choose from a variety of sizes, colors, and materials to find the perfect backpack for your lifestyle."
-  },
-  {
-    title: "Clutches :: Evening Bags",
-    description: "Make a statement with our elegant clutches, perfect for any special occasion. From sleek and minimalist designs to embellished and ornate styles, our clutches are sure to add a touch of glamour to your evening attire."
-  },
-  {
-    title: "Crossbody Bags :: Hands-Free Style",
-    description: "Stay hands-free and stylish with our collection of crossbody bags. Perfect for everyday use or travel, our crossbody bags offer a convenient and stylish way to carry your essentials. Choose from a variety of sizes, colors, and materials to find the perfect crossbody bag for your needs."
-  },
-  {
-    title: "Women's Shoes Online :: Buy Shoes Online",
-    description: "Shop the latest women's shoes online. Find your perfect pair at affordable prices. Our online store offers a wide range of styles, sizes, and colors, all at your fingertips. Enjoy the convenience of shopping from home and have your favorite shoes delivered right to your doorstep."
-  },
-  // ... more titles and descriptions
 ];
-
 
 export const getRandomCollection = () => {
   const randomIndex = Math.floor(Math.random() * collections.length);
@@ -549,12 +278,10 @@ export const getRandomSeoFromSecondSetCollection = () => {
   return seoPoetryMessagesList2[randomIndex];
 };
 
-
 export const getRandomSeoFromThridSetCollection = () => {
   const randomIndex = Math.floor(Math.random() * seoPoetryMessagesList3.length);
   return seoPoetryMessagesList3[randomIndex];
 };
-
 
 export const getRandomSeoFromHeaderSetCollection = () => {
   const randomIndex = Math.floor(Math.random() * headerSectionMsgList.length);

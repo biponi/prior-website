@@ -17,10 +17,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'yarn'
+          node-version: "20"
+          cache: "yarn"
 
-      - name: Install dependencies
+      - name: Install all dependencies
         run: yarn install --frozen-lockfile
 
       - name: Build Next.js application
@@ -36,10 +36,15 @@ jobs:
           NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID }}
           NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
 
-      - name: Create production dependencies bundle
+      - name: Bundle production dependencies
         run: |
-          yarn install --production
-          tar -czf node_modules.tar.gz node_modules/
+          mkdir -p prod_deps
+          cp package.json yarn.lock prod_deps/
+          cd prod_deps
+          yarn install --production --frozen-lockfile
+          cd ..
+          tar -czf node_modules.tar.gz -C prod_deps node_modules/
+          rm -rf prod_deps
 
       - name: Setup SSH
         run: |
@@ -54,34 +59,44 @@ jobs:
           ssh -i ~/.ssh/deploy_key ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} \
             "mkdir -p /luxury-website"
 
-          # Upload build artifacts and production files
+          # Upload build artifacts and production files from project root
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/deploy_key" \
-            --exclude-from='.deployignore' \
-            .next/ \
-            public/ \
-            package.json \
-            yarn.lock \
-            next.config.mjs \
-            node_modules.tar.gz \
+            --include='.next/***' \
+            --include='public/***' \
+            --include='package.json' \
+            --include='yarn.lock' \
+            --include='next.config.mjs' \
+            --include='ecosystem.config.js' \
+            --include='node_modules.tar.gz' \
+            --exclude='*' \
+            ./ \
             ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }}:/luxury-website/
 
-          # Install dependencies and restart with PM2
+          # Remote: extract deps and restart PM2
           ssh -i ~/.ssh/deploy_key ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'ENDSSH'
+            # Explicitly extend PATH to ensure PM2/node are found in non-interactive shell
+            export PATH="$PATH:/usr/local/bin:/usr/bin:$HOME/.yarn/bin:$HOME/.npm-global/bin"
+
             cd /luxury-website
 
-            # Extract production dependencies
+            # Extract production node_modules
             tar -xzf node_modules.tar.gz
             rm node_modules.tar.gz
 
             # Restart application with PM2
-            if pm2 describe prior-luxury > /dev/null 2>&1; then
-              pm2 restart prior-luxury
+            if command -v pm2 > /dev/null 2>&1; then
+              if pm2 describe prior-luxury > /dev/null 2>&1; then
+                pm2 restart prior-luxury
+              else
+                pm2 start ecosystem.config.js
+              fi
+              pm2 save
             else
-              pm2 start ecosystem.config.js
+              echo "PM2 not found, falling back to next start"
+              pkill -f "next start" || true
+              nohup yarn start > /dev/null 2>&1 &
             fi
-
-            pm2 save
           ENDSSH
 
       - name: Cleanup SSH key
@@ -89,6 +104,7 @@ jobs:
         run: rm -f ~/.ssh/deploy_key
 
       - name: Deployment summary
+        if: success()
         run: |
           echo "## Deployment Summary :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY

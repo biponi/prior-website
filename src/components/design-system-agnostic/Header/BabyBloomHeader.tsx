@@ -142,53 +142,67 @@ function CategoryMegaMenu({ categories }: { categories: Category[] }) {
             </div>
             <Separator className="mb-3 bg-[#f0e0eb]" />
             {childCategories.length > 0 ? (
-              <div className="grid grid-cols-2 gap-1">
-                {childCategories.map((child) => (
-                  <button
-                    key={child.id}
-                    onMouseEnter={() => setActiveChild(child)}
-                    className={cn(
-                      "flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all duration-150 text-left group",
-                      activeChild?.id === child.id
-                        ? "bg-[#fdf2f7] text-[#CD2A75] font-medium"
-                        : "text-gray-600 hover:bg-[#fdf2f7] hover:text-[#CD2A75]"
-                    )}
+              <>
+                <div className="grid grid-cols-2 gap-1">
+                  {childCategories.map((child) => (
+                    <button
+                      key={child.id}
+                      onMouseEnter={() => setActiveChild(child)}
+                      className={cn(
+                        "flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all duration-150 text-left group",
+                        activeChild?.id === child.id
+                          ? "bg-[#fdf2f7] text-[#CD2A75] font-medium"
+                          : "text-gray-600 hover:bg-[#fdf2f7] hover:text-[#CD2A75]"
+                      )}
+                    >
+                      <span className="flex items-center gap-2">
+                        {child.img ? (
+                          <img
+                            src={child.img}
+                            alt={child.name}
+                            className="w-4 h-4 rounded object-cover"
+                          />
+                        ) : (
+                          <Layers
+                            size={12}
+                            className="text-[#CD2A75]/40 group-hover:text-[#CD2A75] transition-colors"
+                          />
+                        )}
+                        <span className="truncate">{child.name}</span>
+                      </span>
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
+                        {child.totalProducts > 0 && (
+                          <Badge
+                            variant="secondary"
+                            className="text-[9px] h-4 px-1.5 bg-[#f5d6ea] text-[#CD2A75] border-0"
+                          >
+                            {child.totalProducts}
+                          </Badge>
+                        )}
+                        {(child.children?.length ?? 0) > 0 && (
+                          <ChevronRight size={11} className="text-gray-300" />
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-3 pt-3 border-t border-[#f0e0eb]">
+                  <Link
+                    href={`/category/${activeParent.slug}`}
+                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-[#CD2A75] bg-[#fdf2f7] hover:bg-[#fce8f2] rounded-lg transition-colors"
                   >
-                    <span className="flex items-center gap-2">
-                      {child.img ? (
-                        <img
-                          src={child.img}
-                          alt={child.name}
-                          className="w-4 h-4 rounded object-cover"
-                        />
-                      ) : (
-                        <Layers
-                          size={12}
-                          className="text-[#CD2A75]/40 group-hover:text-[#CD2A75] transition-colors"
-                        />
-                      )}
-                      <span className="truncate">{child.name}</span>
-                    </span>
-                    <div className="flex items-center gap-1.5 flex-shrink-0">
-                      {child.totalProducts > 0 && (
-                        <Badge
-                          variant="secondary"
-                          className="text-[9px] h-4 px-1.5 bg-[#f5d6ea] text-[#CD2A75] border-0"
-                        >
-                          {child.totalProducts}
-                        </Badge>
-                      )}
-                      {(child.children?.length ?? 0) > 0 && (
-                        <ChevronRight size={11} className="text-gray-300" />
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
+                    Visit all products <ArrowRight size={14} className="ml-1.5" />
+                  </Link>
+                </div>
+              </>
             ) : (
-              <div className="flex flex-col items-center justify-center h-28 text-gray-300 gap-2">
-                <Tag size={22} />
-                <p className="text-xs">No subcategories</p>
+              <div className="flex flex-col items-center justify-center h-full gap-3">
+                <Link
+                  href={`/category/${activeParent.slug}`}
+                  className="flex items-center justify-center w-full px-4 py-2.5 text-sm font-medium text-[#CD2A75] bg-[#fdf2f7] hover:bg-[#fce8f2] rounded-lg transition-colors"
+                >
+                  Visit all products <ArrowRight size={14} className="ml-1.5" />
+                </Link>
               </div>
             )}
           </>
