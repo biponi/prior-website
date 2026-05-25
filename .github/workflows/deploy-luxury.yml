@@ -69,14 +69,18 @@ jobs:
             --include='next.config.mjs' \
             --include='ecosystem.config.js' \
             --include='node_modules.tar.gz' \
+            --exclude='.next/types/***' \
+            --exclude='.next/cache/***' \
             --exclude='*' \
             ./ \
             ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }}:/luxury-website/
 
           # Remote: extract deps and restart PM2
           ssh -i ~/.ssh/deploy_key ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'ENDSSH'
-            # Explicitly extend PATH to ensure PM2/node are found in non-interactive shell
-            export PATH="$PATH:/usr/local/bin:/usr/bin:$HOME/.yarn/bin:$HOME/.npm-global/bin"
+            # Load nvm and set PATH explicitly with known PM2 location
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            export PATH="$PATH:/root/.nvm/versions/node/v22.20.0/bin:/usr/local/bin:/usr/bin"
 
             cd /luxury-website
 
@@ -85,18 +89,13 @@ jobs:
             rm node_modules.tar.gz
 
             # Restart application with PM2
-            if command -v pm2 > /dev/null 2>&1; then
-              if pm2 describe prior-luxury > /dev/null 2>&1; then
-                pm2 restart prior-luxury
-              else
-                pm2 start ecosystem.config.js
-              fi
-              pm2 save
+            if pm2 describe prior-luxury > /dev/null 2>&1; then
+              pm2 restart prior-luxury
             else
-              echo "PM2 not found, falling back to next start"
-              pkill -f "next start" || true
-              nohup yarn start > /dev/null 2>&1 &
+              pm2 start ecosystem.config.js
             fi
+
+            pm2 save
           ENDSSH
 
       - name: Cleanup SSH key
