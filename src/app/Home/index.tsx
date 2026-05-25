@@ -8,7 +8,6 @@ import EditorialHeroCarousel from "./HeroSectionV2";
 import { heroSlides } from "@/utils/heroSectionContents";
 import PriorOutletSection from "@/components/new-ui/PriorOutletSection";
 import CategoryShowcase from "@/components/design-system-agnostic/CategoryShowcase/CategoryShowcase";
-import { useDesignSystem } from "@/lib/design-system/DesignSystemProvider";
 import { CategoryShowcase as CategoryProps } from "@/hooks/useCategories";
 import LuxuryOutletSection from "@/components/new-ui/LuxuryOutletSection";
 
@@ -17,12 +16,10 @@ interface HomePageProps {
   products: IProduct[];
   categories: CategoryProps[];
 }
-
+// Get design system
+const isBabyBloom = true;
 // Define the HomePage component with typed props
 const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
-  // Get design system
-  const { isBabyBloom } = useDesignSystem();
-
   // Adapt products to new UI format
   const newProducts = adaptProductsToNewFormat(products || []);
 
@@ -208,7 +205,7 @@ const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
         />
 
         {/* Prior Outlet Section */}
-        {isBabyBloom ? <LuxuryOutletSection /> : <PriorOutletSection />}
+        <LuxuryOutletSection />
 
         {/* Customer Testimonials */}
         {/* <section className='py-10 sm:py-12 md:py-16 lg:py-24 border-t border-neutral-200'>
