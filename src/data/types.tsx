@@ -38,6 +38,22 @@ export type Variation = {
   quantity: number;
   image?: string; // Variant-specific image (optional)
   images?: string[]; // Multiple images for this variant (optional)
+  imageGroupId?: string; // NEW: Reference to image group this variant belongs to
+};
+
+export type ImageGroup = {
+  id: string;
+  attribute: string; // 'color' | 'material' | 'pattern' | 'fit' | 'size' | string
+  value: string; // The attribute value (e.g., "Red", "Cotton")
+  displayLabel: string; // Human-readable label for UI display
+  colorHex?: string; // Optional hex color code
+  images: string[]; // Images for this group
+  variantIds: string[]; // IDs of variants that belong to this group
+  variantOverrides?: {
+    variantId: string;
+    images: string[];
+  }[];
+  sortOrder: number;
 };
 
 export type Category = {
@@ -78,6 +94,7 @@ export type SingleProductType = {
   ratingDetails: RatingDetailsType[];
   sku: string; // Index SKU field
   variation: Variation[]; // Adjust the type of `variation` based on its structure
+  imageGroups?: ImageGroup[]; // NEW: Image groups for color/attribute-based image organization
 };
 
 export type BlogData = {

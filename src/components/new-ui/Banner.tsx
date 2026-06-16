@@ -108,7 +108,7 @@ const BannerComponent: React.FC<BannerComponentProps> = ({
   }
 
   return (
-    <div className="relative w-full h-64 md:h-96 lg:h-[500px] overflow-hidden bg-neutral-50">
+    <div className="relative w-full h-64 md:h-96 lg:h-[500px] overflow-hidden bg-[#FDF5F8]">
       {/* Banner Images */}
       <div
         className="flex transition-transform duration-500 ease-in-out h-full"
@@ -138,7 +138,7 @@ const BannerComponent: React.FC<BannerComponentProps> = ({
                 {banner.buttonText && banner.buttonLink && (
                   <Link
                     href={banner.buttonLink}
-                    className="inline-block bg-white text-neutral-900 px-8 py-4 rounded-none text-sm font-serif tracking-[0.15em] uppercase hover:bg-neutral-100 transition-colors duration-300 border-0"
+                    className="inline-block bg-white text-[#191C1F] px-8 py-4 rounded-none text-sm font-serif tracking-[0.15em] uppercase hover:bg-[#FDF5F8] transition-colors duration-300 border-0"
                   >
                     {banner.buttonText}
                   </Link>
@@ -154,7 +154,7 @@ const BannerComponent: React.FC<BannerComponentProps> = ({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-neutral-900 p-3 rounded-none border border-neutral-200 hover:border-neutral-900 transition-all duration-300 z-10"
+            className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-[#191C1F] p-3 rounded-none border border-[#CD2A75]/20 hover:border-[#CD2A75] transition-all duration-300 z-10"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
@@ -162,7 +162,7 @@ const BannerComponent: React.FC<BannerComponentProps> = ({
 
           <button
             onClick={goToNext}
-            className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-neutral-900 p-3 rounded-none border border-neutral-200 hover:border-neutral-900 transition-all duration-300 z-10"
+            className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-[#191C1F] p-3 rounded-none border border-[#CD2A75]/20 hover:border-[#CD2A75] transition-all duration-300 z-10"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />

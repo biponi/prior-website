@@ -141,18 +141,18 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
         }
       `}</style>
 
-      <section className='pt-10 sm:pt-12 md:pt-16 lg:pt-24 border-t border-neutral-200 bg-white'>
+      <section className='pt-10 sm:pt-12 md:pt-16 lg:pt-24 border-t border-[#CD2A75]/20 bg-white'>
         <div className='w-full'>
           {/* Section Header */}
           <div className='text-center mb-8 sm:mb-10 md:mb-14 space-y-2 sm:space-y-3 px-4'>
-            <p className='text-[10px] sm:text-xs font-serif tracking-[0.2em] uppercase text-neutral-500'>
+            <p className='text-[10px] sm:text-xs font-serif tracking-[0.2em] uppercase text-[#A3A3A3]'>
               {sectionLabel}
             </p>
-            <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif tracking-wide text-neutral-900 leading-tight'>
+            <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif tracking-wide text-[#191C1F] leading-tight'>
               {sectionTitle}
             </h2>
             {sectionDescription && (
-              <p className='text-sm sm:text-base text-neutral-500 max-w-xl mx-auto leading-relaxed'>
+              <p className='text-sm sm:text-base text-[#A3A3A3] max-w-xl mx-auto leading-relaxed'>
                 {sectionDescription}
               </p>
             )}
@@ -160,7 +160,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
 
           {/* ─── SHOWCASE LAYOUT ─────────────────────────────── */}
           {/* ─── TAB NAVIGATION ─────────────────────────────── */}
-          <div className='hidden md:block border border-b-0 border-neutral-200'>
+          <div className='hidden md:block border border-b-0 border-[#CD2A75]/20'>
             <nav className='grid grid-cols-3'>
               {outlets.map((outlet, idx) => (
                 <button
@@ -170,16 +170,16 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
                       tab-btn relative py-4 sm:py-5 px-2
                       text-sm sm:text-base font-serif tracking-[0.12em]
                       transition-colors duration-300
-                      border-r border-neutral-200 last:border-r-0
+                      border-r border-[#CD2A75]/20 last:border-r-0
                       ${
                         activeOutlet === outlet.id
-                          ? "active text-neutral-900"
-                          : "text-neutral-400 hover:text-neutral-700"
+                          ? "active text-[#191C1F]"
+                          : "text-[#A3A3A3] hover:text-[#CD2A75]"
                       }
                     `}>
                   {/* Subtle top accent on active */}
                   <span
-                    className={`absolute top-0 left-0 right-0 h-px bg-neutral-900 transition-opacity duration-300 ${activeOutlet === outlet.id ? "opacity-100" : "opacity-0"}`}
+                    className={`absolute top-0 left-0 right-0 h-px bg-[#CD2A75] transition-opacity duration-300 ${activeOutlet === outlet.id ? "opacity-100" : "opacity-0"}`}
                   />
                   {outlet.name}
                   <span className='tab-indicator' />
@@ -190,7 +190,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
           <div className='w-full'>
             {/* IMAGE SHOWCASE */}
             <div
-              className='relative w-full overflow-hidden bg-neutral-800'
+              className='relative w-full overflow-hidden bg-[#191C1F]'
               style={{
                 /* Mobile: tall portrait. Desktop: wide cinematic */
                 aspectRatio: "auto",
@@ -216,10 +216,10 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
                     sizes='(max-width: 768px) 100vw, 1440px' // ✅ Match intrinsic size
                   />
                 ) : (
-                  <div className='absolute inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200'>
+                  <div className='absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#FDF5F8] to-[#CD2A75]/20'>
                     <div className='text-center space-y-3'>
-                      <MapPin className='w-12 h-12 text-neutral-400 mx-auto' />
-                      <p className='text-sm font-serif text-neutral-500 tracking-wide'>
+                      <MapPin className='w-12 h-12 text-[#CD2A75] mx-auto' />
+                      <p className='text-sm font-serif text-[#A3A3A3] tracking-wide'>
                         {currentOutlet?.name || "Outlet Image"}
                       </p>
                     </div>
@@ -303,7 +303,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
             </div>
 
             {/* ─── TAB NAVIGATION ─────────────────────────────── */}
-            <div className=' md:hidden border border-t-0 border-neutral-200'>
+            <div className=' md:hidden border border-t-0 border-[#CD2A75]/20'>
               <nav className='grid grid-cols-3'>
                 {outlets.map((outlet, idx) => (
                   <button
@@ -313,16 +313,16 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
                       tab-btn relative py-4 sm:py-5 px-2
                       text-sm sm:text-base font-serif tracking-[0.12em]
                       transition-colors duration-300
-                      border-r border-neutral-200 last:border-r-0
+                      border-r border-[#CD2A75]/20 last:border-r-0
                       ${
                         activeOutlet === outlet.id
-                          ? "active text-neutral-900"
-                          : "text-neutral-400 hover:text-neutral-700"
+                          ? "active text-[#191C1F]"
+                          : "text-[#A3A3A3] hover:text-[#CD2A75]"
                       }
                     `}>
                     {/* Subtle top accent on active */}
                     <span
-                      className={`absolute top-0 left-0 right-0 h-px bg-neutral-900 transition-opacity duration-300 ${activeOutlet === outlet.id ? "opacity-100" : "opacity-0"}`}
+                      className={`absolute top-0 left-0 right-0 h-px bg-[#CD2A75] transition-opacity duration-300 ${activeOutlet === outlet.id ? "opacity-100" : "opacity-0"}`}
                     />
                     {outlet.name}
                     <span className='tab-indicator' />
@@ -334,7 +334,7 @@ const PriorOutletSection: React.FC<PriorOutletSectionProps> = ({
             {/* Address */}
             {currentOutlet?.address && (
               <div className='mt-6 text-center px-4'>
-                <p className='text-sm text-neutral-500 font-serif tracking-wide'>
+                <p className='text-sm text-[#A3A3A3] font-serif tracking-wide'>
                   {currentOutlet.address}
                 </p>
               </div>

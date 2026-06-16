@@ -26,6 +26,7 @@ interface Props {
   selected: string;
   selectedVariant: Variation | null;
   onVariantChange: (variant: Variation) => void;
+  onImageGroupChange?: (attribute: string, value: string, groupId: string) => void;
 }
 
 const EnhancedVariantSelector: React.FC<Props> = ({
@@ -35,6 +36,7 @@ const EnhancedVariantSelector: React.FC<Props> = ({
   selected,
   selectedVariant,
   onVariantChange,
+  onImageGroupChange,
 }) => {
   const [variations, setVariations] = React.useState<any[]>([]);
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
@@ -60,13 +62,24 @@ const EnhancedVariantSelector: React.FC<Props> = ({
 
     if (filteredVariants.length > 0) {
       const selectedVariantData = filteredVariants[0];
+
+      // Call image group callback for color changes
+      if (type === "color" && onImageGroupChange && selectedVariantData?.imageGroupId) {
+        const group = selectedProduct.imageGroups?.find(
+          (g) => g.id === selectedVariantData.imageGroupId
+        );
+        if (group) {
+          onImageGroupChange(group.attribute, group.value, group.id);
+        }
+      }
+
       onVariantChange(selectedVariantData);
     } else {
       Swal.fire({
         title: "Out Of Stock",
         text: "This variant is currently out of stock",
         icon: "error",
-        confirmButtonColor: "#3b82f6",
+        confirmButtonColor: "#CD2A75",
         confirmButtonText: "OK",
       });
     }
@@ -134,7 +147,7 @@ const EnhancedVariantSelector: React.FC<Props> = ({
       <div className='space-y-3'>
         <div className='flex items-center space-x-2'>
           {getIcon()}
-          <span className='font-medium text-sm text-zinc-900'>
+          <span className='font-medium text-sm text-[#191C1F]'>
             {type === "color" ? "Color" : "Size"}
           </span>
           {/* {selected && (
@@ -161,7 +174,7 @@ const EnhancedVariantSelector: React.FC<Props> = ({
                 className={cn(
                   "relative h-9 px-4 transition-all duration-200",
                   "border shadow-sm whitespace-nowrap rounded ",
-                  !isOutOfStock && !isSelected && "hover:bg-gray-100"
+                  !isOutOfStock && !isSelected && "hover:bg-[#FDF5F8]"
                 )}
                 onClick={() => {
                   if (isOutOfStock) {
@@ -190,7 +203,7 @@ const EnhancedVariantSelector: React.FC<Props> = ({
                       ? "text-white"
                       : isOutOfStock
                       ? "text-red-600"
-                      : "text-zinc-800 dark:text-zinc-200"
+                      : "text-[#191C1F]"
                   )}>
                   {displayValue.toUpperCase()}
                   {isOutOfStock && <XCircle className='h-3.5 w-3.5' />}

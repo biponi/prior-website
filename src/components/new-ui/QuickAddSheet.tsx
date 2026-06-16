@@ -196,8 +196,8 @@ export default function QuickAddSheet({
     <div className='space-y-8 px-1'>
       {loading ? (
         <div className='flex flex-col items-center justify-center py-16'>
-          <Loader2 className='w-10 h-10 text-neutral-400 animate-spin mb-4' />
-          <p className='text-sm font-serif text-neutral-600 tracking-wide'>
+          <Loader2 className='w-10 h-10 text-[#A3A3A3] animate-spin mb-4' />
+          <p className='text-sm font-serif text-[#A3A3A3] tracking-wide'>
             Loading product details...
           </p>
         </div>
@@ -206,7 +206,7 @@ export default function QuickAddSheet({
           {/* Product Hero Section - Editorial Style */}
           <div className='space-y-6'>
             {/* Large Product Image */}
-            <div className='relative w-full aspect-square bg-neutral-50 rounded-sm overflow-hidden'>
+            <div className='relative w-full aspect-square bg-[#FDF5F8] rounded-sm overflow-hidden'>
               <Image
                 src={
                   shots.length > 0
@@ -221,7 +221,7 @@ export default function QuickAddSheet({
               {discountPercentage > 0 && (
                 <div className='absolute top-4 right-4'>
                   <div className='bg-white/95 backdrop-blur-sm px-4 py-2 shadow-sm'>
-                    <p className='text-xs font-serif italic text-neutral-900'>
+                    <p className='text-xs font-serif italic text-[#191C1F]'>
                       {discountPercentage}% Off
                     </p>
                   </div>
@@ -239,12 +239,12 @@ export default function QuickAddSheet({
                     className={cn(
                       "flex-shrink-0 w-20 h-20 p-0 rounded-sm overflow-hidden border transition-all duration-300 relative",
                       selectedImageIndex === index
-                        ? "border-neutral-900 "
-                        : "border-neutral-200 hover:border-neutral-400",
+                        ? "border-[#CD2A75] "
+                        : "border-[#CD2A75]/20 hover:border-[#A3A3A3]",
                     )}>
                     {isImageLoading && selectedImageIndex === index && (
-                      <div className='absolute inset-0 flex items-center justify-center bg-neutral-100 z-10'>
-                        <div className='w-6 h-6 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin'></div>
+                      <div className='absolute inset-0 flex items-center justify-center bg-[#FDF5F8] z-10'>
+                        <div className='w-6 h-6 border-2 border-[#CD2A75] border-t-[#191C1F] rounded-full animate-spin'></div>
                       </div>
                     )}
                     <Image
@@ -261,21 +261,21 @@ export default function QuickAddSheet({
 
             {/* Product Title & Category - Editorial Typography */}
             <div className='space-y-3'>
-              <p className='text-xs font-serif tracking-[0.2em] uppercase text-neutral-500'>
+              <p className='text-xs font-serif tracking-[0.2em] uppercase text-[#A3A3A3]'>
                 {product.categoryName || "Collection"}
               </p>
-              <h3 className='text-2xl uppercase font-serif tracking-wide text-neutral-900 leading-tight'>
+              <h3 className='text-2xl uppercase font-serif tracking-wide text-[#191C1F] leading-tight'>
                 {product.name}
               </h3>
             </div>
 
             {/* Price Section - Magazine Style */}
-            <div className='flex items-baseline gap-3 pb-2 border-b border-neutral-200'>
-              <span className='text-3xl font-serif text-neutral-900'>
+            <div className='flex items-baseline gap-3 pb-2 border-b border-[#CD2A75]/20'>
+              <span className='text-3xl font-serif text-[#191C1F]'>
                 ৳{currentPrice.toLocaleString()}
               </span>
               {prevPrice > 0 && (
-                <span className='text-lg font-serif text-neutral-400 line-through'>
+                <span className='text-lg font-serif text-[#A3A3A3] line-through'>
                   ৳{prevPrice.toLocaleString()}
                 </span>
               )}
@@ -285,11 +285,11 @@ export default function QuickAddSheet({
           {/* Product Description - Editorial */}
           {product.description && (
             <div className='space-y-2'>
-              <h4 className='text-xs font-serif tracking-[0.2em] uppercase text-neutral-700'>
+              <h4 className='text-xs font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
                 Details
               </h4>
               <div
-                className='text-sm font-serif leading-relaxed text-neutral-600'
+                className='text-sm font-serif leading-relaxed text-[#A3A3A3]'
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(product.description),
                 }}
@@ -300,11 +300,11 @@ export default function QuickAddSheet({
           {/* Variant Selectors - Refined */}
           {product.hasVariation && (
             <div className='space-y-6'>
-              <div className='h-px bg-neutral-200' />
+              <div className='h-px bg-[#CD2A75]/20' />
 
               {uniqueColors.length > 0 && (
                 <div className='space-y-3'>
-                  <label className='text-xs font-serif tracking-[0.2em] uppercase text-neutral-700'>
+                  <label className='text-xs font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
                     Select Color
                   </label>
                   <EnhancedVariantSelector
@@ -320,7 +320,7 @@ export default function QuickAddSheet({
 
               {uniqueSizes.length > 0 && (
                 <div className='space-y-3'>
-                  <label className='text-xs font-serif tracking-[0.2em] uppercase text-neutral-700'>
+                  <label className='text-xs font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
                     Select Size
                   </label>
                   <EnhancedVariantSelector
@@ -338,10 +338,10 @@ export default function QuickAddSheet({
 
           {/* Quantity Selector - Editorial */}
           <div className='space-y-4'>
-            <div className='h-px bg-neutral-200' />
+            <div className='h-px bg-[#CD2A75]/20' />
 
             <div className='space-y-3'>
-              <label className='text-xs font-serif tracking-[0.2em] uppercase text-neutral-700'>
+              <label className='text-xs font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
                 Quantity
               </label>
 
@@ -349,12 +349,12 @@ export default function QuickAddSheet({
                 <button
                   onClick={() => handleQuantityChange(-1)}
                   disabled={quantity <= 1}
-                  className='w-10 h-10 flex items-center justify-center border border-neutral-300 hover:border-neutral-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
-                  <Minus className='h-4 w-4 text-neutral-900' />
+                  className='w-10 h-10 flex items-center justify-center border border-[#CD2A75] hover:border-[#CD2A75] disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
+                  <Minus className='h-4 w-4 text-[#191C1F]' />
                 </button>
 
                 <div className='min-w-[60px] text-center'>
-                  <span className='text-2xl font-serif text-neutral-900'>
+                  <span className='text-2xl font-serif text-[#191C1F]'>
                     {quantity}
                   </span>
                 </div>
@@ -362,8 +362,8 @@ export default function QuickAddSheet({
                 <button
                   onClick={() => handleQuantityChange(1)}
                   disabled={quantity >= maxQuantity}
-                  className='w-10 h-10 flex items-center justify-center border border-neutral-300 hover:border-neutral-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
-                  <Plus className='h-4 w-4 text-neutral-900' />
+                  className='w-10 h-10 flex items-center justify-center border border-[#CD2A75] hover:border-[#CD2A75] disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
+                  <Plus className='h-4 w-4 text-[#191C1F]' />
                 </button>
               </div>
             </div>
@@ -371,8 +371,8 @@ export default function QuickAddSheet({
 
           {/* Stock Status - Editorial Alert */}
           {isOutOfStock && (
-            <div className='border border-neutral-300 bg-neutral-50 rounded-sm p-4'>
-              <p className='text-sm font-serif text-center text-neutral-700 tracking-wide'>
+            <div className='border border-[#CD2A75] bg-[#FDF5F8] rounded-sm p-4'>
+              <p className='text-sm font-serif text-center text-[#191C1F] tracking-wide'>
                 Currently Unavailable
               </p>
             </div>
@@ -388,24 +388,24 @@ export default function QuickAddSheet({
 
           {/* Selected Variant Display - Editorial */}
           {product.hasVariation && selectedVariant && (
-            <div className='bg-neutral-50 border border-neutral-200 rounded-sm p-4'>
+            <div className='bg-[#FDF5F8] border border-[#CD2A75]/20 rounded-sm p-4'>
               <div className='flex items-center justify-center gap-4 text-sm font-serif'>
                 {selectedVariant.color && (
                   <div className='flex items-center gap-2'>
-                    <span className='text-neutral-600 tracking-wide'>
+                    <span className='text-[#A3A3A3] tracking-wide'>
                       Color:
                     </span>
-                    <span className='text-neutral-900 font-medium tracking-wide'>
+                    <span className='text-[#191C1F] font-medium tracking-wide'>
                       {selectedVariant.color}
                     </span>
                   </div>
                 )}
                 {selectedVariant.size && (
                   <div className='flex items-center gap-2'>
-                    <span className='text-neutral-600 tracking-wide'>
+                    <span className='text-[#A3A3A3] tracking-wide'>
                       Size:
                     </span>
-                    <span className='text-neutral-900 font-medium tracking-wide'>
+                    <span className='text-[#191C1F] font-medium tracking-wide'>
                       {selectedVariant.size}
                     </span>
                   </div>
@@ -419,13 +419,13 @@ export default function QuickAddSheet({
             <Button
               onClick={() => handleAddToCart(true)}
               disabled={isOutOfStock}
-              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-neutral-900 hover:bg-neutral-800 text-white rounded-none transition-colors duration-300'
+              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-[#CD2A75] hover:bg-[#B02462] text-white rounded-none transition-colors duration-300'
               size='lg'>
               <Zap className='mr-2 h-5 w-5' />
               Buy Now
             </Button>
             <Button
-              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-white border-neutral-300 text-neutral-900 hover:bg-neutral-900 hover:text-white border-0 rounded-none transition-colors duration-300'
+              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-white border-[#CD2A75] text-[#191C1F] hover:bg-[#CD2A75] hover:text-white border-0 rounded-none transition-colors duration-300'
               onClick={() => handleAddToCart()}
               disabled={isOutOfStock}>
               <ShoppingCart className='w-4 h-4 mr-3' />
@@ -435,7 +435,7 @@ export default function QuickAddSheet({
         </>
       ) : (
         <div className='text-center py-16'>
-          <p className='text-sm font-serif text-neutral-600 tracking-wide'>
+          <p className='text-sm font-serif text-[#A3A3A3] tracking-wide'>
             Product not found
           </p>
         </div>
@@ -448,12 +448,12 @@ export default function QuickAddSheet({
       <Sheet open={open} onOpenChange={onOpenChange}>
         <SheetContent
           side='right'
-          className='w-full sm:max-w-lg overflow-y-auto bg-white border-l border-neutral-200'>
-          <SheetHeader className='mb-8 pb-6 border-b border-neutral-200'>
-            <SheetTitle className='text-xl font-serif tracking-wide text-neutral-900'>
+          className='w-full sm:max-w-lg overflow-y-auto bg-white border-l border-[#CD2A75]/20'>
+          <SheetHeader className='mb-8 pb-6 border-b border-[#CD2A75]/20'>
+            <SheetTitle className='text-xl font-serif tracking-wide text-[#191C1F]'>
               Quick Add
             </SheetTitle>
-            <SheetDescription className='text-sm font-serif text-neutral-600 tracking-wide'>
+            <SheetDescription className='text-sm font-serif text-[#A3A3A3] tracking-wide'>
               Select your preferred options
             </SheetDescription>
           </SheetHeader>
@@ -466,11 +466,11 @@ export default function QuickAddSheet({
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className='max-h-[90vh] bg-white'>
-        <DrawerHeader className='text-left pb-6 border-b border-neutral-200'>
-          <DrawerTitle className='text-xl font-serif tracking-wide text-neutral-900'>
+        <DrawerHeader className='text-left pb-6 border-b border-[#CD2A75]/20'>
+          <DrawerTitle className='text-xl font-serif tracking-wide text-[#191C1F]'>
             Quick Add
           </DrawerTitle>
-          <DrawerDescription className='text-sm font-serif text-neutral-600 tracking-wide'>
+          <DrawerDescription className='text-sm font-serif text-[#A3A3A3] tracking-wide'>
             Select your preferred options
           </DrawerDescription>
         </DrawerHeader>

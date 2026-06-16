@@ -157,18 +157,18 @@ export default function ProductFiltersSheet({
                       className={cn(
                         "flex-1 text-left px-4 py-2.5 text-sm font-serif transition-all duration-300 rounded-none",
                         isSelected
-                          ? "bg-neutral-900 text-white font-medium"
-                          : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50",
+                          ? "bg-[#CD2A75] text-white font-medium"
+                          : "bg-white text-[#191C1F] border border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]",
                       )}
                       style={{ paddingLeft: `${level * 16 + 16}px` }}>
                       <span className='truncate'>{category.name}</span>
                     </button>
                     <CollapsibleTrigger asChild>
-                      <button className='px-3 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50 transition-all duration-300 rounded-none'>
+                      <button className='px-3 border border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8] transition-all duration-300 rounded-none'>
                         {isExpanded ? (
-                          <ChevronDown className='h-4 w-4 text-neutral-600' />
+                          <ChevronDown className='h-4 w-4 text-[#CD2A75]' />
                         ) : (
-                          <ChevronRight className='h-4 w-4 text-neutral-600' />
+                          <ChevronRight className='h-4 w-4 text-[#CD2A75]' />
                         )}
                       </button>
                     </CollapsibleTrigger>
@@ -187,8 +187,8 @@ export default function ProductFiltersSheet({
                   className={cn(
                     "w-full text-left px-4 py-2.5 text-sm font-serif transition-all duration-300 rounded-none",
                     isSelected
-                      ? "bg-neutral-900 text-white font-medium"
-                      : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50",
+                      ? "bg-[#CD2A75] text-white font-medium"
+                      : "bg-white text-[#191C1F] border border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]",
                   )}
                   style={{ paddingLeft: `${level * 16 + 16}px` }}>
                   <span className='truncate'>{category.name}</span>
@@ -333,40 +333,40 @@ export default function ProductFiltersSheet({
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         {trigger || (
-          <Button className='lg:hidden relative z-50 inline-flex items-center justify-center gap-1.5 h-9 md:h-10 px-4 md:px-5 text-xs md:text-sm font-serif tracking-[0.15em] uppercase text-neutral-900 hover:text-white bg-white hover:bg-neutral-900 rounded-none transition-all duration-300 group whitespace-nowrap flex-shrink-0 overflow-hidden'>
+          <Button className='lg:hidden relative z-50 inline-flex items-center justify-center gap-1.5 h-9 md:h-10 px-4 md:px-5 text-xs md:text-sm font-serif tracking-[0.15em] uppercase text-[#191C1F] hover:text-white bg-white hover:bg-[#CD2A75] rounded-none transition-all duration-300 group whitespace-nowrap flex-shrink-0 overflow-hidden'>
             {/* Continuous Animated Border */}
             <span className='absolute inset-0 z-0'>
               {/* Top Border */}
-              <span className='absolute top-0 h-[2px] bg-gradient-to-r from-neutral-400 via-neutral-600 to-neutral-900 animate-border-draw-top' />
+              <span className='absolute top-0 h-[2px] bg-gradient-to-r from-[#A3A3A3] via-[#A3A3A3] to-[#CD2A75] animate-border-draw-top' />
 
               {/* Right Border */}
-              <span className='absolute right-0 w-[2px] bg-gradient-to-b from-neutral-400 via-neutral-600 to-neutral-900 animate-border-draw-right' />
+              <span className='absolute right-0 w-[2px] bg-gradient-to-b from-[#A3A3A3] via-[#A3A3A3] to-[#CD2A75] animate-border-draw-right' />
 
               {/* Bottom Border */}
-              <span className='absolute bottom-0 h-[2px] bg-gradient-to-l from-neutral-400 via-neutral-600 to-neutral-900 animate-border-draw-bottom' />
+              <span className='absolute bottom-0 h-[2px] bg-gradient-to-l from-[#A3A3A3] via-[#A3A3A3] to-[#CD2A75] animate-border-draw-bottom' />
 
               {/* Left Border */}
-              <span className='absolute left-0 w-[2px] bg-gradient-to-t from-neutral-400 via-neutral-600 to-neutral-900 animate-border-draw-left' />
+              <span className='absolute left-0 w-[2px] bg-gradient-to-t from-[#A3A3A3] via-[#A3A3A3] to-[#CD2A75] animate-border-draw-left' />
             </span>
 
             {/* Static Border (fallback) */}
-            <span className='absolute inset-0 border border-neutral-300 group-hover:border-transparent transition-colors duration-300 z-0' />
+            <span className='absolute inset-0 border border-[#CD2A75] group-hover:border-transparent transition-colors duration-300 z-0' />
 
             {/* Hover Overlay - appears on hover */}
             <span className='absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[1]'>
-              <span className='absolute inset-0 border-2 border-neutral-900' />
+              <span className='absolute inset-0 border-2 border-[#CD2A75]' />
             </span>
 
             {/* Content */}
             <div className='flex items-center gap-3 justify-center'>
-              <SlidersHorizontal className='w-5 h-5 text-neutral-900' />
-              <h2 className='text-sm font-serif tracking-wide text-neutral-900'>
+              <SlidersHorizontal className='w-5 h-5 text-[#191C1F]' />
+              <h2 className='text-sm font-serif tracking-wide text-[#191C1F]'>
                 Filters
               </h2>
               {activeFilterCount > 0 && (
                 <Badge
                   variant='default'
-                  className='ml-2 bg-neutral-900 text-white rounded-none'>
+                  className='ml-2 bg-[#CD2A75] text-white rounded-none'>
                   {activeFilterCount}
                 </Badge>
               )}
@@ -379,14 +379,14 @@ export default function ProductFiltersSheet({
         side='right'
         className='w-full sm:max-w-md p-0 flex flex-col'>
         {/* Header */}
-        <SheetHeader className='px-6 py-4 border-b border-neutral-200'>
+        <SheetHeader className='px-6 py-4 border-b border-[#CD2A75]/20'>
           <div className='flex items-center justify-between'>
             <SheetTitle className='text-lg font-serif tracking-wide'>
               Filter Products
               {activeFilterCount > 0 && (
                 <Badge
                   variant='default'
-                  className='ml-3 bg-neutral-900 text-white rounded-none'>
+                  className='ml-3 bg-[#CD2A75] text-white rounded-none'>
                   {activeFilterCount}
                 </Badge>
               )}
@@ -396,9 +396,9 @@ export default function ProductFiltersSheet({
 
         {/* Active Filters */}
         {activeFilterCount > 0 && (
-          <div className='px-6 py-3 bg-neutral-50 border-b border-neutral-200'>
+          <div className='px-6 py-3 bg-[#FDF5F8] border-b border-[#CD2A75]/20'>
             <div className='w-full flex justify-between items-center'>
-              <p className='text-xs font-serif tracking-wider uppercase text-neutral-600 mb-2'>
+              <p className='text-xs font-serif tracking-wider uppercase text-[#A3A3A3] mb-2'>
                 Active Filters:
               </p>
               {activeFilterCount > 0 && onClearFilters && (
@@ -410,7 +410,7 @@ export default function ProductFiltersSheet({
                     setExpandedCategories(new Set());
                     setSearchQueries({ colors: "", sizes: "" });
                   }}
-                  className='text-sm font-serif text-neutral-600 hover:text-neutral-900'>
+                  className='text-sm font-serif text-[#A3A3A3] hover:text-[#191C1F]'>
                   Clear All
                 </Button>
               )}
@@ -419,7 +419,7 @@ export default function ProductFiltersSheet({
               {showCategory && filterData.categoryId && (
                 <Badge
                   variant='secondary'
-                  className='flex items-center gap-1 cursor-pointer hover:bg-neutral-300 transition-colors duration-200 rounded-none border border-neutral-200 font-serif text-xs'
+                  className='flex items-center gap-1 cursor-pointer hover:bg-[#CD2A75]/30 transition-colors duration-200 rounded-none border border-[#CD2A75]/20 font-serif text-xs'
                   onClick={() => handleCategoryChange("")}>
                   {selectedCategoryName}
                   <X className='w-3 h-3' />
@@ -433,7 +433,7 @@ export default function ProductFiltersSheet({
                     <Badge
                       key={color}
                       variant='secondary'
-                      className='flex items-center gap-1 cursor-pointer hover:bg-neutral-300 transition-colors duration-200 rounded-none border border-neutral-200 font-serif text-xs'
+                      className='flex items-center gap-1 cursor-pointer hover:bg-[#CD2A75]/30 transition-colors duration-200 rounded-none border border-[#CD2A75]/20 font-serif text-xs'
                       onClick={() => handleColorChange(color)}>
                       {formatName(color)}
                       <X className='w-3 h-3' />
@@ -447,7 +447,7 @@ export default function ProductFiltersSheet({
                     <Badge
                       key={size}
                       variant='secondary'
-                      className='flex items-center gap-1 cursor-pointer hover:bg-neutral-300 transition-colors duration-200 rounded-none border border-neutral-200 font-serif text-xs'
+                      className='flex items-center gap-1 cursor-pointer hover:bg-[#CD2A75]/30 transition-colors duration-200 rounded-none border border-[#CD2A75]/20 font-serif text-xs'
                       onClick={() => handleSizeChange(size)}>
                       {size}
                       <X className='w-3 h-3' />
@@ -466,21 +466,21 @@ export default function ProductFiltersSheet({
                 <Collapsible
                   open={expandedSections.categories}
                   onOpenChange={() => toggleSection("categories")}>
-                  <CollapsibleTrigger className='flex items-center justify-between w-full py-2 text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 transition-colors duration-300'>
+                  <CollapsibleTrigger className='flex items-center justify-between w-full py-2 text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-300'>
                     <span className='flex items-center gap-2'>
                       Categories
                       {filterData.categoryId && (
                         <Badge
                           variant='secondary'
-                          className='text-xs rounded-none border border-neutral-200 font-serif'>
+                          className='text-xs rounded-none border border-[#CD2A75]/20 font-serif'>
                           1
                         </Badge>
                       )}
                     </span>
                     {expandedSections.categories ? (
-                      <ChevronDown className='w-4 h-4 text-neutral-500' />
+                      <ChevronDown className='w-4 h-4 text-[#CD2A75]' />
                     ) : (
-                      <ChevronRight className='w-4 h-4 text-neutral-500' />
+                      <ChevronRight className='w-4 h-4 text-[#CD2A75]' />
                     )}
                   </CollapsibleTrigger>
 
@@ -492,8 +492,8 @@ export default function ProductFiltersSheet({
                         className={cn(
                           "w-full text-left px-4 py-2.5 rounded-none text-sm font-serif transition-all duration-300",
                           !filterData.categoryId
-                            ? "bg-neutral-900 text-white font-medium"
-                            : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50",
+                            ? "bg-[#CD2A75] text-white font-medium"
+                            : "bg-white text-[#191C1F] border border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]",
                         )}>
                         <Grid3x3 className='w-3 h-3 inline mr-2' />
                         All Categories
@@ -515,7 +515,7 @@ export default function ProductFiltersSheet({
                 <Collapsible
                   open={expandedSections.colors}
                   onOpenChange={() => toggleSection("colors")}>
-                  <CollapsibleTrigger className='flex items-center justify-between w-full py-2 text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 transition-colors duration-300'>
+                  <CollapsibleTrigger className='flex items-center justify-between w-full py-2 text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-300'>
                     <span className='flex items-center gap-2'>
                       Colors
                       {filterData.color &&
@@ -523,22 +523,22 @@ export default function ProductFiltersSheet({
                           0 && (
                           <Badge
                             variant='secondary'
-                            className='text-xs rounded-none border border-neutral-200 font-serif'>
+                            className='text-xs rounded-none border border-[#CD2A75]/20 font-serif'>
                             {filterData.color.split(",").filter(Boolean).length}
                           </Badge>
                         )}
                     </span>
                     {expandedSections.colors ? (
-                      <ChevronDown className='w-4 h-4 text-neutral-500' />
+                      <ChevronDown className='w-4 h-4 text-[#CD2A75]' />
                     ) : (
-                      <ChevronRight className='w-4 h-4 text-neutral-500' />
+                      <ChevronRight className='w-4 h-4 text-[#CD2A75]' />
                     )}
                   </CollapsibleTrigger>
 
                   <CollapsibleContent className='mt-3'>
                     {/* Color Search */}
                     <div className='relative mb-4'>
-                      <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400' />
+                      <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#A3A3A3]' />
                       <Input
                         type='text'
                         placeholder='Search colors...'
@@ -549,7 +549,7 @@ export default function ProductFiltersSheet({
                             colors: e.target.value,
                           }))
                         }
-                        className='pl-10 h-10 text-sm font-serif border-neutral-300 rounded-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900'
+                        className='pl-10 h-10 text-sm font-serif border-[#CD2A75] rounded-none focus:border-[#CD2A75] focus:ring-1 focus:ring-[#CD2A75]'
                       />
                       {searchQueries.colors && (
                         <button
@@ -559,7 +559,7 @@ export default function ProductFiltersSheet({
                               colors: "",
                             }))
                           }
-                          className='absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600'>
+                          className='absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A3A3A3] hover:text-[#191C1F]'>
                           <X className='w-4 h-4' />
                         </button>
                       )}
@@ -577,15 +577,15 @@ export default function ProductFiltersSheet({
                               className={cn(
                                 "px-3 py-2.5 rounded-none text-xs font-serif tracking-wide transition-all duration-300 border",
                                 selected
-                                  ? "bg-neutral-900 text-white border-neutral-900"
-                                  : "bg-white text-neutral-700 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50",
+                                  ? "bg-[#CD2A75] text-white border-[#CD2A75]"
+                                  : "bg-white text-[#191C1F] border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]",
                               )}>
                               {formatName(color)}
                             </button>
                           );
                         })
                       ) : (
-                        <div className='col-span-2 text-center py-4 text-sm font-serif text-neutral-500'>
+                        <div className='col-span-2 text-center py-4 text-sm font-serif text-[#A3A3A3]'>
                           No colors found
                         </div>
                       )}
@@ -603,7 +603,7 @@ export default function ProductFiltersSheet({
                 <Collapsible
                   open={expandedSections.sizes}
                   onOpenChange={() => toggleSection("sizes")}>
-                  <CollapsibleTrigger className='flex items-center justify-between w-full py-2 text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 transition-colors duration-300'>
+                  <CollapsibleTrigger className='flex items-center justify-between w-full py-2 text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-300'>
                     <span className='flex items-center gap-2'>
                       Sizes
                       {filterData.size &&
@@ -611,22 +611,22 @@ export default function ProductFiltersSheet({
                           0 && (
                           <Badge
                             variant='secondary'
-                            className='text-xs rounded-none border border-neutral-200 font-serif'>
+                            className='text-xs rounded-none border border-[#CD2A75]/20 font-serif'>
                             {filterData.size.split(",").filter(Boolean).length}
                           </Badge>
                         )}
                     </span>
                     {expandedSections.sizes ? (
-                      <ChevronDown className='w-4 h-4 text-neutral-500' />
+                      <ChevronDown className='w-4 h-4 text-[#CD2A75]' />
                     ) : (
-                      <ChevronRight className='w-4 h-4 text-neutral-500' />
+                      <ChevronRight className='w-4 h-4 text-[#CD2A75]' />
                     )}
                   </CollapsibleTrigger>
 
                   <CollapsibleContent className='mt-3'>
                     {/* Size Search */}
                     <div className='relative mb-4'>
-                      <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400' />
+                      <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#A3A3A3]' />
                       <Input
                         type='text'
                         placeholder='Search sizes...'
@@ -637,14 +637,14 @@ export default function ProductFiltersSheet({
                             sizes: e.target.value,
                           }))
                         }
-                        className='pl-10 h-10 text-sm font-serif border-neutral-300 rounded-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900'
+                        className='pl-10 h-10 text-sm font-serif border-[#CD2A75] rounded-none focus:border-[#CD2A75] focus:ring-1 focus:ring-[#CD2A75]'
                       />
                       {searchQueries.sizes && (
                         <button
                           onClick={() =>
                             setSearchQueries((prev) => ({ ...prev, sizes: "" }))
                           }
-                          className='absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600'>
+                          className='absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A3A3A3] hover:text-[#191C1F]'>
                           <X className='w-4 h-4' />
                         </button>
                       )}
@@ -662,15 +662,15 @@ export default function ProductFiltersSheet({
                               className={cn(
                                 "px-3 py-2.5 rounded-none text-sm font-serif tracking-wide transition-all duration-300 border",
                                 selected
-                                  ? "bg-neutral-900 text-white border-neutral-900"
-                                  : "bg-white text-neutral-700 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50",
+                                  ? "bg-[#CD2A75] text-white border-[#CD2A75]"
+                                  : "bg-white text-[#191C1F] border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]",
                               )}>
                               {formatName(size)}
                             </button>
                           );
                         })
                       ) : (
-                        <div className='col-span-3 text-center py-4 text-sm font-serif text-neutral-500'>
+                        <div className='col-span-3 text-center py-4 text-sm font-serif text-[#A3A3A3]'>
                           No sizes found
                         </div>
                       )}
@@ -683,10 +683,10 @@ export default function ProductFiltersSheet({
         </ScrollArea>
 
         {/* Footer with Apply Button */}
-        <div className='p-6 border-t border-neutral-200 bg-white'>
+        <div className='p-6 border-t border-[#CD2A75]/20 bg-white'>
           <Button
             onClick={() => setIsOpen(false)}
-            className='w-full h-12 bg-neutral-900 text-white rounded-none text-base font-semibold font-serif tracking-wide hover:bg-neutral-800 transition-colors'>
+            className='w-full h-12 bg-[#CD2A75] text-white rounded-none text-base font-semibold font-serif tracking-wide hover:bg-[#B02462] transition-colors'>
             Apply Filters
           </Button>
         </div>

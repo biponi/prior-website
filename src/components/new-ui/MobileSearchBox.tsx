@@ -93,7 +93,7 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
       <button
         onClick={() => setOpen(true)}
         className={cn(
-          "md:hidden relative p-0 text-neutral-900 transition-colors duration-200",
+          "md:hidden relative p-0 text-[#191C1F] transition-colors duration-200",
           className,
         )}
         aria-label='Search products'>
@@ -117,7 +117,7 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
             handleClose();
           }}>
           {/* Dialog Header - Fixed at top */}
-          <DialogHeader className='sticky top-0 bg-white border-b border-neutral-200 px-4 py-4 z-10'>
+          <DialogHeader className='sticky top-0 bg-white border-b border-[#CD2A75]/20 px-4 py-4 z-10'>
             <div className='flex items-center gap-3'>
               <div className='flex-1 relative'>
                 <form onSubmit={handleSearchSubmit}>
@@ -129,26 +129,26 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       className={cn(
-                        "w-full pl-10 pr-10 h-12 border border-neutral-300 rounded-none text-base font-serif",
-                        "focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900",
-                        "placeholder:text-neutral-400 transition-all duration-300 tracking-wide",
+                        "w-full pl-10 pr-10 h-12 border border-[#CD2A75]/20 rounded-none text-base font-serif",
+                        "focus:outline-none focus:border-[#CD2A75] focus:ring-1 focus:ring-[#CD2A75]",
+                        "placeholder:text-[#A3A3A3] transition-all duration-300 tracking-wide",
                       )}
                       aria-label='Search products'
                       autoComplete='off'
                     />
-                    <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-500 w-4 h-4 pointer-events-none' />
+                    <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-[#A3A3A3] w-4 h-4 pointer-events-none' />
                     {inputValue && (
                       <button
                         type='button'
                         onClick={handleClear}
-                        className='absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors duration-200'
+                        className='absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A3A3A3] hover:text-[#191C1F] transition-colors duration-200'
                         aria-label='Clear search'>
                         <X className='w-4 h-4' />
                       </button>
                     )}
                     {loading && (
                       <div className='absolute right-3 top-1/2 transform -translate-y-1/2'>
-                        <div className='w-4 h-4 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin' />
+                        <div className='w-4 h-4 border-2 border-[#CD2A75]/20 border-t-[#CD2A75] rounded-full animate-spin' />
                       </div>
                     )}
                   </div>
@@ -158,7 +158,7 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
               {/* Close Button */}
               <button
                 onClick={handleClose}
-                className='flex-shrink-0 p-2 text-neutral-600 hover:text-neutral-900 transition-colors duration-200'
+                className='flex-shrink-0 p-2 text-[#A3A3A3] hover:text-[#191C1F] transition-colors duration-200'
                 aria-label='Close search'>
                 <X className='w-5 h-5' />
               </button>
@@ -169,7 +169,7 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
           <div className='max-h-[60vh] overflow-y-auto'>
             <Command className='border-0 shadow-none'>
               <CommandList>
-                <CommandEmpty className='py-8 text-center text-sm font-serif text-neutral-600 tracking-wide'>
+                <CommandEmpty className='py-8 text-center text-sm font-serif text-[#A3A3A3] tracking-wide'>
                   {!loading && (
                     <>
                       <Bird className='mx-auto mb-2' />
@@ -190,7 +190,7 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
                         className='cursor-pointer px-4 py-3'>
                         <div className='flex items-center gap-3 w-full'>
                           {/* Product Image */}
-                          <div className='relative w-12 h-12 flex-shrink-0 bg-neutral-50 rounded-none overflow-hidden border border-neutral-200'>
+                          <div className='relative w-12 h-12 flex-shrink-0 bg-[#FDF5F8] rounded-none overflow-hidden border border-[#CD2A75]/20'>
                             {product.images && product.images.length > 0 ? (
                               <Image
                                 src={product.images[0]}
@@ -200,7 +200,7 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
                                 sizes='48px'
                               />
                             ) : (
-                              <div className='w-full h-full flex items-center justify-center text-neutral-400'>
+                              <div className='w-full h-full flex items-center justify-center text-[#A3A3A3]'>
                                 <Search className='w-5 h-5' />
                               </div>
                             )}
@@ -208,18 +208,18 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
 
                           {/* Product Info */}
                           <div className='flex-1 min-w-0'>
-                            <p className='text-sm uppercase font-serif tracking-wide text-neutral-900 truncate  font-medium mr-2 px-1.5  py-1'>
+                            <p className='text-sm uppercase font-serif tracking-wide text-[#191C1F] truncate  font-medium mr-2 px-1.5  py-1'>
                               {product.name} * {product?.categoryName}
                             </p>
                             <div className='flex items-center gap-2 mt-1 '>
-                              <span className='text-sm font-serif text-neutral-900'>
+                              <span className='text-sm font-serif text-[#191C1F]'>
                                 {formatPrice(
                                   product.updatedPrice || product.unitPrice,
                                 )}
                               </span>
                               {product.hasDiscount && product.updatedPrice && (
                                 <>
-                                  <span className='text-xs text-neutral-400 line-through font-serif'>
+                                  <span className='text-xs text-[#A3A3A3] line-through font-serif'>
                                     {formatPrice(product.unitPrice)}
                                   </span>
                                   <span className='text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-1 rounded-none border border-emerald-200 font-serif tracking-wide'>
@@ -257,15 +257,15 @@ export default function MobileSearchBox({ className }: MobileSearchBoxProps) {
                 {loading && (
                   <div className='p-6 flex justify-center items-center'>
                     Searching...{" "}
-                    <div className='w-4 h-4 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin ml-2' />
+                    <div className='w-4 h-4 border-2 border-[#CD2A75]/20 border-t-[#CD2A75] rounded-full animate-spin ml-2' />
                   </div>
                 )}
 
                 {products.length > 0 && (
-                  <div className='border-t border-neutral-200 sticky bottom-0 bg-white'>
+                  <div className='border-t border-[#CD2A75]/20 sticky bottom-0 bg-white'>
                     <button
                       onClick={handleSearchSubmit}
-                      className='w-full px-6 py-4 text-sm text-center font-serif tracking-wide text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 transition-colors duration-300'>
+                      className='w-full px-6 py-4 text-sm text-center font-serif tracking-wide text-[#191C1F] hover:bg-[#FDF5F8] hover:text-[#CD2A75] transition-colors duration-300'>
                       View all results for &ldquo;{inputValue}&rdquo;
                     </button>
                   </div>

@@ -159,14 +159,14 @@ export default function ProductFilters({
   );
 
   return (
-    <div className="w-full bg-white rounded-none border border-neutral-200 overflow-hidden">
+    <div className="w-full bg-white rounded-none border border-[#CD2A75]/20 overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-neutral-200">
+      <div className="flex items-center justify-between p-6 border-b border-[#CD2A75]/20">
         <div className="flex items-center gap-3">
-          <SlidersHorizontal className="w-5 h-5 text-neutral-900" />
-          <h2 className="text-lg font-serif tracking-wide text-neutral-900">Filters</h2>
+          <SlidersHorizontal className="w-5 h-5 text-[#191C1F]" />
+          <h2 className="text-lg font-serif tracking-wide text-[#191C1F]">Filters</h2>
           {activeFilterCount > 0 && (
-            <Badge variant="default" className="ml-2 bg-neutral-900 text-white rounded-none">
+            <Badge variant="default" className="ml-2 bg-[#CD2A75] text-white rounded-none">
               {activeFilterCount}
             </Badge>
           )}
@@ -176,7 +176,7 @@ export default function ProductFilters({
             variant="ghost"
             size="sm"
             onClick={onClearFilters}
-            className="text-sm font-serif tracking-wide text-neutral-600 hover:text-neutral-900 transition-colors duration-300"
+            className="text-sm font-serif tracking-wide text-[#A3A3A3] hover:text-[#191C1F] transition-colors duration-300"
           >
             Clear All
           </Button>
@@ -192,19 +192,19 @@ export default function ProductFilters({
               open={expandedSections.categories}
               onOpenChange={() => toggleSection('categories')}
             >
-              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 transition-colors duration-300">
+              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#A3A3A3] transition-colors duration-300">
                 <span className="flex items-center gap-2">
                   Categories
                   {filterData.categoryId && (
-                    <Badge variant="secondary" className="text-xs rounded-none border border-neutral-200 font-serif">
+                    <Badge variant="secondary" className="text-xs rounded-none border border-[#CD2A75]/20 font-serif">
                       1
                     </Badge>
                   )}
                 </span>
                 {expandedSections.categories ? (
-                  <ChevronUp className="w-4 h-4 text-neutral-500" />
+                  <ChevronUp className="w-4 h-4 text-[#A3A3A3]" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-neutral-500" />
+                  <ChevronDown className="w-4 h-4 text-[#A3A3A3]" />
                 )}
               </CollapsibleTrigger>
 
@@ -216,8 +216,8 @@ export default function ProductFilters({
                       className={cn(
                         "w-full text-left px-4 py-3 rounded-none text-sm font-serif transition-all duration-300",
                         !filterData.categoryId
-                          ? "bg-neutral-900 text-white font-medium"
-                          : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50"
+                          ? "bg-[#CD2A75] text-white font-medium"
+                          : "bg-white text-[#191C1F] border border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]"
                       )}
                     >
                       All Categories
@@ -229,8 +229,8 @@ export default function ProductFilters({
                         className={cn(
                           "w-full text-left px-4 py-3 rounded-none text-sm font-serif transition-all duration-300",
                           filterData.categoryId === category.id
-                            ? "bg-neutral-900 text-white font-medium"
-                            : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50"
+                            ? "bg-[#CD2A75] text-white font-medium"
+                            : "bg-white text-[#191C1F] border border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]"
                         )}
                       >
                         {category.name}
@@ -250,26 +250,26 @@ export default function ProductFilters({
               open={expandedSections.colors}
               onOpenChange={() => toggleSection('colors')}
             >
-              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 transition-colors duration-300">
+              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#A3A3A3] transition-colors duration-300">
                 <span className="flex items-center gap-2">
                   Colors
                   {filterData.color && filterData.color.split(',').filter(Boolean).length > 0 && (
-                    <Badge variant="secondary" className="text-xs rounded-none border border-neutral-200 font-serif">
+                    <Badge variant="secondary" className="text-xs rounded-none border border-[#CD2A75]/20 font-serif">
                       {filterData.color.split(',').filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
                 {expandedSections.colors ? (
-                  <ChevronUp className="w-4 h-4 text-neutral-500" />
+                  <ChevronUp className="w-4 h-4 text-[#A3A3A3]" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-neutral-500" />
+                  <ChevronDown className="w-4 h-4 text-[#A3A3A3]" />
                 )}
               </CollapsibleTrigger>
 
               <CollapsibleContent className="mt-3">
                 {/* Color Search */}
                 <div className="relative mb-4">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#A3A3A3]" />
                   <Input
                     type="text"
                     placeholder="Search colors..."
@@ -277,12 +277,12 @@ export default function ProductFilters({
                     onChange={(e) =>
                       setSearchQueries((prev) => ({ ...prev, colors: e.target.value }))
                     }
-                    className="pl-10 h-12 text-sm font-serif border-neutral-300 rounded-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                    className="pl-10 h-12 text-sm font-serif border-[#CD2A75]/20 rounded-none focus:border-[#CD2A75] focus:ring-1 focus:ring-[#CD2A75]"
                   />
                   {searchQueries.colors && (
                     <button
                       onClick={() => setSearchQueries((prev) => ({ ...prev, colors: '' }))}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors duration-200"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A3A3A3] hover:text-[#191C1F] transition-colors duration-200"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -302,8 +302,8 @@ export default function ProductFilters({
                             className={cn(
                               "px-4 py-3 rounded-none text-xs font-serif tracking-wide transition-all duration-300 border",
                               selected
-                                ? "bg-neutral-900 text-white border-neutral-900"
-                                : "bg-white text-neutral-700 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50"
+                                ? "bg-[#CD2A75] text-white border-[#CD2A75]"
+                                : "bg-white text-[#191C1F] border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]"
                             )}
                           >
                             {formatColorName(color)}
@@ -311,7 +311,7 @@ export default function ProductFilters({
                         );
                       })
                     ) : (
-                      <div className="col-span-2 text-center py-4 text-sm font-serif text-neutral-500">
+                      <div className="col-span-2 text-center py-4 text-sm font-serif text-[#A3A3A3]">
                         No colors found
                       </div>
                     )}
@@ -329,26 +329,26 @@ export default function ProductFilters({
               open={expandedSections.sizes}
               onOpenChange={() => toggleSection('sizes')}
             >
-              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 transition-colors duration-300">
+              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#A3A3A3] transition-colors duration-300">
                 <span className="flex items-center gap-2">
                   Sizes
                   {filterData.size && filterData.size.split(',').filter(Boolean).length > 0 && (
-                    <Badge variant="secondary" className="text-xs rounded-none border border-neutral-200 font-serif">
+                    <Badge variant="secondary" className="text-xs rounded-none border border-[#CD2A75]/20 font-serif">
                       {filterData.size.split(',').filter(Boolean).length}
                     </Badge>
                   )}
                 </span>
                 {expandedSections.sizes ? (
-                  <ChevronUp className="w-4 h-4 text-neutral-500" />
+                  <ChevronUp className="w-4 h-4 text-[#A3A3A3]" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-neutral-500" />
+                  <ChevronDown className="w-4 h-4 text-[#A3A3A3]" />
                 )}
               </CollapsibleTrigger>
 
               <CollapsibleContent className="mt-3">
                 {/* Size Search */}
                 <div className="relative mb-4">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#A3A3A3]" />
                   <Input
                     type="text"
                     placeholder="Search sizes..."
@@ -356,12 +356,12 @@ export default function ProductFilters({
                     onChange={(e) =>
                       setSearchQueries((prev) => ({ ...prev, sizes: e.target.value }))
                     }
-                    className="pl-10 h-12 text-sm font-serif border-neutral-300 rounded-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                    className="pl-10 h-12 text-sm font-serif border-[#CD2A75]/20 rounded-none focus:border-[#CD2A75] focus:ring-1 focus:ring-[#CD2A75]"
                   />
                   {searchQueries.sizes && (
                     <button
                       onClick={() => setSearchQueries((prev) => ({ ...prev, sizes: '' }))}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors duration-200"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A3A3A3] hover:text-[#191C1F] transition-colors duration-200"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -381,15 +381,15 @@ export default function ProductFilters({
                             className={cn(
                               "px-4 py-3 rounded-none text-sm font-serif tracking-wide transition-all duration-300 border",
                               selected
-                                ? "bg-neutral-900 text-white border-neutral-900"
-                                : "bg-white text-neutral-700 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50",
+                                ? "bg-[#CD2A75] text-white border-[#CD2A75]"
+                                : "bg-white text-[#191C1F] border-[#CD2A75]/20 hover:border-[#CD2A75] hover:bg-[#FDF5F8]",
                             )}>
                             {formatColorName(size)}
                           </button>
                         );
                       })
                     ) : (
-                      <div className="col-span-3 text-center py-4 text-sm font-serif text-neutral-500">
+                      <div className="col-span-3 text-center py-4 text-sm font-serif text-[#A3A3A3]">
                         No sizes found
                       </div>
                     )}
@@ -403,15 +403,15 @@ export default function ProductFilters({
 
       {/* Active Filters Display */}
       {activeFilterCount > 0 && (
-        <div className="p-6 border-t border-neutral-200 bg-neutral-50">
-          <p className="text-xs font-serif tracking-[0.2em] uppercase text-neutral-700 mb-3">
+        <div className="p-6 border-t border-[#CD2A75]/20 bg-[#FDF5F8]">
+          <p className="text-xs font-serif tracking-[0.2em] uppercase text-[#191C1F] mb-3">
             Active Filters:
           </p>
           <div className="flex flex-wrap gap-2">
             {filterData.categoryId && (
               <Badge
                 variant="secondary"
-                className="flex items-center gap-1 cursor-pointer hover:bg-neutral-300 transition-colors duration-300 rounded-none border border-neutral-200 font-serif text-xs tracking-wide"
+                className="flex items-center gap-1 cursor-pointer hover:bg-[#CD2A75]/30 transition-colors duration-300 rounded-none border border-[#CD2A75]/20 font-serif text-xs tracking-wide"
                 onClick={() => handleCategoryChange('')}
               >
                 {categories.find((c) => c.id === filterData.categoryId)?.name}
@@ -423,7 +423,7 @@ export default function ProductFilters({
                 <Badge
                   key={color}
                   variant="secondary"
-                  className="flex items-center gap-1 cursor-pointer hover:bg-neutral-300 transition-colors duration-300 rounded-none border border-neutral-200 font-serif text-xs tracking-wide"
+                  className="flex items-center gap-1 cursor-pointer hover:bg-[#CD2A75]/30 transition-colors duration-300 rounded-none border border-[#CD2A75]/20 font-serif text-xs tracking-wide"
                   onClick={() => handleColorChange(color)}
                 >
                   {formatColorName(color)}
@@ -435,7 +435,7 @@ export default function ProductFilters({
                 <Badge
                   key={size}
                   variant="secondary"
-                  className="flex items-center gap-1 cursor-pointer hover:bg-neutral-300 transition-colors duration-300 rounded-none border border-neutral-200 font-serif text-xs tracking-wide"
+                  className="flex items-center gap-1 cursor-pointer hover:bg-[#CD2A75]/30 transition-colors duration-300 rounded-none border border-[#CD2A75]/20 font-serif text-xs tracking-wide"
                   onClick={() => handleSizeChange(size)}
                 >
                   {size}

@@ -17,7 +17,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 }) => {
   return (
     <Link href={href} className='group'>
-      <div className='relative aspect-[3/4] bg-neutral-50 rounded-sm overflow-hidden'>
+      <div className='relative aspect-[3/4] bg-[#FDF5F8] rounded-sm overflow-hidden'>
         <Image
           src={imageSrc}
           alt={title}

@@ -93,7 +93,7 @@ const CartPage = () => {
                 </div>
                 <button
                   onClick={() => removeFromCart(index)}
-                  className='text-neutral-400 hover:text-red-600 transition-colors duration-300 p-1 rounded-none hover:bg-red-50'
+                  className='text-neutral-400 hover:text-red-600 transition-colors duration-300 p-1 rounded-none hover:bg-[#FDF5F8]'
                   aria-label='Remove item'>
                   <Trash2 className='w-5 h-5' />
                 </button>
@@ -127,7 +127,7 @@ const CartPage = () => {
                 <button
                   onClick={() => handleQuantityChange(item, -1)}
                   disabled={quantity <= 1}
-                  className='p-2 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-none'>
+                  className='p-2 hover:bg-[#FDF5F8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-none'>
                   <Minus className='w-4 h-4' />
                 </button>
                 <span className='px-4 py-2 min-w-[3rem] text-center font-serif tracking-wide'>
@@ -136,7 +136,7 @@ const CartPage = () => {
                 <button
                   onClick={() => handleQuantityChange(item, 1)}
                   disabled={quantity >= (maxQuantity || 999)}
-                  className='p-2 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-none'>
+                  className='p-2 hover:bg-[#FDF5F8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-none'>
                   <Plus className='w-4 h-4' />
                 </button>
               </div>
@@ -290,7 +290,7 @@ const CartPage = () => {
 
                 <Link href='/checkout' onClick={handleCheckoutClick}>
                   <Button
-                    className='w-full h-12 text-sm font-serif tracking-[0.15em] uppercase rounded-none bg-neutral-900 hover:bg-neutral-800 text-white transition-colors duration-300'
+                    className='w-full h-12 text-sm font-serif tracking-[0.15em] uppercase rounded-none bg-[#CD2A75] hover:bg-[#B02462] text-white transition-colors duration-300'
                     size='lg'>
                     Proceed to Checkout
                     <ArrowRight className='w-5 h-5 ml-2' />
@@ -321,7 +321,7 @@ const CartPage = () => {
               <Link href='/collections'>
                 <Button
                   size='lg'
-                  className='font-serif tracking-[0.15em] uppercase rounded-none bg-neutral-900 hover:bg-neutral-800 text-white transition-colors duration-300'>
+                  className='font-serif tracking-[0.15em] uppercase rounded-none bg-[#CD2A75] hover:bg-[#B02462] text-white transition-colors duration-300'>
                   Start Shopping
                   <ArrowRight className='w-5 h-5 ml-2' />
                 </Button>

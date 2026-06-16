@@ -56,7 +56,7 @@ const nextConfig = {
     // CHANGE: Drop avif for now. AVIF encoding is CPU-heavy and will spike
     // memory on your small Droplet, contributing to OOM kills.
     // Re-enable it when you move to a 2GB+ Droplet.
-    formats: ["image/webp"],
+    formats: ["image/avif", "image/webp"],
     // formats: ["image/avif", "image/webp"], // re-enable on bigger server
 
     // 30 days is great — keep this. Next.js caches the optimized image on

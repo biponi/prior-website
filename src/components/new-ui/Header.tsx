@@ -186,19 +186,19 @@ export default function Header() {
                     <CollapsibleTrigger asChild>
                       <button
                         className={cn(
-                          "flex-1 flex items-center justify-between border border-neutral-600 px-3 py-2.5 text-sm transition-all duration-200 hover:bg-neutral-50 text-left",
+                          "flex-1 flex items-center justify-between border border-[#CD2A75] px-3 py-2.5 text-sm transition-all duration-200 hover:bg-[#FDF5F8] text-left",
                           level === 0
-                            ? "font-medium text-neutral-800"
-                            : "text-neutral-700",
+                            ? "font-medium text-[#191C1F]"
+                            : "text-[#191C1F]",
                         )}>
                         <span className='flex-1 font-serif tracking-wide'>
                           {category.name}
                         </span>
-                        <div className='ml-2 p-0.5 border border-neutral-600  transition-transform duration-200'>
+                        <div className='ml-2 p-0.5 border border-[#CD2A75]  transition-transform duration-200'>
                           {isExpanded ? (
-                            <ChevronDown className='w-4 h-4 text-neutral-800' />
+                            <ChevronDown className='w-4 h-4 text-[#191C1F]' />
                           ) : (
-                            <ChevronRight className='w-4 h-4 text-neutral-800' />
+                            <ChevronRight className='w-4 h-4 text-[#191C1F]' />
                           )}
                         </div>
                       </button>
@@ -209,8 +209,8 @@ export default function Header() {
                       className={cn(
                         " border-l-2 pt-4 ml-3",
                         level === 0
-                          ? "border-neutral-500"
-                          : "border-neutral-300",
+                          ? "border-[#CD2A75]"
+                          : "border-[#CD2A75]/50",
                       )}>
                       <MobileCategoryTree
                         //@ts-ignore
@@ -225,15 +225,15 @@ export default function Header() {
                   href={`/category/${category.slug}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "flex items-center border border-neutral-600  py-2.5 text-sm transition-all duration-200 hover:bg-neutral-50",
+                    "flex items-center border border-[#CD2A75]  py-2.5 text-sm transition-all duration-200 hover:bg-[#FDF5F8]",
                     level === 0
-                      ? "font-medium text-neutral-800 px-3 "
-                      : "text-neutral-800 pr-3 ml-[30px] mb-2",
+                      ? "font-medium text-[#191C1F] px-3 "
+                      : "text-[#191C1F] pr-3 ml-[30px] mb-2",
                     isAllCollection && "font-semibold ",
                   )}>
                   <span className='flex-1 font-serif tracking-wide uppercase'>
                     {level > 0 && (
-                      <LineDotRightHorizontal className='w-6 text-neutral-500 inline-block ml-[-30px] mr-2' />
+                      <LineDotRightHorizontal className='w-6 text-[#A3A3A3] inline-block ml-[-30px] mr-2' />
                     )}{" "}
                     {isAllCollection ? "All" : category.name}
                   </span>
@@ -271,31 +271,31 @@ export default function Header() {
                     <CollapsibleTrigger asChild>
                       <button
                         className={cn(
-                          "flex-1 flex items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-all duration-200 hover:bg-neutral-50 text-left",
+                          "flex-1 flex items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-all duration-200 hover:bg-[#FDF5F8] text-left",
                           level === 0
-                            ? "font-semibold text-neutral-900"
-                            : "font-medium text-neutral-700",
+                            ? "font-semibold text-[#191C1F]"
+                            : "font-medium text-[#191C1F]",
                         )}>
                         <span className='flex-1 font-serif tracking-wide'>
                           {category.name}
                         </span>
-                        <div className='ml-2 p-0.5 hover:bg-neutral-100 rounded-md transition-all duration-200'>
+                        <div className='ml-2 p-0.5 hover:bg-[#FDF5F8] rounded-md transition-all duration-200'>
                           {isExpanded ? (
-                            <ChevronDown className='w-4 h-4 text-neutral-700' />
+                            <ChevronDown className='w-4 h-4 text-[#191C1F]' />
                           ) : (
-                            <ChevronRight className='w-4 h-4 text-neutral-700' />
+                            <ChevronRight className='w-4 h-4 text-[#191C1F]' />
                           )}
                         </div>
                       </button>
                     </CollapsibleTrigger>
                   </div>
-                  <CollapsibleContent className='space-y-0.5 bg-gray-100'>
+                  <CollapsibleContent className='space-y-0.5 bg-[#FDF5F8]'>
                     <div
                       className={cn(
                         "ml-4  mt-1 space-y-0.5 ",
                         level === 0
-                          ? "border-l-2 border-neutral-400"
-                          : "border-l border-neutral-150",
+                          ? "border-l-2 border-[#CD2A75]/30"
+                          : "border-l border-[#CD2A75]/20",
                       )}>
                       <DesktopCategoryTree
                         //@ts-ignore
@@ -310,14 +310,14 @@ export default function Header() {
                   href={`/category/${category.slug}`}
                   onClick={() => setIsDesktopMenuOpen(false)}
                   className={cn(
-                    "flex items-center pr-3 py-2.5 text-sm transition-all duration-200 hover:bg-neutral-50",
+                    "flex items-center pr-3 py-2.5 text-sm transition-all duration-200 hover:bg-[#FDF5F8]",
                     level === 0
-                      ? "font-semibold text-neutral-900 pl-3"
-                      : "font-medium text-neutral-700",
+                      ? "font-semibold text-[#191C1F] pl-3"
+                      : "font-medium text-[#191C1F]",
                   )}>
                   <span className='flex-1 font-serif tracking-wide uppercase'>
                     {level > 0 && (
-                      <LineDotRightHorizontal className='w-5 text-neutral-400 inline-block' />
+                      <LineDotRightHorizontal className='w-5 text-[#A3A3A3] inline-block' />
                     )}{" "}
                     {isAllCollection ? "All" : category.name}
                   </span>
@@ -353,13 +353,13 @@ export default function Header() {
   };
 
   return (
-    <header className='bg-white border-b border-neutral-200 sticky top-0 z-50'>
+    <header className='bg-white border-b border-[#CD2A75]/20 sticky top-0 z-50'>
       <div className='max-w-[85rem] mx-auto px-4 sm:px-6'>
         <div className='flex items-center justify-between h-16'>
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className='md:hidden p-2 text-neutral-900 hover:text-neutral-700 transition-colors duration-300'
+            className='md:hidden p-2 text-[#191C1F] hover:text-[#A3A3A3] transition-colors duration-300'
             aria-label='Toggle mobile menu'>
             {isMobileMenuOpen ? (
               <X className='w-6 h-6' />
@@ -389,8 +389,8 @@ export default function Header() {
               className={cn(
                 "text-sm font-serif tracking-wide transition-colors duration-300",
                 isActive("/") && pathname === "/"
-                  ? "text-neutral-900"
-                  : "text-neutral-700 hover:text-neutral-900",
+                  ? "text-[#191C1F]"
+                  : "text-[#191C1F] hover:text-[#CD2A75]",
               )}>
               Home
             </Link>
@@ -402,8 +402,8 @@ export default function Header() {
                   className={cn(
                     "text-sm font-serif tracking-wide transition-colors duration-300 text-left flex items-center gap-1.5",
                     isActive("/collections")
-                      ? "text-neutral-900"
-                      : "text-neutral-700 hover:text-neutral-900",
+                      ? "text-[#191C1F]"
+                      : "text-[#191C1F] hover:text-[#CD2A75]",
                   )}>
                   All Products
                   <ChevronDown
@@ -416,11 +416,11 @@ export default function Header() {
               </PopoverTrigger>
               <PopoverContent
                 align='start'
-                className='w-96 p-0 max-h-[70vh] overflow-hidden border-neutral-200 shadow-xl'>
-                <div className='bg-gradient-to-b from-neutral-50 to-white p-4 border-b border-neutral-200'>
+                className='w-96 p-0 max-h-[70vh] overflow-hidden border-[#CD2A75]/20 shadow-xl'>
+                <div className='bg-gradient-to-b from-[#FDF5F8] to-white p-4 border-b border-[#CD2A75]/20'>
                   <div className='flex items-center gap-2'>
-                    <Package className='w-4 h-4 text-neutral-600' />
-                    <h3 className='text-sm font-semibold font-serif tracking-wide uppercase text-neutral-900'>
+                    <Package className='w-4 h-4 text-[#A3A3A3]' />
+                    <h3 className='text-sm font-semibold font-serif tracking-wide uppercase text-[#191C1F]'>
                       Shop by Category
                     </h3>
                   </div>
@@ -431,20 +431,20 @@ export default function Header() {
                     <Link
                       href='/collections'
                       onClick={() => setIsDesktopMenuOpen(false)}
-                      className='flex items-center gap-2 rounded px-3 py-3 mb-3 text-sm font-bold font-serif tracking-wide text-white bg-neutral-900 hover:bg-neutral-800 transition-all duration-200 shadow-sm'>
+                      className='flex items-center gap-2 rounded px-3 py-3 mb-3 text-sm font-bold font-serif tracking-wide text-white bg-[#CD2A75] hover:bg-[#B02462] transition-all duration-200 shadow-sm'>
                       <Grid3x3 className='w-4 h-4' />
                       <span className='flex-1'>All Collections</span>
                       <SquareArrowOutUpRight className='w-4 h-4' />
                     </Link>
 
-                    <div className='h-px bg-neutral-200 mb-3' />
+                    <div className='h-px bg-[#CD2A75]/20 mb-3' />
 
                     {categories.length > 0 ? (
                       <DesktopCategoryTree categories={categories} />
                     ) : (
-                      <div className='py-12 text-center text-neutral-500'>
-                        <div className='w-12 h-12 mx-auto mb-3 rounded-full bg-neutral-100 flex items-center justify-center'>
-                          <Package className='w-6 h-6 text-neutral-400' />
+                      <div className='py-12 text-center text-[#A3A3A3]'>
+                        <div className='w-12 h-12 mx-auto mb-3 rounded-full bg-[#FDF5F8] flex items-center justify-center'>
+                          <Package className='w-6 h-6 text-[#A3A3A3]' />
                         </div>
                         <p className='text-sm font-serif'>
                           Loading categories...
@@ -460,8 +460,8 @@ export default function Header() {
               className={cn(
                 "text-sm font-serif tracking-wide transition-colors duration-300",
                 isActive("/deals")
-                  ? "text-neutral-900"
-                  : "text-neutral-700 hover:text-neutral-900",
+                  ? "text-[#191C1F]"
+                  : "text-[#191C1F] hover:text-[#CD2A75]",
               )}>
               New Arrivals
             </Link>
@@ -470,8 +470,8 @@ export default function Header() {
               className={cn(
                 "text-sm font-serif tracking-wide transition-colors duration-300",
                 isActive("/store-location")
-                  ? "text-neutral-900"
-                  : "text-neutral-700 hover:text-neutral-900",
+                  ? "text-[#191C1F]"
+                  : "text-[#191C1F] hover:text-[#CD2A75]",
               )}>
               Store Location
             </Link>
@@ -480,8 +480,8 @@ export default function Header() {
               className={cn(
                 "text-sm font-serif tracking-wide transition-colors duration-300",
                 isActive("/about")
-                  ? "text-neutral-900"
-                  : "text-neutral-700 hover:text-neutral-900",
+                  ? "text-[#191C1F]"
+                  : "text-[#191C1F] hover:text-[#CD2A75]",
               )}>
               About
             </Link>
@@ -490,8 +490,8 @@ export default function Header() {
               className={cn(
                 "text-sm font-serif tracking-wide transition-colors duration-300",
                 isActive("/contact-us")
-                  ? "text-neutral-900"
-                  : "text-neutral-700 hover:text-neutral-900",
+                  ? "text-[#191C1F]"
+                  : "text-[#191C1F] hover:text-[#CD2A75]",
               )}>
               Contact
             </Link>
@@ -508,8 +508,8 @@ export default function Header() {
             <div className='hidden md:block'>
               {isAuthenticated && user ? (
                 <div className='relative group'>
-                  <button className='flex items-center gap-3 p-3 text-neutral-700 hover:text-neutral-900 transition-colors duration-300 border border-transparent hover:border-neutral-200 rounded-none'>
-                    <div className='w-8 h-9 bg-neutral-200 rounded-none flex items-center justify-center'>
+                  <button className='flex items-center gap-3 p-3 text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-300 border border-transparent hover:border-[#CD2A75]/20 rounded-none'>
+                    <div className='w-8 h-9 bg-[#FDF5F8] rounded-none flex items-center justify-center'>
                       {user.profilePicture ? (
                         <Image
                           src={user.profilePicture}
@@ -519,36 +519,36 @@ export default function Header() {
                           className='w-8 h-8 rounded-none object-cover'
                         />
                       ) : (
-                        <User className='w-4 h-4 text-neutral-600' />
+                        <User className='w-4 h-4 text-[#A3A3A3]' />
                       )}
                     </div>
-                    <span className='text-sm font-serif text-neutral-900'>
+                    <span className='text-sm font-serif text-[#191C1F]'>
                       {user.name}
                     </span>
                   </button>
 
                   {/* User Dropdown Menu */}
-                  <div className='absolute right-0 mt-2 w-48 bg-white rounded-none border border-neutral-200 shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50'>
+                  <div className='absolute right-0 mt-2 w-48 bg-white rounded-none border border-[#CD2A75]/20 shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50'>
                     <div className='py-2'>
                       <Link
                         href='/account/profile'
-                        className='block px-4 py-3 text-sm font-serif text-neutral-700 hover:bg-neutral-50 transition-colors duration-200'>
+                        className='block px-4 py-3 text-sm font-serif text-[#191C1F] hover:bg-[#FDF5F8] transition-colors duration-200'>
                         Profile
                       </Link>
                       <Link
                         href='/account/orders'
-                        className='block px-4 py-3 text-sm font-serif text-neutral-700 hover:bg-neutral-50 transition-colors duration-200'>
+                        className='block px-4 py-3 text-sm font-serif text-[#191C1F] hover:bg-[#FDF5F8] transition-colors duration-200'>
                         My Orders
                       </Link>
                       <Link
                         href='/account/wishlist'
-                        className='block px-4 py-3 text-sm font-serif text-neutral-700 hover:bg-neutral-50 transition-colors duration-200'>
+                        className='block px-4 py-3 text-sm font-serif text-[#191C1F] hover:bg-[#FDF5F8] transition-colors duration-200'>
                         Wishlist
                       </Link>
                       <hr className='my-1' />
                       <button
                         onClick={handleLogout}
-                        className='w-full text-left px-4 py-3 text-sm font-serif text-neutral-700 hover:bg-neutral-50 transition-colors duration-200 flex items-center'>
+                        className='w-full text-left px-4 py-3 text-sm font-serif text-[#191C1F] hover:bg-[#FDF5F8] transition-colors duration-200 flex items-center'>
                         <LogOut className='w-4 h-4 mr-2' />
                         Logout
                       </button>
@@ -558,7 +558,7 @@ export default function Header() {
               ) : (
                 <Link
                   href='/login'
-                  className='text-sm font-serif tracking-wide text-neutral-900 hover:text-neutral-700 px-3 py-2 transition-colors duration-300 flex items-center gap-2'>
+                  className='text-sm font-serif tracking-wide text-[#191C1F] hover:text-[#A3A3A3] px-3 py-2 transition-colors duration-300 flex items-center gap-2'>
                   <User className='w-4 h-4' />
                   <span>Login</span>
                 </Link>
@@ -570,10 +570,10 @@ export default function Header() {
             {/* Shopping Cart */}
             <Link
               href='/cart'
-              className='relative p-2 text-neutral-900 hover:text-neutral-700 transition-colors duration-300'>
+              className='relative p-2 text-[#191C1F] hover:text-[#A3A3A3] transition-colors duration-300'>
               <ShoppingCart className='w-6 h-6' />
               {totalItems > 0 && (
-                <span className='absolute -top-1 -right-1 bg-neutral-900 text-white text-xs rounded-none w-5 h-5 flex items-center justify-center font-serif'>
+                <span className='absolute -top-1 -right-1 bg-[#CD2A75] text-white text-xs rounded-none w-5 h-5 flex items-center justify-center font-serif'>
                   {totalItems > 99 ? "99+" : totalItems}
                 </span>
               )}
@@ -584,8 +584,8 @@ export default function Header() {
         {/* Mobile Menu Sheet */}
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetContent side='left' className='w-full sm:w-80 p-0'>
-            <SheetHeader className='p-6 border-b border-neutral-200'>
-              <SheetTitle className='text-2xl font-serif font-bold tracking-wide text-neutral-900 flex justify-start items-center'>
+            <SheetHeader className='p-6 border-b border-[#CD2A75]/20'>
+              <SheetTitle className='text-2xl font-serif font-bold tracking-wide text-[#191C1F] flex justify-start items-center'>
                 <Image
                   alt='Your Company'
                   src={LogoImg}
@@ -605,36 +605,36 @@ export default function Header() {
                   <Link
                     href='/'
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className='block font-serif text-base tracking-wide text-neutral-700 hover:text-neutral-900 transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-neutral-50'>
+                    className='block font-serif text-base tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-[#FDF5F8]'>
                     Home
                   </Link>
 
                   <Link
                     href='/deals'
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className='block font-serif text-base tracking-wide text-neutral-700 hover:text-neutral-900 transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-neutral-50'>
+                    className='block font-serif text-base tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-[#FDF5F8]'>
                     New Arrivals
                   </Link>
                   <Link
                     href='/store-location'
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className='block font-serif text-base tracking-wide text-neutral-700 hover:text-neutral-900 transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-neutral-50'>
+                    className='block font-serif text-base tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-[#FDF5F8]'>
                     Store Location
                   </Link>
                   <Link
                     href='/about'
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className='block font-serif text-base tracking-wide text-neutral-700 hover:text-neutral-900 transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-neutral-50'>
+                    className='block font-serif text-base tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-[#FDF5F8]'>
                     About
                   </Link>
                   <Link
                     href='/contact-us'
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className='block font-serif text-base tracking-wide text-neutral-700 hover:text-neutral-900 transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-neutral-50'>
+                    className='block font-serif text-base tracking-wide text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 py-2.5 px-3 rounded-lg hover:bg-[#FDF5F8]'>
                     Contact
                   </Link>
 
-                  <div className='border-t border-neutral-200 pt-2 mt-2'>
+                  <div className='border-t border-[#CD2A75]/20 pt-2 mt-2'>
                     {/* All Collections Link at Top */}
                     <Button
                       variant={"ghost"}
@@ -646,11 +646,11 @@ export default function Header() {
 
                     {/* Categories */}
                     {categories.length > 0 && (
-                      <div className='border-t border-neutral-200 pt-2 mt-2'>
+                      <div className='border-t border-[#CD2A75]/20 pt-2 mt-2'>
                         <Link
                           href='/collections'
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className='flex text-[15px] border border-neutral-600 mb-2 px-3 font-medium items-center text-neutral-800  py-2.5 transition-all duration-200 hover:bg-neutral-50'>
+                          className='flex text-[15px] border border-[#CD2A75] mb-2 px-3 font-medium items-center text-[#191C1F]  py-2.5 transition-all duration-200 hover:bg-[#FDF5F8]'>
                           <span className='flex-1 font-serif tracking-wide'>
                             ALL
                           </span>
@@ -663,31 +663,31 @@ export default function Header() {
                 </div>
 
                 {/* User Actions */}
-                <div className='border-t border-neutral-200 pt-4'>
+                <div className='border-t border-[#CD2A75]/20 pt-4'>
                   {isAuthenticated && user ? (
                     <div className='space-y-3'>
-                      <div className='flex items-center gap-3 px-3 py-2 text-neutral-900'>
+                      <div className='flex items-center gap-3 px-3 py-2 text-[#191C1F]'>
                         <User className='w-5 h-5' />
                         <span className='font-serif'>{user.name}</span>
                       </div>
                       <Link
                         href='/account/profile'
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-neutral-900 transition-colors duration-200 rounded-lg hover:bg-neutral-50'>
+                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 rounded-lg hover:bg-[#FDF5F8]'>
                         <User className='w-4 h-4' />
                         Profile
                       </Link>
                       <Link
                         href='/account/orders'
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-neutral-900 transition-colors duration-200 rounded-lg hover:bg-neutral-50'>
+                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 rounded-lg hover:bg-[#FDF5F8]'>
                         <Package className='w-4 h-4' />
                         My Orders
                       </Link>
                       <Link
                         href='/account/wishlist'
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-neutral-900 transition-colors duration-200 rounded-lg hover:bg-neutral-50'>
+                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 rounded-lg hover:bg-[#FDF5F8]'>
                         <Heart className='w-4 h-4' />
                         Wishlist
                       </Link>
@@ -702,7 +702,7 @@ export default function Header() {
                     <Link
                       href='/login'
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-neutral-900 transition-colors duration-200 rounded-lg hover:bg-neutral-50'>
+                      className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 rounded-lg hover:bg-[#FDF5F8]'>
                       <User className='w-5 h-5' />
                       Login / Register
                     </Link>
