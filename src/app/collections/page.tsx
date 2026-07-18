@@ -6,7 +6,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
-  SlidersHorizontal,
   ArrowUpDown,
   PackageOpen,
   ChevronDown,
@@ -298,48 +297,6 @@ export default function CollectionsPage() {
                       </>
                     )}
                   </AnimatePresence>
-                </div>
-
-                {/* View Toggle */}
-                <div className='items-center gap-0.5 bg-neutral-100 rounded-lg p-0.5 hidden md:flex'>
-                  {(["grid", "list"] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      onClick={() => setViewMode(mode)}
-                      className={cn(
-                        "p-2 rounded-md transition-all duration-200",
-                        viewMode === mode
-                          ? "bg-white text-neutral-900 shadow-sm"
-                          : "text-neutral-400 hover:text-neutral-600",
-                      )}
-                      aria-label={`${mode} view`}>
-                      {mode === "grid" ? (
-                        <svg
-                          className='w-4 h-4'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          stroke='currentColor'
-                          strokeWidth={2}>
-                          <rect x='3' y='3' width='7' height='7' rx='1' />
-                          <rect x='14' y='3' width='7' height='7' rx='1' />
-                          <rect x='3' y='14' width='7' height='7' rx='1' />
-                          <rect x='14' y='14' width='7' height='7' rx='1' />
-                        </svg>
-                      ) : (
-                        <svg
-                          className='w-4 h-4'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          stroke='currentColor'
-                          strokeWidth={2}>
-                          <path
-                            d='M4 6h16M4 12h16M4 18h16'
-                            strokeLinecap='round'
-                          />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
                 </div>
               </div>
             </div>
