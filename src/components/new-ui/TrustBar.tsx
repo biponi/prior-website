@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { Truck, ShieldCheck, RotateCcw, Headphones, CreditCard, Gift } from "lucide-react";
+import {
+  Truck,
+  ShieldCheck,
+  RotateCcw,
+  Headphones,
+  CreditCard,
+  Gift,
+} from "lucide-react";
 
 interface TrustItem {
   icon: React.ReactNode;
@@ -12,23 +19,23 @@ interface TrustItem {
 const trustItems: TrustItem[] = [
   {
     icon: <Truck className='w-5 h-5' strokeWidth={1.5} />,
-    title: "Free Delivery",
-    subtitle: "On orders over ৳1000",
+    title: "Nationwide Delivery",
+    subtitle: "Fast delivery across Bangladesh",
   },
   {
     icon: <ShieldCheck className='w-5 h-5' strokeWidth={1.5} />,
-    title: "100% Authentic",
-    subtitle: "Genuine products only",
+    title: "100% Authentic Products",
+    subtitle: "Trusted brands & genuine quality",
   },
   {
     icon: <RotateCcw className='w-5 h-5' strokeWidth={1.5} />,
-    title: "7-Day Returns",
-    subtitle: "Hassle-free refunds",
+    title: "Cash on Delivery",
+    subtitle: "Available inside Dhaka city",
   },
   {
     icon: <Headphones className='w-5 h-5' strokeWidth={1.5} />,
-    title: "24/7 Support",
-    subtitle: "Always here to help",
+    title: "Customer Support",
+    subtitle: "Quick help via Facebook Messenger",
   },
 ];
 

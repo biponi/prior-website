@@ -11,6 +11,7 @@ import { CategoryShowcase as CategoryProps } from "@/hooks/useCategories";
 import LuxuryOutletSection from "@/components/new-ui/LuxuryOutletSection";
 import TrustBar from "@/components/new-ui/TrustBar";
 import EditorialFeature from "@/components/new-ui/EditorialFeature";
+import CampaignInfo from "@/components/new-ui/CampaignInfo";
 import PromoBanner from "@/components/new-ui/PromoBanner";
 import Testimonials from "@/components/new-ui/Testimonials";
 import Newsletter from "@/components/new-ui/Newsletter";
@@ -33,6 +34,9 @@ const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
 
       {/* Category Showcase */}
       <CategoryShowcase categories={categories} loading={false} />
+
+      {/* Campaign Info */}
+      <CampaignInfo />
 
       {/* New Arrivals */}
       <ProductGrid

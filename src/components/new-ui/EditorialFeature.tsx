@@ -27,9 +27,9 @@ const EditorialFeature: React.FC = () => {
 
             {/* Description */}
             <p className='text-sm sm:text-base md:text-lg text-neutral-500 leading-relaxed max-w-lg'>
-              We understand that your baby deserves nothing but the best. That&apos;s
-              why every product at Prior is handpicked, tested, and approved by
-              real parents.
+              We understand that your baby deserves nothing but the best.
+              That&apos;s why every product at Luxury Online Mart is handpicked,
+              tested, and approved by real parents.
             </p>
 
             {/* Feature Grid */}

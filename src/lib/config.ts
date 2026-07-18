@@ -62,4 +62,9 @@ export const config = {
     autoApply: () => `${baseUrl}/coupon/auto-apply`,
     details: (code: string) => `${baseUrl}/coupon/global/${code}`,
   },
+  newsletter: {
+    subscribe: () => `${baseUrl}/newsletter/subscribe`,
+    unsubscribe: () => `${baseUrl}/newsletter/unsubscribe`,
+    preference: (token: string) => `${baseUrl}/newsletter/preference/${token}`,
+  },
 };

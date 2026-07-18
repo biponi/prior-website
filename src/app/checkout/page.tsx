@@ -810,13 +810,13 @@ const CheckoutPage = () => {
       <main className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10'>
         <div className='flex flex-col lg:flex-row gap-6 lg:gap-8'>
           {/* Left - Forms */}
-          <div className='flex-1 order-2 lg:order-1'>{renderLeft()}</div>
+          <div className='flex-1 '>{renderLeft()}</div>
 
           {/* Divider */}
           <div className='hidden lg:block shrink-0 w-px bg-neutral-200' />
 
           {/* Right - Order Summary */}
-          <div className='w-full lg:w-[40%] order-1 lg:order-2'>
+          <div className='w-full lg:w-[40%] lg:order-2'>
             <div className='lg:sticky lg:top-6'>
               <motion.div
                 initial={{ opacity: 0, y: 8 }}

@@ -13,31 +13,31 @@ const PromoBanner: React.FC = () => {
             <div className='inline-flex items-center gap-2 bg-[#CD2A75]/20 border border-[#CD2A75]/30 rounded-full px-3 py-1 sm:px-4 sm:py-1.5'>
               <span className='w-1.5 h-1.5 rounded-full bg-[#CD2A75] animate-pulse' />
               <span className='text-[10px] sm:text-xs font-medium tracking-[0.15em] uppercase text-[#FFB8D9]'>
-                Limited Time Offer
+                Just Dropped
               </span>
             </div>
 
             <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif tracking-wide text-white leading-[1.15]'>
-              Flat <span className='text-[#CD2A75]'>30% Off</span>
+              Discover Our
               <br />
-              New Arrivals
+              <span className='text-[#CD2A75]'>New Collection</span>
             </h2>
 
             <p className='text-sm sm:text-base text-neutral-400 max-w-md mx-auto md:mx-0 leading-relaxed'>
-              Refresh your little one&apos;s wardrobe with our newest collection.
-              Premium quality, unmatched comfort — now at unbeatable prices.
+              Thoughtfully designed kids&apos; wear crafted from premium fabrics.
+              Explore styles that blend comfort, durability, and timeless elegance for every occasion.
             </p>
 
             <div className='flex flex-col sm:flex-row gap-3 justify-center md:justify-start pt-2'>
               <Link
                 href='/collections?sort=newest'
                 className='inline-flex items-center justify-center h-11 sm:h-12 px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-[0.12em] uppercase bg-[#CD2A75] hover:bg-[#B02462] text-white transition-colors duration-300 rounded-full'>
-                Shop New Arrivals
+                Explore New Arrivals
               </Link>
               <Link
                 href='/collections?sort=popular'
                 className='inline-flex items-center justify-center h-11 sm:h-12 px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-[0.12em] uppercase bg-transparent hover:bg-white/10 text-white border border-white/30 hover:border-white/60 transition-all duration-300 rounded-full'>
-                View Bestsellers
+                Shop Bestsellers
               </Link>
             </div>
           </div>
@@ -45,10 +45,10 @@ const PromoBanner: React.FC = () => {
           {/* Right: Stats Grid */}
           <div className='grid grid-cols-2 gap-3 sm:gap-4'>
             {[
-              { value: "30%", label: "Discount", color: "bg-[#CD2A75]" },
-              { value: "200+", label: "New Products", color: "bg-white" },
+              { value: "200+", label: "New Styles", color: "bg-[#CD2A75]" },
+              { value: "Premium", label: "Fabrics", color: "bg-white" },
               { value: "48hr", label: "Fast Delivery", color: "bg-white" },
-              { value: "100%", label: "Quality assured", color: "bg-[#CD2A75]" },
+              { value: "100%", label: "Quality Assured", color: "bg-[#CD2A75]" },
             ].map((item, i) => (
               <div
                 key={i}
