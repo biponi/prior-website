@@ -684,13 +684,7 @@ export default function EditorialHeader() {
                         <Package className='w-4 h-4' />
                         My Orders
                       </Link>
-                      <Link
-                        href='/account/wishlist'
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-neutral-900 transition-colors duration-200 rounded-lg hover:bg-neutral-50'>
-                        <Heart className='w-4 h-4' />
-                        Wishlist
-                      </Link>
+
                       <button
                         onClick={handleLogout}
                         className='w-full flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-red-600 transition-colors duration-200 rounded-lg hover:bg-red-50'>

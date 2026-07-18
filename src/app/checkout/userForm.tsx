@@ -12,12 +12,7 @@ import {
 import { BDDistrictList, BDDivisions } from "@/utils/content";
 import { ChangeEvent, useState } from "react";
 import { UserFormData } from "./page";
-
-const defaultShippingAddress = {
-  division: {},
-  district: {},
-  address: "",
-};
+import { User } from "lucide-react";
 
 interface IProps {
   formData: UserFormData;
@@ -34,9 +29,15 @@ const UserInformation: React.FC<IProps> = ({
 }) => {
   const [divisionQuery, setDivisionQuery] = useState("");
   const [districtQuery, setDistrictQuery] = useState("");
-  const [shippingAddress, setShippingAddress] = useState(
-    defaultShippingAddress,
-  );
+  const [shippingAddress, setShippingAddress] = useState<{
+    division: any;
+    district: any;
+    address: string;
+  }>({
+    division: {},
+    district: {},
+    address: "",
+  });
 
   const handleShippingDivChange = (id: string, name: string) => {
     if (name === "division") {
@@ -73,83 +74,92 @@ const UserInformation: React.FC<IProps> = ({
     }
   };
 
-  const renderFormView = (
-    label: string,
-    type: string,
-    id: string,
-    placeholder: string,
-    value: any,
-  ) => {
-    return (
-      <div className='grid w-full  items-center gap-1.5'>
-        <Label
-          htmlFor={id}
-          className='font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
-          {label}
-        </Label>
-        <Input
-          name={id}
-          type={type}
-          id={id}
-          placeholder={placeholder}
-          value={value}
-          onChange={handleInputChange}
-          className='rounded-none border-[#CD2A75] font-serif tracking-wide focus:border-[#CD2A75] focus:ring-1 focus:ring-[#CD2A75]'
-        />
-      </div>
-    );
-  };
+  const inputClass =
+    "rounded-xl border-neutral-200 bg-white text-sm placeholder:text-neutral-400 focus:ring-1 focus:ring-neutral-200 focus:border-neutral-300 transition-all duration-200 h-11";
+
   return (
-    <Card className='rounded-none border-[#CD2A75]'>
-      <CardHeader>
-        <CardTitle className='text-xl font-serif tracking-wide text-[#CD2A75]'>
-          Personal Information
+    <Card className="rounded-2xl border-neutral-200">
+      <CardHeader className="pb-3">
+        <CardTitle className="flex items-center font-semibold text-neutral-900 text-base">
+          <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center mr-2.5">
+            <User className="h-4 w-4 text-neutral-600" />
+          </div>
+          Shipping Information
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        {renderFormView(
-          "Name",
-          "text",
-          "name",
-          "Enter Your Name",
-          formData["name"],
-        )}
-        <br />
-        {renderFormView(
-          "Phone Number",
-          "text",
-          "mobileNumber",
-          "Enter Your Mobile Number",
-          formData["mobileNumber"],
-        )}
-        <br />
-        {renderFormView(
-          "Email",
-          "email",
-          "email",
-          "Enter Your Email",
-          formData["email"],
-        )}
-        <br />
-        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-3'>
-          <div>
+      <CardContent className="space-y-4">
+        {/* Name */}
+        <div className="space-y-1.5">
+          <Label htmlFor="name" className="text-xs font-medium text-neutral-600">
+            Full Name
+          </Label>
+          <Input
+            name="name"
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+            value={formData["name"]}
+            onChange={handleInputChange}
+            className={inputClass}
+          />
+        </div>
+
+        {/* Phone */}
+        <div className="space-y-1.5">
+          <Label
+            htmlFor="mobileNumber"
+            className="text-xs font-medium text-neutral-600">
+            Phone Number
+          </Label>
+          <Input
+            name="mobileNumber"
+            type="text"
+            id="mobileNumber"
+            placeholder="01XXXXXXXXX"
+            value={formData["mobileNumber"]}
+            onChange={handleInputChange}
+            className={inputClass}
+          />
+        </div>
+
+        {/* Email */}
+        <div className="space-y-1.5">
+          <Label
+            htmlFor="email"
+            className="text-xs font-medium text-neutral-600">
+            Email <span className="text-neutral-400">(optional)</span>
+          </Label>
+          <Input
+            name="email"
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            value={formData["email"]}
+            onChange={handleInputChange}
+            className={inputClass}
+          />
+        </div>
+
+        {/* District & Area */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-1.5">
             <Label
-              htmlFor={"division"}
-              className='font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
-              District
+              htmlFor="division"
+              className="text-xs font-medium text-neutral-600">
+              Division
             </Label>
             <Select
               onValueChange={(value: string) => {
                 handleShippingDivChange(value, "division");
               }}>
-              <SelectTrigger className='w-full rounded-none border-[#CD2A75] font-serif tracking-wide'>
-                <SelectValue placeholder='District' />
+              <SelectTrigger className={inputClass}>
+                <SelectValue placeholder="Select division" />
               </SelectTrigger>
               <SelectContent>
                 <Input
-                  type='text'
-                  className='mb-2 rounded-none border-[#CD2A75] font-serif tracking-wide'
-                  placeholder='search'
+                  type="text"
+                  className="mb-2 rounded-xl border-neutral-200 text-sm"
+                  placeholder="Search..."
                   value={divisionQuery}
                   onChange={(e) => setDivisionQuery(e.target.value)}
                 />
@@ -160,32 +170,33 @@ const UserInformation: React.FC<IProps> = ({
                       .includes(divisionQuery.toLowerCase()) ||
                     division.bn_name.includes(divisionQuery),
                 ).map((division, index: number) => (
-                  <SelectItem
-                    key={index}
-                    value={division?.id}>{`${division?.name}`}</SelectItem>
+                  <SelectItem key={index} value={division?.id}>
+                    {division?.name}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          <div>
+
+          <div className="space-y-1.5">
             <Label
-              htmlFor={"district"}
-              className='font-serif tracking-[0.2em] uppercase text-[#191C1F]'>
-              Area
+              htmlFor="district"
+              className="text-xs font-medium text-neutral-600">
+              District
             </Label>
-            {!!shippingAddress?.division && (
+            {!!shippingAddress?.division ? (
               <Select
                 onValueChange={(value: string) => {
                   handleShippingDivChange(value, "district");
                 }}>
-                <SelectTrigger className='w-full rounded-none border-[#CD2A75] font-serif tracking-wide'>
-                  <SelectValue placeholder='Area' />
+                <SelectTrigger className={inputClass}>
+                  <SelectValue placeholder="Select district" />
                 </SelectTrigger>
                 <SelectContent>
                   <Input
-                    type='text'
-                    className='mb-2 rounded-none border-[#CD2A75] font-serif tracking-wide'
-                    placeholder='search'
+                    type="text"
+                    className="mb-2 rounded-xl border-neutral-200 text-sm"
+                    placeholder="Search..."
                     value={districtQuery}
                     onChange={(e) => setDistrictQuery(e.target.value)}
                   />
@@ -199,31 +210,39 @@ const UserInformation: React.FC<IProps> = ({
                         .includes(districtQuery.toLowerCase()) ||
                         district.bn_name.includes(districtQuery)),
                   ).map((division, index: number) => (
-                    <SelectItem
-                      key={index}
-                      value={division?.id}>{`${division?.name}`}</SelectItem>
+                    <SelectItem key={index} value={division?.id}>
+                      {division?.name}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+            ) : (
+              <Input
+                disabled
+                placeholder="Select division first"
+                className={inputClass}
+              />
             )}
           </div>
         </div>
-        <br />
-        {renderFormView(
-          "Address",
-          "text",
-          "address",
-          "Enter Your Address",
-          formData["address"],
-        )}
-        <br />
-        {/* {renderFormView(
-          "Postal Code",
-          "text",
-          "postalCode",
-          "Enter Postal Code",
-          formData["postalCode"]
-        )} */}
+
+        {/* Address */}
+        <div className="space-y-1.5">
+          <Label
+            htmlFor="address"
+            className="text-xs font-medium text-neutral-600">
+            Street Address
+          </Label>
+          <Input
+            name="address"
+            type="text"
+            id="address"
+            placeholder="House No, Road, Area"
+            value={formData["address"]}
+            onChange={handleInputChange}
+            className={inputClass}
+          />
+        </div>
       </CardContent>
     </Card>
   );

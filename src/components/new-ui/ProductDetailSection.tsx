@@ -198,10 +198,17 @@ function GalleryModal({
   }, [onClose, goNext, goPrev]);
 
   useEffect(() => {
-    const original = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    // Use a wrapper div approach instead of body overflow to avoid
+    // breaking mobile scroll restoration on back navigation
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
     return () => {
-      document.body.style.overflow = original;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
     };
   }, []);
 
@@ -399,7 +406,7 @@ function ImageGallery({
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "aspect-square bg-[#FDF5F8] rounded-sm overflow-hidden relative border border-[#CD2A75] select-none",
+            "aspect-square bg-[#FDF5F8] rounded-xl overflow-hidden relative shadow-lg shadow-black/10 select-none",
             !isMobile && "cursor-zoom-in",
             isMobile && "cursor-pointer",
           )}>
@@ -452,13 +459,6 @@ function ImageGallery({
               </Badge>
             </div>
           )}
-          {currentAttributeLabel && (
-            <div className='absolute top-4 right-4 z-10'>
-              <Badge className='bg-blue-600 text-white px-4 py-2 text-xs font-serif tracking-[0.15em] uppercase rounded-none border-0'>
-                {currentAttributeLabel}
-              </Badge>
-            </div>
-          )}
         </div>
 
         {/* Thumbnails */}
@@ -469,7 +469,7 @@ function ImageGallery({
                 key={index}
                 onClick={() => onImageSelect(index)}
                 className={cn(
-                  "gallery-thumb-btn flex-shrink-0 w-20 h-20 rounded-sm overflow-hidden border relative",
+                  "gallery-thumb-btn flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border relative",
                   selectedImageIndex === index
                     ? "border-[#CD2A75] opacity-100"
                     : "border-[#CD2A75] hover:border-[#B02462] opacity-70 hover:opacity-100",
@@ -691,7 +691,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
                   </h1>
                   <Badge
                     variant='secondary'
-                    className='bg-[#FDF5F8] text-[#191C1F] hover:bg-[#CD2A75] hover:text-white text-xs font-serif tracking-[0.2em] uppercase rounded-none border border-[#CD2A75]'>
+                    className='bg-[#CD2A75] text-white hover:bg-[#B02462] text-xs font-serif tracking-[0.2em] uppercase rounded-full px-4 py-1.5 border-0 shadow-sm shadow-[#CD2A75]/30'>
                     {product.categoryName}
                   </Badge>
                 </div>
@@ -804,7 +804,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
                   <button
                     onClick={() => handleQuantityChange(-1)}
                     disabled={pQuantity <= 1}
-                    className='p-3 border border-[#CD2A75] rounded-none hover:border-[#CD2A75] hover:bg-[#FDF5F8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300'>
+                    className='p-3 border border-[#CD2A75] rounded-xl hover:border-[#CD2A75] hover:bg-[#FDF5F8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300'>
                     <Minus className='w-4 h-4' />
                   </button>
                   <span className='text-lg font-serif w-12 text-center text-[#191C1F]'>
@@ -813,7 +813,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
                   <button
                     onClick={() => handleQuantityChange(1)}
                     disabled={pQuantity >= maxQuantity}
-                    className='p-3 border border-[#CD2A75] rounded-none hover:border-[#CD2A75] hover:bg-[#FDF5F8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300'>
+                    className='p-3 border border-[#CD2A75] rounded-xl hover:border-[#CD2A75] hover:bg-[#FDF5F8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300'>
                     <Plus className='w-4 h-4' />
                   </button>
                 </div>
@@ -825,7 +825,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
                 <Button
                   onClick={() => handleCartSelection(true)}
                   disabled={pQuantity < 1}
-                  className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-[#CD2A75] hover:bg-[#B02462] text-white rounded-none transition-colors duration-300'
+                  className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-[#CD2A75] hover:bg-[#B02462] text-white rounded-xl transition-colors duration-300'
                   size='lg'>
                   <Zap className='mr-2 h-5 w-5' />
                   Buy Now
@@ -834,7 +834,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
                   onClick={() => handleCartSelection()}
                   disabled={pQuantity < 1}
                   variant='outline'
-                  className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase border border-[#CD2A75] text-[#191C1F] hover:bg-[#CD2A75] hover:text-white rounded-none transition-all duration-300'
+                  className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase border border-[#CD2A75] text-[#191C1F] hover:bg-[#CD2A75] hover:text-white rounded-xl transition-all duration-300'
                   size='lg'>
                   <ShoppingCart className='mr-2 h-5 w-5' />
                   Add to Cart

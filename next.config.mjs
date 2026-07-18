@@ -2,16 +2,6 @@ import withBundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ─── Output: Standalone ───────────────────────────────────────────────────
-  // #1 fix for your OOM crashes and 502 errors on DigitalOcean.
-  // Cuts memory usage ~40%. After this change you MUST run the app with:
-  //   node .next/standalone/server.js
-  // NOT `next start` or `pm2 ... next start`
-  // Also copy public/ and .next/static/ into .next/standalone/ after build:
-  //   cp -r public .next/standalone/public
-  //   cp -r .next/static .next/standalone/.next/static
-  output: "standalone",
-
   // ─── Images ───────────────────────────────────────────────────────────────
   images: {
     remotePatterns: [

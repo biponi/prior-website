@@ -35,7 +35,6 @@ const LoginPage = () => {
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    // Validate identifier (email or mobile)
     if (!formData.identifier.trim()) {
       newErrors.identifier = "Email or mobile number is required";
     } else {
@@ -55,7 +54,6 @@ const LoginPage = () => {
       }
     }
 
-    // Validate password
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
@@ -75,7 +73,6 @@ const LoginPage = () => {
       [field]: value,
     }));
 
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({
         ...prev,
@@ -94,14 +91,13 @@ const LoginPage = () => {
 
       if (response.success) {
         Swal.fire({
-          title: "Login Successful! 🎉",
-          text: "Welcome back!",
+          title: "Welcome back!",
+          text: "Login successful",
           icon: "success",
           timer: 2000,
           showConfirmButton: false,
         });
 
-        // Redirect to intended page or dashboard
         const redirectTo =
           new URLSearchParams(window.location.search).get("redirect") ||
           "/account";
@@ -123,34 +119,38 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-neutral-50 py-12 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen flex items-center justify-center bg-gradient-to-b from-[#FDF5F8] to-white py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
         <div className='text-center'>
-          <h2 className='mt-6 text-3xl font-serif font-bold text-neutral-900 tracking-[0.2em] uppercase'>
-            Sign in to your account
+          <h2 className='mt-6 text-3xl font-bold text-neutral-900 tracking-tight'>
+            Welcome back
           </h2>
-          <p className='mt-2 text-sm font-serif text-neutral-600 tracking-wide'>
+          <p className='mt-2 text-sm text-neutral-600'>
             Or{" "}
             <Link
               href='/register'
-              className='font-medium text-primary hover:text-primary/80 transition-colors duration-300 underline underline-offset-4'>
+              className='font-medium text-[#CD2A75] hover:text-[#B02462] transition-colors underline underline-offset-4'>
               create a new account
             </Link>
           </p>
         </div>
 
-        <Card className="rounded-none border-neutral-200">
-          <CardHeader className="border-b border-neutral-200">
-            <CardTitle className='font-serif tracking-wide text-neutral-900'>Welcome Back</CardTitle>
-            <CardDescription className="font-serif tracking-wide text-neutral-600">
+        <Card className='rounded-xl border-neutral-200 shadow-lg shadow-neutral-200/50'>
+          <CardHeader className='border-b border-neutral-100 pb-5'>
+            <CardTitle className='text-lg font-semibold text-neutral-900 tracking-tight'>
+              Sign in to your account
+            </CardTitle>
+            <CardDescription className='text-sm text-neutral-500'>
               Enter your credentials to access your account
             </CardDescription>
           </CardHeader>
 
           <form onSubmit={handleSubmit}>
-            <CardContent className='space-y-4'>
+            <CardContent className='space-y-4 pt-6'>
               <div className='space-y-2'>
-                <Label htmlFor='identifier' className="font-serif tracking-[0.2em] uppercase text-neutral-700">Email or Mobile Number</Label>
+                <Label htmlFor='identifier' className='text-sm font-medium text-neutral-700'>
+                  Email or Mobile Number
+                </Label>
                 <Input
                   id='identifier'
                   type='text'
@@ -159,15 +159,17 @@ const LoginPage = () => {
                   onChange={(e) =>
                     handleInputChange("identifier", e.target.value)
                   }
-                  className={`rounded-none border-neutral-300 font-serif tracking-wide focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all duration-300 ${errors.identifier ? "border-red-500" : ""}`}
+                  className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${errors.identifier ? "border-red-500" : ""}`}
                 />
                 {errors.identifier && (
-                  <p className='text-sm font-serif text-red-600'>{errors.identifier}</p>
+                  <p className='text-sm text-red-500'>{errors.identifier}</p>
                 )}
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='password' className="font-serif tracking-[0.2em] uppercase text-neutral-700">Password</Label>
+                <Label htmlFor='password' className='text-sm font-medium text-neutral-700'>
+                  Password
+                </Label>
                 <div className='relative'>
                   <Input
                     id='password'
@@ -177,13 +179,13 @@ const LoginPage = () => {
                     onChange={(e) =>
                       handleInputChange("password", e.target.value)
                     }
-                    className={`rounded-none border-neutral-300 font-serif tracking-wide focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all duration-300 ${
+                    className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${
                       errors.password ? "border-red-500 pr-10" : "pr-10"
                     }`}
                   />
                   <button
                     type='button'
-                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors duration-300'
+                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors'
                     onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? (
                       <EyeOff className='h-4 w-4' />
@@ -193,7 +195,7 @@ const LoginPage = () => {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className='text-sm font-serif text-red-600'>{errors.password}</p>
+                  <p className='text-sm text-red-500'>{errors.password}</p>
                 )}
               </div>
 
@@ -208,23 +210,23 @@ const LoginPage = () => {
                   />
                   <Label
                     htmlFor='rememberMe'
-                    className='text-sm font-serif font-medium tracking-wide text-neutral-700 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
+                    className='text-sm font-medium text-neutral-600 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     Remember me
                   </Label>
                 </div>
 
                 <Link
                   href='/forgot-password'
-                  className='text-sm font-serif font-medium text-primary hover:text-primary/80 transition-colors duration-300 underline underline-offset-4'>
+                  className='text-sm font-medium text-[#CD2A75] hover:text-[#B02462] transition-colors underline underline-offset-4'>
                   Forgot password?
                 </Link>
               </div>
             </CardContent>
 
-            <CardFooter>
+            <CardFooter className='px-6 pb-6'>
               <Button
                 type='submit'
-                className='w-full font-serif tracking-wide rounded-none hover:bg-neutral-800 transition-colors duration-300'
+                className='w-full h-11 rounded-lg bg-[#CD2A75] hover:bg-[#B02462] text-white font-semibold tracking-wide transition-all duration-300 shadow-lg shadow-[#CD2A75]/20 hover:shadow-xl hover:shadow-[#CD2A75]/30'
                 disabled={authState.isLoading}>
                 {authState.isLoading ? (
                   <>
@@ -240,11 +242,11 @@ const LoginPage = () => {
         </Card>
 
         <div className='text-center'>
-          <p className='text-sm font-serif text-neutral-600 tracking-wide'>
-            {" Don't have an account?"}{" "}
+          <p className='text-sm text-neutral-600'>
+            {"Don't have an account?"}{" "}
             <Link
               href='/register'
-              className='font-medium text-primary hover:text-primary/80 transition-colors duration-300 underline underline-offset-4'>
+              className='font-medium text-[#CD2A75] hover:text-[#B02462] transition-colors underline underline-offset-4'>
               Sign up now
             </Link>
           </p>

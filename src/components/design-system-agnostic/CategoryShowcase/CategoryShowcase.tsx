@@ -147,21 +147,8 @@ const CategoryCard: React.FC<Category> = ({
         {/* Colored gradient overlay */}
         <div className={`absolute inset-0 ${cfg.overlay}`} />
 
-        {/* Badge */}
-        <div
-          className={`
-            absolute top-3 right-3 ${cfg.badgeBg} ${cfg.badgeText}
-            text-[10px] font-medium tracking-[0.05em]
-            px-2.5 py-1 rounded-full backdrop-blur-sm whitespace-nowrap
-          `}>
-          {badge}
-        </div>
-
         {/* Content */}
         <div className='absolute bottom-0 left-0 right-0 p-3.5 sm:p-4'>
-          <span className='block text-lg mb-1' aria-hidden='true'>
-            {icon}
-          </span>
           <p className='font-serif text-[15px] sm:text-base font-semibold text-white leading-tight mb-0.5'>
             {title}
           </p>
@@ -227,7 +214,7 @@ interface CategoryShowcaseProps {
 
 const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({
   categories = defaultCategories,
-  viewAllHref = "/collections",
+  viewAllHref = "/categories",
   loading = false,
 }) => {
   const displayCategories = categories.slice(0, 8);

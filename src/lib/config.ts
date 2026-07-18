@@ -8,14 +8,24 @@ export const config = {
     getCategories: () => `${baseUrl}/product/categories`,
     getProductsByCategory: (id: string) => `${baseUrl}/product/category/${id}`,
     getBestProducts: () => `${baseUrl}/product/best`,
+    getBestSellers: (page: number = 1, limit: number = 20) =>
+      `${baseUrl}/best-seller?page=${page}&limit=${limit}`,
+    getTopBestSellers: (limit: number = 10) =>
+      `${baseUrl}/best-seller/top?limit=${limit}`,
     getNewProducts: () => `${baseUrl}/product/latest`,
     getFilterData: () => `${baseUrl}/product/filterData`,
     searchProducts: () => `${baseUrl}/product/search`,
     getBulkProducts: () => `${baseUrl}/product/bulk`,
+    getDeals: (page: number = 1, limit: number = 20, source: string = "all") =>
+      `${baseUrl}/deals?page=${page}&limit=${limit}&source=${source}`,
+    getTopDeals: (limit: number = 10, source: string = "all") =>
+      `${baseUrl}/deals/top?limit=${limit}&source=${source}`,
   },
   order: {
     createOrder: () => `${baseUrl}/order/create`,
     getOrderDetails: (orderId: string) => `${baseUrl}/order/details/${orderId}`,
+    lookupByPhone: (phone: string, page: number = 1, limit: number = 20) =>
+      `${baseUrl}/order/lookup?phone=${encodeURIComponent(phone)}&page=${page}&limit=${limit}`,
   },
   customer: {
     orders: () => `${baseUrl}/customer/orders`,

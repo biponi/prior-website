@@ -684,13 +684,7 @@ export default function Header() {
                         <Package className='w-4 h-4' />
                         My Orders
                       </Link>
-                      <Link
-                        href='/account/wishlist'
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className='flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-[#191C1F] hover:text-[#CD2A75] transition-colors duration-200 rounded-lg hover:bg-[#FDF5F8]'>
-                        <Heart className='w-4 h-4' />
-                        Wishlist
-                      </Link>
+
                       <button
                         onClick={handleLogout}
                         className='w-full flex items-center gap-3 py-2.5 px-3 text-sm font-serif text-neutral-700 hover:text-red-600 transition-colors duration-200 rounded-lg hover:bg-red-50'>

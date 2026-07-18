@@ -15,7 +15,11 @@ const useProductFetch = (
   const [totalPages, setTotalPages] = useState(0);
   const [filterData, setFilterData] = useState(initialFilters);
   const [loading, setLoading] = useState(false);
-  const [distictFilterValues, setDistictFilterValues] = useState({
+  const [distictFilterValues, setDistictFilterValues] = useState<{
+    sizes: any[];
+    colors: any[];
+    categories: any[];
+  }>({
     sizes: [],
     colors: [],
     categories: [],

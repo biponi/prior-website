@@ -340,13 +340,7 @@ const Navbar = () => {
                         <ShoppingBag className='w-4 h-4' />
                         Orders
                       </Link>
-                      <Link
-                        href='/account/wishlist'
-                        onClick={() => setOpenSheet(false)}
-                        className='flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-900 transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-700'>
-                        <Heart className='w-4 h-4' />
-                        Wishlist
-                      </Link>
+                      
                       <Button
                         onClick={() => {
                           logout();

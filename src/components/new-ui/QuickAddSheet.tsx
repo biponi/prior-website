@@ -349,7 +349,7 @@ export default function QuickAddSheet({
                 <button
                   onClick={() => handleQuantityChange(-1)}
                   disabled={quantity <= 1}
-                  className='w-10 h-10 flex items-center justify-center border border-[#CD2A75] hover:border-[#CD2A75] disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
+                  className='w-10 h-10 flex items-center justify-center border border-[#CD2A75] rounded-xl hover:border-[#CD2A75] hover:bg-[#FDF5F8] disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
                   <Minus className='h-4 w-4 text-[#191C1F]' />
                 </button>
 
@@ -362,7 +362,7 @@ export default function QuickAddSheet({
                 <button
                   onClick={() => handleQuantityChange(1)}
                   disabled={quantity >= maxQuantity}
-                  className='w-10 h-10 flex items-center justify-center border border-[#CD2A75] hover:border-[#CD2A75] disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
+                  className='w-10 h-10 flex items-center justify-center border border-[#CD2A75] rounded-xl hover:border-[#CD2A75] hover:bg-[#FDF5F8] disabled:opacity-30 disabled:cursor-not-allowed transition-colors'>
                   <Plus className='h-4 w-4 text-[#191C1F]' />
                 </button>
               </div>
@@ -419,13 +419,13 @@ export default function QuickAddSheet({
             <Button
               onClick={() => handleAddToCart(true)}
               disabled={isOutOfStock}
-              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-[#CD2A75] hover:bg-[#B02462] text-white rounded-none transition-colors duration-300'
+              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-[#CD2A75] hover:bg-[#B02462] text-white rounded-xl transition-colors duration-300'
               size='lg'>
               <Zap className='mr-2 h-5 w-5' />
               Buy Now
             </Button>
             <Button
-              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-white border-[#CD2A75] text-[#191C1F] hover:bg-[#CD2A75] hover:text-white border-0 rounded-none transition-colors duration-300'
+              className='w-full h-14 text-sm font-serif tracking-[0.15em] uppercase bg-white border-[#CD2A75] text-[#191C1F] hover:bg-[#CD2A75] hover:text-white border-0 rounded-xl transition-colors duration-300'
               onClick={() => handleAddToCart()}
               disabled={isOutOfStock}>
               <ShoppingCart className='w-4 h-4 mr-3' />

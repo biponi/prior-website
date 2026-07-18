@@ -93,21 +93,18 @@ const RegisterPage = () => {
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    // Validate name
     if (!formData.name.trim()) {
       newErrors.name = "Full name is required";
     } else if (formData.name.trim().length < 2) {
       newErrors.name = "Name must be at least 2 characters";
     }
 
-    // Validate mobile number
     if (!formData.mobileNumber.trim()) {
       newErrors.mobileNumber = "Mobile number is required";
     } else if (!isValidBangladeshiPhoneNumber(formData.mobileNumber)) {
       newErrors.mobileNumber = "Please enter a valid Bangladeshi mobile number";
     }
 
-    // Validate email (optional but if provided, should be valid)
     if (formData.email && formData.email.trim()) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
@@ -115,21 +112,18 @@ const RegisterPage = () => {
       }
     }
 
-    // Validate password
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
     }
 
-    // Validate confirm password
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = "Please confirm your password";
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
-    // Validate terms agreement
     if (!formData.agreeToTerms) {
       newErrors.agreeToTerms = "You must agree to the terms and conditions";
     }
@@ -147,12 +141,10 @@ const RegisterPage = () => {
       [field]: value,
     }));
 
-    // Update password strength for password field
     if (field === "password" && typeof value === "string") {
       setPasswordStrength(validatePasswordStrength(value));
     }
 
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({
         ...prev,
@@ -171,14 +163,13 @@ const RegisterPage = () => {
 
       if (response.success) {
         Swal.fire({
-          title: "Registration Successful! 🎉",
+          title: "Registration Successful!",
           text: "Welcome to Prior! Your account has been created successfully.",
           icon: "success",
           timer: 3000,
           showConfirmButton: false,
         });
 
-        // Redirect to account dashboard
         router.push("/account");
       } else {
         Swal.fire({
@@ -197,49 +188,58 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen flex items-center justify-center bg-gradient-to-b from-[#FDF5F8] to-white py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
         <div className='text-center'>
-          <h2 className='mt-6 text-3xl font-extrabold text-gray-900'>
+          <h2 className='mt-6 text-3xl font-bold text-neutral-900 tracking-tight'>
             Create your account
           </h2>
-          <p className='mt-2 text-sm text-gray-600'>
+          <p className='mt-2 text-sm text-neutral-600'>
             Or{" "}
             <Link
               href='/login'
-              className='font-medium text-blue-600 hover:text-blue-500'>
+              className='font-medium text-[#CD2A75] hover:text-[#B02462] transition-colors underline underline-offset-4'>
               sign in to your existing account
             </Link>
           </p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Join Prior</CardTitle>
-            <CardDescription>
+        <Card className='rounded-xl border-neutral-200 shadow-lg shadow-neutral-200/50'>
+          <CardHeader className='border-b border-neutral-100 pb-5'>
+            <CardTitle className='text-lg font-semibold text-neutral-900 tracking-tight'>
+              Join Prior
+            </CardTitle>
+            <CardDescription className='text-sm text-neutral-500'>
               Create an account to start shopping and track your orders
             </CardDescription>
           </CardHeader>
 
           <form onSubmit={handleSubmit}>
-            <CardContent className='space-y-4'>
+            <CardContent className='space-y-4 pt-6'>
               <div className='space-y-2'>
-                <Label htmlFor='name'>Full Name *</Label>
+                <Label htmlFor='name' className='text-sm font-medium text-neutral-700'>
+                  Full Name <span className='text-[#CD2A75]'>*</span>
+                </Label>
                 <Input
                   id='name'
                   type='text'
                   placeholder='Enter your full name'
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  className={errors.name ? "border-red-500" : ""}
+                  className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${errors.name ? "border-red-500" : ""}`}
                 />
                 {errors.name && (
-                  <p className='text-sm text-red-500'>{errors.name}</p>
+                  <p className='text-sm text-red-500 flex items-center gap-1'>
+                    <XCircle className='w-3.5 h-3.5' />
+                    {errors.name}
+                  </p>
                 )}
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='mobileNumber'>Mobile Number *</Label>
+                <Label htmlFor='mobileNumber' className='text-sm font-medium text-neutral-700'>
+                  Mobile Number <span className='text-[#CD2A75]'>*</span>
+                </Label>
                 <Input
                   id='mobileNumber'
                   type='tel'
@@ -248,30 +248,40 @@ const RegisterPage = () => {
                   onChange={(e) =>
                     handleInputChange("mobileNumber", e.target.value)
                   }
-                  className={errors.mobileNumber ? "border-red-500" : ""}
+                  className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${errors.mobileNumber ? "border-red-500" : ""}`}
                 />
                 {errors.mobileNumber && (
-                  <p className='text-sm text-red-500'>{errors.mobileNumber}</p>
+                  <p className='text-sm text-red-500 flex items-center gap-1'>
+                    <XCircle className='w-3.5 h-3.5' />
+                    {errors.mobileNumber}
+                  </p>
                 )}
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='email'>Email (Optional)</Label>
+                <Label htmlFor='email' className='text-sm font-medium text-neutral-700'>
+                  Email <span className='text-neutral-400 text-xs'>(Optional)</span>
+                </Label>
                 <Input
                   id='email'
                   type='email'
                   placeholder='Enter your email address'
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  className={errors.email ? "border-red-500" : ""}
+                  className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${errors.email ? "border-red-500" : ""}`}
                 />
                 {errors.email && (
-                  <p className='text-sm text-red-500'>{errors.email}</p>
+                  <p className='text-sm text-red-500 flex items-center gap-1'>
+                    <XCircle className='w-3.5 h-3.5' />
+                    {errors.email}
+                  </p>
                 )}
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='password'>Password *</Label>
+                <Label htmlFor='password' className='text-sm font-medium text-neutral-700'>
+                  Password <span className='text-[#CD2A75]'>*</span>
+                </Label>
                 <div className='relative'>
                   <Input
                     id='password'
@@ -281,18 +291,18 @@ const RegisterPage = () => {
                     onChange={(e) =>
                       handleInputChange("password", e.target.value)
                     }
-                    className={
+                    className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${
                       errors.password ? "border-red-500 pr-10" : "pr-10"
-                    }
+                    }`}
                   />
                   <button
                     type='button'
-                    className='absolute inset-y-0 right-0 pr-3 flex items-center'
+                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors'
                     onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? (
-                      <EyeOff className='h-4 w-4 text-gray-400' />
+                      <EyeOff className='h-4 w-4' />
                     ) : (
-                      <Eye className='h-4 w-4 text-gray-400' />
+                      <Eye className='h-4 w-4' />
                     )}
                   </button>
                 </div>
@@ -300,9 +310,9 @@ const RegisterPage = () => {
                 {formData.password && (
                   <div className='space-y-2'>
                     <div className='flex items-center space-x-2'>
-                      <div className='flex-1 bg-gray-200 rounded-full h-2'>
+                      <div className='flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden'>
                         <div
-                          className={`h-2 rounded-full transition-all duration-300 ${getPasswordStrengthColor(
+                          className={`h-1.5 rounded-full transition-all duration-300 ${getPasswordStrengthColor(
                             passwordStrength.score
                           )}`}
                           style={{
@@ -310,7 +320,7 @@ const RegisterPage = () => {
                           }}
                         />
                       </div>
-                      <span className='text-sm text-gray-600'>
+                      <span className='text-xs text-neutral-500 font-medium'>
                         {passwordStrength.feedback}
                       </span>
                     </div>
@@ -318,12 +328,17 @@ const RegisterPage = () => {
                 )}
 
                 {errors.password && (
-                  <p className='text-sm text-red-500'>{errors.password}</p>
+                  <p className='text-sm text-red-500 flex items-center gap-1'>
+                    <XCircle className='w-3.5 h-3.5' />
+                    {errors.password}
+                  </p>
                 )}
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='confirmPassword'>Confirm Password *</Label>
+                <Label htmlFor='confirmPassword' className='text-sm font-medium text-neutral-700'>
+                  Confirm Password <span className='text-[#CD2A75]'>*</span>
+                </Label>
                 <div className='relative'>
                   <Input
                     id='confirmPassword'
@@ -333,20 +348,20 @@ const RegisterPage = () => {
                     onChange={(e) =>
                       handleInputChange("confirmPassword", e.target.value)
                     }
-                    className={
+                    className={`rounded-lg border-neutral-200 focus:border-[#CD2A75] focus:ring-[#CD2A75]/20 transition-all duration-300 ${
                       errors.confirmPassword ? "border-red-500 pr-10" : "pr-10"
-                    }
+                    }`}
                   />
                   <button
                     type='button'
-                    className='absolute inset-y-0 right-0 pr-3 flex items-center'
+                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors'
                     onClick={() =>
                       setShowConfirmPassword(!showConfirmPassword)
                     }>
                     {showConfirmPassword ? (
-                      <EyeOff className='h-4 w-4 text-gray-400' />
+                      <EyeOff className='h-4 w-4' />
                     ) : (
-                      <Eye className='h-4 w-4 text-gray-400' />
+                      <Eye className='h-4 w-4' />
                     )}
                   </button>
                 </div>
@@ -356,14 +371,14 @@ const RegisterPage = () => {
                     {formData.password === formData.confirmPassword ? (
                       <>
                         <CheckCircle className='h-4 w-4 text-green-500' />
-                        <span className='text-sm text-green-600'>
+                        <span className='text-sm text-green-600 font-medium'>
                           Passwords match
                         </span>
                       </>
                     ) : (
                       <>
                         <XCircle className='h-4 w-4 text-red-500' />
-                        <span className='text-sm text-red-600'>
+                        <span className='text-sm text-red-600 font-medium'>
                           {"Passwords don't match"}
                         </span>
                       </>
@@ -372,50 +387,55 @@ const RegisterPage = () => {
                 )}
 
                 {errors.confirmPassword && (
-                  <p className='text-sm text-red-500'>
+                  <p className='text-sm text-red-500 flex items-center gap-1'>
+                    <XCircle className='w-3.5 h-3.5' />
                     {errors.confirmPassword}
                   </p>
                 )}
               </div>
 
               <div className='space-y-2'>
-                <div className='flex items-center space-x-2'>
+                <div className='flex items-start space-x-2'>
                   <Checkbox
                     id='agreeToTerms'
                     checked={formData.agreeToTerms}
                     onCheckedChange={(checked) =>
                       handleInputChange("agreeToTerms", checked as boolean)
                     }
+                    className='mt-0.5'
                   />
                   <Label
                     htmlFor='agreeToTerms'
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
+                    className='text-sm text-neutral-600 leading-relaxed peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     I agree to the{" "}
                     <Link
                       href='/terms-conditions'
-                      className='text-blue-600 hover:text-blue-500'
+                      className='text-[#CD2A75] hover:text-[#B02462] font-medium underline underline-offset-2'
                       target='_blank'>
                       Terms and Conditions
                     </Link>{" "}
                     and{" "}
                     <Link
                       href='/privacy-policy'
-                      className='text-blue-600 hover:text-blue-500'
+                      className='text-[#CD2A75] hover:text-[#B02462] font-medium underline underline-offset-2'
                       target='_blank'>
                       Privacy Policy
                     </Link>
                   </Label>
                 </div>
                 {errors.agreeToTerms && (
-                  <p className='text-sm text-red-500'>{errors.agreeToTerms}</p>
+                  <p className='text-sm text-red-500 flex items-center gap-1 ml-6'>
+                    <XCircle className='w-3.5 h-3.5' />
+                    {errors.agreeToTerms}
+                  </p>
                 )}
               </div>
             </CardContent>
 
-            <CardFooter>
+            <CardFooter className='px-6 pb-6'>
               <Button
                 type='submit'
-                className='w-full'
+                className='w-full h-11 rounded-lg bg-[#CD2A75] hover:bg-[#B02462] text-white font-semibold tracking-wide transition-all duration-300 shadow-lg shadow-[#CD2A75]/20 hover:shadow-xl hover:shadow-[#CD2A75]/30'
                 disabled={authState.isLoading}>
                 {authState.isLoading ? (
                   <>
@@ -431,11 +451,11 @@ const RegisterPage = () => {
         </Card>
 
         <div className='text-center'>
-          <p className='text-sm text-gray-600'>
+          <p className='text-sm text-neutral-600'>
             Already have an account?{" "}
             <Link
               href='/login'
-              className='font-medium text-blue-600 hover:text-blue-500'>
+              className='font-medium text-[#CD2A75] hover:text-[#B02462] transition-colors underline underline-offset-4'>
               Sign in
             </Link>
           </p>

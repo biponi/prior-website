@@ -270,7 +270,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
     setAuthState((prev) => ({ ...prev, isLoading: true }));
 
     try {
-      // TODO: Replace with actual API call
       const response = await fetch(`${hostName}/prior/customer/login`, {
         method: "POST",
         headers: {
@@ -280,7 +279,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
       });
 
       const data = await response.json();
-      console.log("response:", data);
       if (response.ok && data.success) {
         setAuthState({
           user: data.data.customer,
@@ -315,7 +313,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
     setAuthState((prev) => ({ ...prev, isLoading: true }));
 
     try {
-      // TODO: Replace with actual API call
       const response = await fetch(`${hostName}/prior/customer/register`, {
         method: "POST",
         headers: {
@@ -372,7 +369,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
     if (!authState.token) return false;
 
     try {
-      // TODO: Replace with actual API call
       const response = await fetch(`${hostName}/prior/customer/profile`, {
         method: "PUT",
         headers: {
@@ -403,7 +399,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
     if (!authState.token) return false;
 
     try {
-      // TODO: Replace with actual API call
       const response = await fetch(
         `${hostName}/prior/customer/change-password`,
         {
@@ -424,7 +419,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
 
   const forgotPassword = async (identifier: string): Promise<boolean> => {
     try {
-      // TODO: Replace with actual API call
       const response = await fetch(
         `${hostName}/prior/customer/forgot-password`,
         {
@@ -446,7 +440,6 @@ export const AuthProvider: React.FC<{ children: ReactElement }> = ({
     resetData: ResetPasswordData
   ): Promise<boolean> => {
     try {
-      // TODO: Replace with actual API call
       const response = await fetch(
         `${hostName}/prior/customer/reset-password`,
         {

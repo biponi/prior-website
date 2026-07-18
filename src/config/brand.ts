@@ -37,14 +37,14 @@ export const brandConfig = {
     address: {
       full: "39 & 41 Sonargaon Janapath Road, Sector 13, Uttara, Dhaka Shop no : 05",
       city: "Dhaka",
-      area: "Dhanmondi",
+      area: "Uttara",
       building: "Uttara Square Shopping Mall",
       shopNumber: "05",
       country: "Bangladesh",
       // For Google Maps embed
       coordinates: {
-        lat: 23.7481,
-        lng: 90.3799,
+        lat: 23.874160284012262,
+        lng: 90.38606277618783,
       },
     },
   },
@@ -211,7 +211,7 @@ export const brandConfig = {
     available: [
       { name: "Cash on Delivery", enabled: true },
       { name: "bKash", enabled: true },
-      { name: "Nagad", enabled: true },
+      { name: "Nagad", enabled: false },
       { name: "Card Payment", enabled: false },
       { name: "Bank Transfer", enabled: false },
     ],
