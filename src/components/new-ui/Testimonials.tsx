@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 interface Testimonial {
   id: number;
@@ -15,35 +15,35 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: 'Fatima Rahman',
-    location: 'Dhaka, Bangladesh',
+    name: "Fatima Rahman",
+    location: "Dhaka, Bangladesh",
     rating: 5,
-    text: 'The quality of their baby products is exceptional. Soft, breathable fabrics that last through countless washes. My baby is always comfortable and happy!',
-    avatar: 'FR',
+    text: "The quality of their baby products is exceptional. Soft, breathable fabrics that last through countless washes. My baby is always comfortable and happy!",
+    avatar: "FR",
   },
   {
     id: 2,
-    name: 'Ayesha Khan',
-    location: 'Chittagong, Bangladesh',
+    name: "Ayesha Khan",
+    location: "Chittagong, Bangladesh",
     rating: 5,
-    text: 'Found everything I needed for my newborn here. The baby care products are gentle and safe. Customer service was wonderful and helped me pick perfect gifts!',
-    avatar: 'AK',
+    text: "Found everything I needed for my newborn here. The baby care products are gentle and safe. Customer service was wonderful and helped me pick perfect gifts!",
+    avatar: "AK",
   },
   {
     id: 3,
-    name: 'Nadia Islam',
-    location: 'Sylhet, Bangladesh',
+    name: "Nadia Islam",
+    location: "Sylhet, Bangladesh",
     rating: 5,
-    text: 'The delivery was super fast and the packaging was beautiful. Every item was exactly as described. These are the cutest baby accessories I have found online!',
-    avatar: 'NI',
+    text: "The delivery was super fast and the packaging was beautiful. Every item was exactly as described. These are the cutest baby accessories I have found online!",
+    avatar: "NI",
   },
   {
     id: 4,
-    name: 'Sabrina Ahmed',
-    location: 'Rajshahi, Bangladesh',
+    name: "Sabrina Ahmed",
+    location: "Rajshahi, Bangladesh",
     rating: 5,
-    text: 'As a first-time mom, I was overwhelmed with choices. Prior made it so easy to find exactly what I needed. Highly recommended for all new parents!',
-    avatar: 'SA',
+    text: "As a first-time mom, I was overwhelmed with choices. Luxury Online Mart made it so easy to find exactly what I needed. Highly recommended for all new parents!",
+    avatar: "SA",
   },
 ];
 
@@ -80,8 +80,8 @@ const Testimonials: React.FC = () => {
             What Parents Are Saying
           </h2>
           <p className='text-sm sm:text-base text-neutral-400 max-w-lg mx-auto'>
-            Join thousands of happy parents who trust Prior for their baby&apos;s
-            needs
+            Join thousands of happy parents who trust Luxury Online Mart for
+            their baby&apos;s needs
           </p>
         </div>
 
@@ -147,8 +147,8 @@ const Testimonials: React.FC = () => {
                   onClick={() => setCurrent(i)}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     i === current
-                      ? 'w-6 bg-[#CD2A75]'
-                      : 'w-1.5 bg-neutral-200 hover:bg-neutral-400'
+                      ? "w-6 bg-[#CD2A75]"
+                      : "w-1.5 bg-neutral-200 hover:bg-neutral-400"
                   }`}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />

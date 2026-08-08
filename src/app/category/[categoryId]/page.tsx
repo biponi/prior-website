@@ -1,190 +1,138 @@
-"use client";
-import React, { useEffect, useState, useRef } from "react";
-import SidebarFilters from "@/components/SidebarFilter";
-import useProductFetch from "@/hooks/useProductFetch";
-import { ProductType } from "@/data/types";
-import { LoaderCircle } from "lucide-react";
-import Heading from "@/shared/Heading/Heading";
+import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
+import Script from "next/script";
+import { fetchCategoryBySlugOrId } from "@/services/categoryServices";
+import CategoryProductsClient from "./CategoryProductsClient";
 import { collectionTag } from "@/data/content";
-import { useParams } from "next/navigation";
-import useAnalytics from "@/hooks/useAnalytics";
-import { usePageState } from "@/context/PageStateContext";
-import ProductCard from "@/components/new-ui/ProductCard";
-import { convertProductTypeToProduct } from "@/utils/functions";
-import ProductFiltersSheet from "@/components/new-ui/ProductFilterSheet";
 
-const SingleCategoryPage = () => {
-  const params = useParams(); // Fetch route parameters
-  const { state, setState } = usePageState();
+interface PageProps {
+  params: {
+    categoryId: string;
+  };
+}
 
-  const categoryId = params.categoryId;
-
-  const {
-    products,
-    loading,
-    totalPages,
-    currentPage,
-    distictFilterValues,
-    setFilterData,
-    filterData,
-    handleLoadMore,
-  } = useProductFetch(1, {
-    //@ts-ignore
-    categoryId,
-    color: "",
-    size: "",
-    price: "",
-  });
-
-  useAnalytics();
-
-  useEffect(() => {
-    //@ts-ignore
-    setFilterData({ ...filterData, categoryId });
-    //eslint-disable-next-line
-  }, [categoryId]);
-
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && currentPage < totalPages && !loading) {
-          handleLoadMore();
-        }
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: 1.0,
-      },
-    );
-
-    const currentObserverRef = observerRef.current;
-
-    if (currentObserverRef) {
-      observer.observe(currentObserverRef);
+/**
+ * Cached category fetch with 60-second revalidation
+ */
+const getCachedCategory = unstable_cache(
+  async (categoryId: string) => {
+    try {
+      const response = await fetchCategoryBySlugOrId(categoryId);
+      return response;
+    } catch (error) {
+      console.error('Error fetching category:', error);
+      return null;
     }
+  },
+  ['category'],
+  { revalidate: 60 }
+);
 
-    return () => {
-      if (currentObserverRef) observer.unobserve(currentObserverRef);
+/**
+ * Generate SEO metadata for category pages
+ */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const category = await getCachedCategory(params.categoryId);
+
+  if (!category) {
+    return {
+      title: 'Category Not Found - Luxury Online Mart',
     };
-  }, [currentPage, totalPages, loading, handleLoadMore]);
+  }
 
-  // Restore state on mount
-  useEffect(() => {
-    // Restore scroll position
-    window.scrollTo(0, state.scrollPosition);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://priorbd.com';
+  const categoryName = category.name || 'Category';
+  const description = category.description
+    ? category.description
+    : `Browse our collection of ${category.name} at Luxury Online Mart - Your trusted kids fashion and lifestyle brand in Bangladesh.`;
 
-    // Restore filter and pagination data
-    if (!filterData?.categoryId)
-      //@ts-ignore
-      setFilterData(state.filterData);
-    if (state.currentPage > 1) {
-      //@ts-ignore
-      handleLoadMore(state.currentPage - 1); // Load previous pages if necessary
-    }
-    //eslint-disable-next-line
-  }, []);
+  return {
+    title: `${categoryName} - Luxury Online Mart`,
+    description: description,
+    keywords: [categoryName, 'kids fashion', 'Bangladesh', 'children clothing'],
+    openGraph: {
+      title: `${categoryName} - Luxury Online Mart`,
+      description: description,
+      type: 'website',
+      url: `${baseUrl}/category/${category.slug}`,
+      siteName: 'Luxury Online Mart',
+      locale: 'en_BD',
+      images: category.image
+        ? [
+            {
+              url: category.image,
+              width: 1200,
+              height: 630,
+              alt: categoryName,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${categoryName} - Luxury Online Mart`,
+      description: description,
+      images: category.image ? [category.image] : undefined,
+    },
+    alternates: {
+      canonical: `${baseUrl}/category/${category.slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
-  // Save state before navigation
-  const handleProductClick = (productId: string) => {
-    setState((prev) => ({
-      ...prev,
-      scrollPosition: window.scrollY,
-      filterData,
-      currentPage,
-    }));
-    window.location.href = `/collections/${productId}`; // Navigate to product page
+/**
+ * Category page - Server Component with Hybrid Rendering
+ *
+ * Server-side rendering provides SEO benefits while client components
+ * handle interactive features like filtering and infinite scroll.
+ */
+export default async function SingleCategoryPage({ params }: PageProps) {
+  const { categoryId } = params;
+
+  // Server-side category data fetch (cached)
+  const category = await getCachedCategory(categoryId);
+
+  if (!category) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center max-w-md mx-auto px-4">
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">
+            Category Not Found
+          </h1>
+          <p className="text-gray-500 mb-8">
+            The category you&apos;re looking for doesn&apos;t exist.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://priorbd.com';
+
+  // Category JSON-LD Structured Data
+  const categoryStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: category.name,
+    description: category.description || '',
+    url: `${baseUrl}/category/${category.slug}`,
   };
 
   return (
-    <div className='my-6'>
-      <Heading isCenter isMain desc={collectionTag?.description}>
-        {collectionTag?.title}
-      </Heading>
-      {loading && (!products || products.length < 1) && (
-        <div className='w-full p-12 bg-gray-200 flex justify-center items-center'>
-          <span className='flex justify-center items-center gap-2 text-black'>
-            Loading... <LoaderCircle className='w-5 h-5 ml-2 text-black' />
-          </span>
-        </div>
-      )}
-      {(!!products || !loading) && (
-        <div
-          className='px-4 md:container relative flex flex-col lg:flex-row'
-          id='body'>
-          <div className='flex justify-between items-center p-2 md:hidden'>
-            <h2 className='text-primary font-semibold'>Products</h2>
-            <ProductFiltersSheet
-              showCategory={false}
-              sizes={distictFilterValues.sizes.filter((i) => i !== "")}
-              colors={distictFilterValues.colors.filter((i) => i !== "")}
-              categories={distictFilterValues.categories}
-              filterData={filterData}
-              onFilterChange={(value) => {
-                setFilterData(value);
-              }}
-              onClearFilters={() => {
-                setFilterData({
-                  categoryId: Array.isArray(categoryId)
-                    ? categoryId[0]
-                    : categoryId,
-                  color: "",
-                  size: "",
-                  price: "",
-                });
-              }}
-            />
-          </div>
-          {filterData &&
-            (filterData?.color || filterData?.size) &&
-            (filterData?.color.length > 0 || filterData?.size.length > 0) && (
-              <div className='pr-4 lg:basis-1/3 xl:basis-1/4 hidden md:block'>
-                <SidebarFilters
-                  filterData={filterData}
-                  showCategory={false}
-                  //@ts-ignore
-                  selectedCategory={categoryId}
-                  selectedColor={filterData?.color}
-                  selectedSize={filterData?.size}
-                  categories={distictFilterValues.categories}
-                  colors={distictFilterValues.colors.filter((i) => i !== "")}
-                  sizes={distictFilterValues.sizes.filter((i) => i !== "")}
-                  handleFilterChange={(value) => {
-                    setFilterData(value);
-                  }}
-                />
-              </div>
-            )}
-          <div className='mb-4 md:mb-10 shrink-0 border-t lg:mx-4 lg:mb-0 lg:border-t-0' />
-          <div className='relative flex-1'>
-            <div className='grid flex-1 gap-3 md:gap-x-8 md:gap-y-10 grid-cols-2 md:grid-cols-4 '>
-              {!!products &&
-                products.map((item: ProductType) => (
-                  <div
-                    key={item?.id}
-                    onClick={() => handleProductClick(item.id)}>
-                    <ProductCard product={convertProductTypeToProduct(item)} />
-                  </div>
-                ))}
-            </div>
-            {loading && (
-              <div className='w-full p-12 bg-gray-200 flex justify-center items-center'>
-                <span className='flex justify-center items-center gap-2 text-black'>
-                  Loading...{" "}
-                  <LoaderCircle className='w-5 h-5 ml-2 text-black' />
-                </span>
-              </div>
-            )}
-            {/* Observer element for infinite scroll */}
-            <div ref={observerRef} className='h-10' />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+    <>
+      {/* Category Structured Data for SEO */}
+      <Script
+        id="category-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(categoryStructuredData) }}
+      />
 
-export default SingleCategoryPage;
+      {/* Client component for interactive features */}
+      <CategoryProductsClient categoryId={category.id} category={category} />
+    </>
+  );
+}

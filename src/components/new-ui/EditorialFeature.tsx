@@ -15,7 +15,7 @@ const EditorialFeature: React.FC = () => {
             <div className='flex items-center gap-3'>
               <span className='w-8 h-px bg-[#CD2A75]' />
               <p className='text-[10px] sm:text-xs font-medium tracking-[0.2em] uppercase text-[#CD2A75]'>
-                Why Prior
+                Why Luxury Online Mart
               </p>
             </div>
 
@@ -115,7 +115,7 @@ const EditorialFeature: React.FC = () => {
                 Trusted since
               </p>
               <p className='text-lg sm:text-xl font-serif font-semibold text-neutral-900'>
-                2020
+                2018
               </p>
             </div>
           </div>

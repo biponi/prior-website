@@ -9,7 +9,6 @@ import { heroSlides } from "@/utils/heroSectionContents";
 import CategoryShowcase from "@/components/design-system-agnostic/CategoryShowcase/CategoryShowcase";
 import { CategoryShowcase as CategoryProps } from "@/hooks/useCategories";
 import LuxuryOutletSection from "@/components/new-ui/LuxuryOutletSection";
-import TrustBar from "@/components/new-ui/TrustBar";
 import EditorialFeature from "@/components/new-ui/EditorialFeature";
 import CampaignInfo from "@/components/new-ui/CampaignInfo";
 import PromoBanner from "@/components/new-ui/PromoBanner";
@@ -29,9 +28,6 @@ const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
       {/* Hero Carousel */}
       <EditorialHeroCarousel slides={heroSlides} />
 
-      {/* Trust Indicators Bar */}
-      <TrustBar />
-
       {/* Category Showcase */}
       <CategoryShowcase categories={categories} loading={false} />
 
@@ -48,7 +44,7 @@ const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
         className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 md:py-16 lg:py-24'
       />
 
-      {/* Editorial Feature — Why Prior */}
+      {/* Editorial Feature — Why Luxury */}
       <EditorialFeature />
 
       {/* Trending Now */}
@@ -67,7 +63,7 @@ const HomePage: React.FC<HomePageProps> = ({ products, categories }) => {
       {/* Customer Testimonials */}
       <Testimonials />
 
-      {/* Prior Outlet Section */}
+      {/* Luxury Outlet Section */}
       <LuxuryOutletSection />
 
       {/* Newsletter */}

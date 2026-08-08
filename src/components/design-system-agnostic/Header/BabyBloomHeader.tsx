@@ -441,7 +441,7 @@ export default function BabyBloomHeader() {
   return (
     <header className='sticky top-0 z-50 w-full'>
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
-      <div className='bg-[#CD2A75]'>
+      <div className='bg-[#CD2A75] hidden md:block'>
         <div className='container mx-auto px-4 h-9 flex items-center justify-between'>
           <div className='flex items-center gap-5'>
             <a

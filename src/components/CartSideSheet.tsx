@@ -33,8 +33,8 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
             Number(cartdata.quantity) *
               Number(
                 !!cartdata?.hasDiscount
-                  ? cartdata?.updatedPrice ?? cartdata?.unitPrice
-                  : cartdata?.unitPrice
+                  ? (cartdata?.updatedPrice ?? cartdata?.unitPrice)
+                  : cartdata?.unitPrice,
               );
           return sum;
         }, 0),
@@ -87,7 +87,7 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
                 </div>
               </div>
               <span className=' font-medium'>
-                ৳{hasDiscount ? updatedPrice ?? unitPrice : unitPrice}
+                ৳{hasDiscount ? (updatedPrice ?? unitPrice) : unitPrice}
               </span>
             </div>
           </div>
@@ -113,8 +113,8 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
         Number(cartdata.quantity) *
           Number(
             !!cartdata?.hasDiscount
-              ? cartdata?.updatedPrice ?? cartdata?.unitPrice
-              : cartdata?.unitPrice
+              ? (cartdata?.updatedPrice ?? cartdata?.unitPrice)
+              : cartdata?.unitPrice,
           );
       return sum;
     }, 0);
@@ -127,11 +127,11 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
         return {
           item_id: product?.sku,
           item_name: product?.name,
-          affiliation: "Prior Web-site Store",
+          affiliation: "Luxury Online Mart Web-site Store",
           coupon: "",
           discount: product?.discount,
           index,
-          item_brand: "Prior",
+          item_brand: "Luxury Online Mart",
           item_category: product?.categoryName ?? "",
           item_category2: "",
           item_category3: "",
@@ -183,7 +183,7 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
                       Number(sum) +
                       Number(quantity) *
                         Number(
-                          hasDiscount ? updatedPrice ?? unitPrice : unitPrice
+                          hasDiscount ? (updatedPrice ?? unitPrice) : unitPrice,
                         );
                     return sum;
                   }, 0)}

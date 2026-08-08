@@ -134,7 +134,7 @@ const RegisterPage = () => {
 
   const handleInputChange = (
     field: keyof RegisterData,
-    value: string | boolean
+    value: string | boolean,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -164,7 +164,7 @@ const RegisterPage = () => {
       if (response.success) {
         Swal.fire({
           title: "Registration Successful!",
-          text: "Welcome to Prior! Your account has been created successfully.",
+          text: "Welcome to Luxury Online Mart! Your account has been created successfully.",
           icon: "success",
           timer: 3000,
           showConfirmButton: false,
@@ -207,7 +207,7 @@ const RegisterPage = () => {
         <Card className='rounded-xl border-neutral-200 shadow-lg shadow-neutral-200/50'>
           <CardHeader className='border-b border-neutral-100 pb-5'>
             <CardTitle className='text-lg font-semibold text-neutral-900 tracking-tight'>
-              Join Prior
+              Join Luxury Online Mart Today
             </CardTitle>
             <CardDescription className='text-sm text-neutral-500'>
               Create an account to start shopping and track your orders
@@ -217,7 +217,9 @@ const RegisterPage = () => {
           <form onSubmit={handleSubmit}>
             <CardContent className='space-y-4 pt-6'>
               <div className='space-y-2'>
-                <Label htmlFor='name' className='text-sm font-medium text-neutral-700'>
+                <Label
+                  htmlFor='name'
+                  className='text-sm font-medium text-neutral-700'>
                   Full Name <span className='text-[#CD2A75]'>*</span>
                 </Label>
                 <Input
@@ -237,7 +239,9 @@ const RegisterPage = () => {
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='mobileNumber' className='text-sm font-medium text-neutral-700'>
+                <Label
+                  htmlFor='mobileNumber'
+                  className='text-sm font-medium text-neutral-700'>
                   Mobile Number <span className='text-[#CD2A75]'>*</span>
                 </Label>
                 <Input
@@ -259,8 +263,11 @@ const RegisterPage = () => {
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='email' className='text-sm font-medium text-neutral-700'>
-                  Email <span className='text-neutral-400 text-xs'>(Optional)</span>
+                <Label
+                  htmlFor='email'
+                  className='text-sm font-medium text-neutral-700'>
+                  Email{" "}
+                  <span className='text-neutral-400 text-xs'>(Optional)</span>
                 </Label>
                 <Input
                   id='email'
@@ -279,7 +286,9 @@ const RegisterPage = () => {
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='password' className='text-sm font-medium text-neutral-700'>
+                <Label
+                  htmlFor='password'
+                  className='text-sm font-medium text-neutral-700'>
                   Password <span className='text-[#CD2A75]'>*</span>
                 </Label>
                 <div className='relative'>
@@ -313,7 +322,7 @@ const RegisterPage = () => {
                       <div className='flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden'>
                         <div
                           className={`h-1.5 rounded-full transition-all duration-300 ${getPasswordStrengthColor(
-                            passwordStrength.score
+                            passwordStrength.score,
                           )}`}
                           style={{
                             width: `${(passwordStrength.score / 5) * 100}%`,
@@ -336,7 +345,9 @@ const RegisterPage = () => {
               </div>
 
               <div className='space-y-2'>
-                <Label htmlFor='confirmPassword' className='text-sm font-medium text-neutral-700'>
+                <Label
+                  htmlFor='confirmPassword'
+                  className='text-sm font-medium text-neutral-700'>
                   Confirm Password <span className='text-[#CD2A75]'>*</span>
                 </Label>
                 <div className='relative'>

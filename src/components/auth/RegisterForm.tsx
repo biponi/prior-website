@@ -164,7 +164,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, isModal = false 
         if (!isModal) {
           Swal.fire({
             title: "Registration Successful! 🎉",
-            text: "Welcome to Prior! Your account has been created successfully.",
+            text: "Welcome to Luxury Online Mart! Your account has been created successfully.",
             icon: "success",
             timer: 3000,
             showConfirmButton: false,

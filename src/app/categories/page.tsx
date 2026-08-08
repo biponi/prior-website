@@ -8,20 +8,20 @@ import type { Category } from "@/data/types";
 import type { AccentVariant } from "@/hooks/useCategories";
 
 export const metadata: Metadata = {
-  title: "All Categories | Prior",
+  title: "All Categories | Luxury Online Mart",
   description:
-    "Browse all product categories at Prior. Find bags, footwear, hijabs, clothing, accessories and more.",
+    "Browse all product categories at Luxury Online Mart. Find bags, footwear, hijabs, clothing, accessories and more.",
   openGraph: {
-    title: "All Categories | Prior",
+    title: "All Categories | Luxury Online Mart",
     description:
-      "Browse all product categories at Prior. Find bags, footwear, hijabs, clothing, accessories and more.",
+      "Browse all product categories at Luxury Online Mart. Find bags, footwear, hijabs, clothing, accessories and more.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "All Categories | Prior",
+    title: "All Categories | Luxury Online Mart",
     description:
-      "Browse all product categories at Prior. Find bags, footwear, hijabs, clothing, accessories and more.",
+      "Browse all product categories at Luxury Online Mart. Find bags, footwear, hijabs, clothing, accessories and more.",
   },
 };
 

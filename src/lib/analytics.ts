@@ -114,7 +114,11 @@ export const trackAddToCart = (item: any) => {
 /**
  * Track InitiateCheckout event
  */
-export const trackBeginCheckout = (cart: any[], totalValue: number, coupon?: string) => {
+export const trackBeginCheckout = (
+  cart: any[],
+  totalValue: number,
+  coupon?: string,
+) => {
   // Firebase Analytics
   firebaseTrackEvent("begin_checkout", {
     affiliation: "Web-Site",
@@ -125,11 +129,11 @@ export const trackBeginCheckout = (cart: any[], totalValue: number, coupon?: str
       return {
         item_id: product?.sku,
         item_name: product?.name,
-        affiliation: "Prior Web-site Store",
+        affiliation: "Luxury Online Mart Web-site Store",
         coupon: coupon || "",
         discount: product?.discount,
         index,
-        item_brand: "Prior",
+        item_brand: "Luxury Online Mart",
         item_category: product?.categoryName ?? "",
         item_category2: "",
         item_category3: "",
@@ -137,7 +141,9 @@ export const trackBeginCheckout = (cart: any[], totalValue: number, coupon?: str
         item_category5: "",
         item_list_id: product?.id,
         item_list_name: "Checkout Products",
-        item_variant: product?.variation ? JSON.stringify(product?.variation) : "no variation",
+        item_variant: product?.variation
+          ? JSON.stringify(product?.variation)
+          : "no variation",
         location_id: "",
         price: product?.unitPrice,
         quantity: product?.quantity,
@@ -163,7 +169,7 @@ export const trackBeginCheckout = (cart: any[], totalValue: number, coupon?: str
           coupon: coupon || "",
           discount: product?.discount,
           index,
-          item_brand: "Prior",
+          item_brand: "Luxury Online Mart",
           item_category: product?.categoryName ?? "",
           price: product?.unitPrice,
           quantity: product?.quantity,

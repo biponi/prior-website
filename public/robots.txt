@@ -1,0 +1,28 @@
+# robots.txt for Luxury Online Mart
+# Allow all search engines
+
+User-agent: *
+Allow: /
+Disallow: /account/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://priorbd.com/sitemap.xml
+
+# AI search engines (allow crawling)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Crawl delay (optional, prevents server overload)
+Crawl-delay: 1

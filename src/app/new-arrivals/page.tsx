@@ -9,7 +9,7 @@ import { ProductType } from "@/data/types";
 import { convertProductTypeToProduct } from "@/utils/functions";
 
 export const metadata: Metadata = {
-  title: `${newProductPageContent?.title} | Prior`,
+  title: `${newProductPageContent?.title} | Luxury Online Mart`,
   description: newProductPageContent?.description,
   openGraph: {
     title: newProductPageContent?.title,

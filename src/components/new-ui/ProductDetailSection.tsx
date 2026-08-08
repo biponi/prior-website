@@ -7,7 +7,6 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   Star,
@@ -279,13 +278,11 @@ function GalleryModal({
                       transition: "transform 0.25s ease-out",
                     }
               }>
-              <Image
+              <img
                 src={images[activeIndex]}
                 alt={`${productName} — image ${activeIndex + 1}`}
-                fill
-                className='object-contain select-none'
+                className='object-contain select-none mx-auto'
                 sizes='100vw'
-                priority
                 draggable={false}
               />
             </div>
@@ -339,7 +336,7 @@ function GalleryModal({
                 )}
                 style={{ animationDelay: `${idx * 40}ms` }}
                 aria-label={`View image ${idx + 1}`}>
-                <Image
+                <img
                   src={img}
                   alt={`Thumbnail ${idx + 1}`}
                   width={56}
@@ -427,13 +424,11 @@ function ImageGallery({
                     transition: "transform 0.25s ease-out",
                   }
             }>
-            <Image
+            <img
               src={displayImages[selectedImageIndex]}
               alt={productName}
-              fill
               className='object-cover'
               sizes='(max-width: 1024px) 100vw, 50vw'
-              priority
               draggable={false}
             />
           </div>
@@ -475,7 +470,7 @@ function ImageGallery({
                     : "border-[#CD2A75] hover:border-[#B02462] opacity-70 hover:opacity-100",
                 )}
                 aria-label={`View image ${index + 1}`}>
-                <Image
+                <img
                   src={image}
                   alt={`${productName} ${index + 1}`}
                   width={80}

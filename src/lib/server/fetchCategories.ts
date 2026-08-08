@@ -61,7 +61,7 @@ export async function fetchCategoriesForShowcase(): Promise<
           count: `${cat.totalProducts ?? 0} items`, // Use real count if available
           badge: categoryBadges[index % categoryBadges.length],
           icon,
-          href: `/category/${cat.id}`,
+          href: `/category/${cat.slug}`,
           imageSrc:
             cat.img ||
             "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80",

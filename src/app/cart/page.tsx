@@ -82,11 +82,11 @@ const CartPage = () => {
         return {
           item_id: product?.sku,
           item_name: product?.name,
-          affiliation: "Prior Web-site Store",
+          affiliation: "Luxury Online Mart Web-site Store",
           coupon: "",
           discount: product?.discount,
           index,
-          item_brand: "Prior",
+          item_brand: "LuxuryOnlineMart",
           item_category: product?.categoryName ?? "",
           item_category2: "",
           item_category3: "",

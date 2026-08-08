@@ -29,7 +29,7 @@ const DEFAULT_OUTLETS: Outlet[] = [
     mapUrl: "https://maps.app.goo.gl/xTXgxXLNzRs3Hiwg9",
     address: "",
     location:
-      "Uttara Square Shopping Complex, Shop 12 (Semi Basement), Beside Zam Zam Tower, Sector 13",
+      "Uttara Square Shopping Complex, Shop 05 (Semi Basement), Beside Zam Zam Tower, Sector 13",
   },
 ];
 

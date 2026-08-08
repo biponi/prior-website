@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
             <div className='md:grid md:grid-cols-2 md:gap-8'>
               <div className=''>
                 <h1 className='text-[40px] font-serif font-bold text-white uppercase tracking-[0.2em]'>
-                  Prior
+                  Luxury Online Mart
                 </h1>
               </div>
               <div>
@@ -162,7 +162,7 @@ const Footer: React.FC = () => {
             ))}
           </div>
           <p className='mt-8 text-xs font-serif leading-5 text-neutral-500 md:order-1 md:mt-0 tracking-wide'>
-            &copy; 2024 Prior Your Priority. All rights reserved.
+            &copy; 2026 Luxury Online Mart. All rights reserved.
           </p>
         </div>
       </div>

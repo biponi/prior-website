@@ -58,6 +58,7 @@ export type ImageGroup = {
 
 export type Category = {
   id: string;
+  slug: string;
   name: string;
   discount: number;
   active: boolean;

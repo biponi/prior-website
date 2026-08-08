@@ -4,7 +4,17 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "@/shared/simpleProductCard";
 
 import { ProductType } from "@/data/types";
-import { LoaderCircle, Sparkles, Flame, Clock, Zap, TrendingUp, Heart, Star, Gift } from "lucide-react";
+import {
+  LoaderCircle,
+  Sparkles,
+  Flame,
+  Clock,
+  Zap,
+  TrendingUp,
+  Heart,
+  Star,
+  Gift,
+} from "lucide-react";
 import Head from "next/head";
 import useCampaign from "@/hooks/useCampaign";
 import { ICampaign } from "@/lib/interface";
@@ -45,7 +55,7 @@ const SingleCampaignPage = ({
       updateCountdown(campaign.endDate);
       const interval = setInterval(
         () => updateCountdown(campaign.endDate),
-        1000
+        1000,
       );
       return () => clearInterval(interval);
     }
@@ -77,7 +87,9 @@ const SingleCampaignPage = ({
   return (
     <>
       <Head>
-        <title>{!!campaign ? campaign?.title : "Prior Campaign"}</title>
+        <title>
+          {!!campaign ? campaign?.title : "Luxury Online Mart Campaign"}
+        </title>
         <meta
           name='description'
           content={campaign?.description || "Campaign description"}
@@ -98,7 +110,10 @@ const SingleCampaignPage = ({
         {/* Floating Background Decorations */}
         <div className='absolute inset-0 overflow-hidden pointer-events-none -z-10'>
           <div className='absolute -top-32 -right-32 w-96 h-96 bg-gradient-to-br from-orange-200/30 via-red-200/30 to-pink-200/30 rounded-full blur-3xl animate-pulse' />
-          <div className='absolute -bottom-32 -left-32 w-96 h-96 bg-gradient-to-br from-purple-200/30 via-blue-200/30 to-cyan-200/30 rounded-full blur-3xl animate-pulse' style={{ animationDelay: '1s' }} />
+          <div
+            className='absolute -bottom-32 -left-32 w-96 h-96 bg-gradient-to-br from-purple-200/30 via-blue-200/30 to-cyan-200/30 rounded-full blur-3xl animate-pulse'
+            style={{ animationDelay: "1s" }}
+          />
         </div>
 
         {/* Hero Section with Campaign Title */}
@@ -142,12 +157,20 @@ const SingleCampaignPage = ({
 
             {/* Floating Decorations */}
             <div className='absolute top-4 right-4 md:top-6 md:right-8 opacity-60 group-hover:opacity-100 transition-opacity'>
-              <span className='text-2xl md:text-4xl animate-bounce inline-block'>🔥</span>
+              <span className='text-2xl md:text-4xl animate-bounce inline-block'>
+                🔥
+              </span>
             </div>
-            <div className='absolute bottom-4 left-4 md:bottom-6 md:left-8 opacity-60 group-hover:opacity-100 transition-opacity' style={{ animationDelay: '0.5s' }}>
-              <span className='text-xl md:text-3xl animate-bounce inline-block'>⚡</span>
+            <div
+              className='absolute bottom-4 left-4 md:bottom-6 md:left-8 opacity-60 group-hover:opacity-100 transition-opacity'
+              style={{ animationDelay: "0.5s" }}>
+              <span className='text-xl md:text-3xl animate-bounce inline-block'>
+                ⚡
+              </span>
             </div>
-            <div className='absolute top-1/2 left-1/4 opacity-40 group-hover:opacity-80 transition-opacity hidden md:block' style={{ animationDelay: '1s' }}>
+            <div
+              className='absolute top-1/2 left-1/4 opacity-40 group-hover:opacity-80 transition-opacity hidden md:block'
+              style={{ animationDelay: "1s" }}>
               <span className='text-2xl animate-bounce inline-block'>💝</span>
             </div>
 
@@ -162,7 +185,9 @@ const SingleCampaignPage = ({
           <div className='flex items-center gap-2 mb-4 md:mb-6'>
             <Clock className='w-5 h-5 md:w-6 md:h-6 text-red-500 animate-pulse' />
             <span className='text-sm md:text-base font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider'>
-              {timeLeft.includes("Expired") ? "Campaign Ended" : "Hurry! Time's Running Out"}
+              {timeLeft.includes("Expired")
+                ? "Campaign Ended"
+                : "Hurry! Time's Running Out"}
             </span>
             <Zap className='w-5 h-5 md:w-6 md:h-6 text-orange-500 animate-pulse' />
           </div>
@@ -274,8 +299,7 @@ const SingleCampaignPage = ({
                   <div
                     key={item.id}
                     className='transform transition-all duration-300 hover:scale-105'
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
+                    style={{ animationDelay: `${index * 100}ms` }}>
                     <ProductCard product={item} />
                   </div>
                 ))}
