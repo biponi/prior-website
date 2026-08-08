@@ -82,7 +82,7 @@ const CategoryProductsClient = ({ categoryId, category }: CategoryProductsClient
     if (!filterData?.categoryId)
       setFilterData(state.filterData as FilterData);
     if (state.currentPage > 1) {
-      handleLoadMore(state.currentPage - 1); // Load previous pages if necessary
+      handleLoadMore(); // Load next page to restore pagination
     }
     //eslint-disable-next-line
   }, []);

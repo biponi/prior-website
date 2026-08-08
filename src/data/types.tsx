@@ -60,6 +60,8 @@ export type Category = {
   id: string;
   slug: string;
   name: string;
+  description?: string;
+  image?: string;
   discount: number;
   active: boolean;
   img: string;
@@ -77,6 +79,9 @@ export type SingleProductType = {
   id: string;
   name: string;
   description: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string[];
   discountType: string;
   discount: number;
   quantity: number;
