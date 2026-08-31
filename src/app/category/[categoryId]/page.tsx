@@ -5,6 +5,7 @@ import { fetchCategoryBySlugOrId } from "@/services/categoryServices";
 import { fetchCategoryProducts, fetchCategories } from "@/services/categorySeoService";
 import { SITE_URL } from "@/lib/seo";
 import CategoryProductsClient from "./CategoryProductsClient";
+import CategoryContent from "./CategoryContent";
 import CategorySeoSchema from "@/components/seo/CategorySeoSchema";
 
 interface PageProps {
@@ -117,6 +118,12 @@ export default async function SingleCategoryPage({ params }: PageProps) {
   return (
     <>
       <CategorySeoSchema
+        category={category}
+        categories={categories}
+        products={productsResult.products}
+        totalProducts={productsResult.totalProducts}
+      />
+      <CategoryContent
         category={category}
         categories={categories}
         products={productsResult.products}

@@ -8,6 +8,7 @@ import { ProductType } from "@/data/types";
 import { LoaderCircle } from "lucide-react";
 import Heading from "@/shared/Heading/Heading";
 import { collectionTag } from "@/data/content";
+import CategoryInfoDialog from "./CategoryInfoDialog";
 import useAnalytics from "@/hooks/useAnalytics";
 import { usePageState } from "@/context/PageStateContext";
 import ProductCard from "@/components/new-ui/ProductCard";
@@ -100,8 +101,17 @@ const CategoryProductsClient = ({ categoryId, category }: CategoryProductsClient
 
   return (
     <div className='my-6'>
-      <Heading isCenter isMain desc={collectionTag?.description}>
-        {category?.name || 'Products'}
+      <Heading isCenter isMain desc={category?.shortDescription || collectionTag?.description}>
+        <span className="inline-flex items-center gap-3">
+          {category?.name || 'Products'}
+          {category?.description && (
+            <CategoryInfoDialog
+              name={category.name}
+              description={category.description}
+              img={category.image}
+            />
+          )}
+        </span>
       </Heading>
       {loading && (!products || products.length < 1) && (
         <div className='w-full p-12 bg-gray-200 flex justify-center items-center'>
