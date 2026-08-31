@@ -12,7 +12,6 @@ const useAnalytics = () => {
     const logPageView = async () => {
       try {
         const analytics = await getAnalyticsInstance();
-        console.log("Analytics instance:", analytics); // Log for debugging
         if (analytics) {
           logEvent(analytics, "page_view", { page_path: pathname });
         }

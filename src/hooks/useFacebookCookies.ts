@@ -69,13 +69,3 @@ export function useFacebookCookies(): FacebookCookieData {
     fbp: getCookie("_fbp"),
   };
 }
-
-/**
- * Get Facebook cookies without the hook (for use outside components)
- */
-export function getFacebookCookies(): FacebookCookieData {
-  return {
-    fbc: getCookie("_fbc"),
-    fbp: getCookie("_fbp"),
-  };
-}

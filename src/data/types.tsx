@@ -68,6 +68,12 @@ export type Category = {
   level: number;
   ancestors: string[];
   totalProducts?: number;
+  // SEO fields (optional — backend may or may not populate)
+  seoTitle?: string;
+  metaDescription?: string;
+  tags?: string[];
+  focusKeyphrase?: string;
+  shortDescription?: string;
 };
 
 export type RatingDetailsType = {

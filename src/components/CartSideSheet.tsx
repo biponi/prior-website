@@ -11,7 +11,7 @@ import { CartItem, useCart } from "@/context/CartContext";
 import { ShoppingCart, Trash } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { Badge } from "./ui/badge";
-import { trackEvent } from "@/lib/firebase-event";
+import { trackCustomEvent } from "@/lib/analytics";
 import { formatVariant } from "@/utils/functions";
 
 export interface CartSideBarProps {}
@@ -25,7 +25,7 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
 
   useEffect(() => {
     if (isVisable) {
-      trackEvent("view_cart", {
+      trackCustomEvent("view_cart", {
         currency: "BDT",
         value: cart.reduce((sum, cartdata) => {
           sum =
@@ -38,6 +38,14 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
               );
           return sum;
         }, 0),
+        items: cart.map((item) => ({
+          item_id: item.id,
+          item_name: item.name,
+          item_brand: "Luxury Online Mart",
+          item_category: item.categoryName || "",
+          price: item.hasDiscount ? (item.updatedPrice ?? item.unitPrice) : item.unitPrice,
+          quantity: item.quantity,
+        })),
       });
     }
     //eslint-disable-next-line
@@ -107,47 +115,7 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
   };
 
   const handleCheckoutClick = () => {
-    const totalValue = cart.reduce((sum, cartdata) => {
-      sum =
-        Number(sum) +
-        Number(cartdata.quantity) *
-          Number(
-            !!cartdata?.hasDiscount
-              ? (cartdata?.updatedPrice ?? cartdata?.unitPrice)
-              : cartdata?.unitPrice,
-          );
-      return sum;
-    }, 0);
-    trackEvent("begin_checkout", {
-      affiliation: "Web-Site",
-      Value: totalValue ?? 0,
-      coupon: "",
-      currency: "BDT",
-      items: cart?.map((product, index) => {
-        return {
-          item_id: product?.sku,
-          item_name: product?.name,
-          affiliation: "Luxury Online Mart Web-site Store",
-          coupon: "",
-          discount: product?.discount,
-          index,
-          item_brand: "Luxury Online Mart",
-          item_category: product?.categoryName ?? "",
-          item_category2: "",
-          item_category3: "",
-          item_category4: "",
-          item_category5: "",
-          item_list_id: product?.id,
-          item_list_name: "Related Products",
-          item_variant: formatVariant(product?.variation),
-          location_id: "",
-          price: product?.unitPrice,
-          quantity: product?.quantity,
-        };
-      }),
-    });
-
-    console.log("wow");
+    // begin_checkout event fires on /checkout page arrival
     handleCloseMenu();
   };
 

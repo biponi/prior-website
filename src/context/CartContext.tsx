@@ -1,7 +1,7 @@
 "use client";
 // context/CartContext.tsx
 import { Variation } from "@/data/types";
-import { trackEvent } from "@/lib/firebase-event";
+import { trackAddToCart, trackCustomEvent } from "@/lib/analytics";
 import React, {
   createContext,
   ReactElement,
@@ -95,11 +95,14 @@ export const CartProvider: React.FC<{ children: ReactElement }> = ({
   }, []);
 
   const addToCart = (item: CartItem) => {
-    trackEvent("add_to_cart", {
-      item_id: item?.id,
-      item_name: item?.name,
-      price: item?.unitPrice,
-      currency: "BDT",
+    trackAddToCart({
+      id: item?.id,
+      name: item?.name,
+      unitPrice: item?.unitPrice,
+      categoryName: item?.categoryName,
+      quantity: item?.quantity,
+      hasDiscount: item?.hasDiscount,
+      updatedPrice: item?.updatedPrice,
     });
     setCart((prevCart) => {
       const existingIndex = prevCart.findIndex((itemY) => {
@@ -160,12 +163,17 @@ export const CartProvider: React.FC<{ children: ReactElement }> = ({
     if (index < 0) return;
     const item = cart[index];
     if (!!item)
-      trackEvent("remove_from_cart", {
-        item_id: item?.id,
-        item_name: item?.name,
-        price: item?.unitPrice,
-        variation: item?.variation ?? "no variation",
+      trackCustomEvent("remove_from_cart", {
         currency: "BDT",
+        value: item?.hasDiscount ? (item?.updatedPrice ?? item?.unitPrice) : item?.unitPrice,
+        items: [{
+          item_id: item?.id,
+          item_name: item?.name,
+          item_brand: "Luxury Online Mart",
+          item_category: item?.categoryName || "",
+          price: item?.hasDiscount ? (item?.updatedPrice ?? item?.unitPrice) : item?.unitPrice,
+          quantity: item?.quantity,
+        }],
       });
     setCart(cart.filter((_, i) => i !== index));
   };

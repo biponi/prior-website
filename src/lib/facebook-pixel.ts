@@ -11,26 +11,6 @@ function generateEventId(): string {
   return crypto.randomUUID();
 }
 
-// Initialize Facebook Pixel
-export const initFacebookPixel = () => {
-  if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID) {
-    if (!window.fbq) {
-      const fbq: any = function () {
-        // @ts-ignore
-        fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
-      };
-      fbq.push = fbq;
-      fbq.loaded = true;
-      fbq.version = "2.0";
-      fbq.queue = [];
-      window.fbq = fbq;
-    }
-
-    window.fbq!("init", process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID);
-    window.fbq!("track", "PageView");
-  }
-};
-
 // Track Page View
 export const trackPageView = () => {
   if (typeof window !== "undefined" && typeof window.fbq !== "undefined") {

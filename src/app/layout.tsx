@@ -12,6 +12,9 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import { DesignSystemProvider } from "@/lib/design-system/DesignSystemProvider";
 import { brandConfig } from "@/config/brand";
+import PageViewTracker from "@/components/PageViewTracker";
+import { SITE_URL } from "@/lib/seo";
+import SiteSeoSchema from "@/components/seo/SiteSeoSchema";
 
 // Noto Sans Devanagari for Editorial design system
 const notoSansDevanagari = Noto_Sans_Devanagari({
@@ -52,6 +55,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: brandConfig.seo.title,
   description: brandConfig.seo.description,
   keywords: brandConfig.seo.keywords,
@@ -126,13 +130,20 @@ export default function RootLayout({
         <link rel='dns-prefetch' href='https://yuki.priorbd.com' />
         <link rel='dns-prefetch' href='https://app.priorbd.com' /> */}
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+        <link rel='dns-prefetch' href='https://connect.facebook.net' />
 
-        {/* Google Tag Manager - changed to lazyOnload for better initial performance */}
+        {/* Google Tag Manager with Consent Initialization */}
         <Script
           id='google-tag-manager'
-          strategy='lazyOnload'
+          strategy='beforeInteractive'
           dangerouslySetInnerHTML={{
             __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                'analytics_storage': 'granted',
+                'ad_storage': 'granted'
+              });
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -141,6 +152,28 @@ export default function RootLayout({
             `,
           }}
         />
+
+        {/* Facebook Pixel - Load after page is interactive */}
+        {process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID && (
+          <Script
+            id='facebook-pixel'
+            strategy='afterInteractive'
+            dangerouslySetInnerHTML={{
+              __html: `
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}');
+                fbq('track', 'PageView');
+              `,
+            }}
+          />
+        )}
 
         {/* Chat Widget Scripts - Load after page is interactive */}
         {/* <Script
@@ -170,7 +203,9 @@ export default function RootLayout({
               <WishlistProvider>
                 <CartProvider>
                   <>
+                    <SiteSeoSchema />
                     <SmartHeader />
+                    <PageViewTracker />
                     {children}
                     <SmartFooter />
                   </>

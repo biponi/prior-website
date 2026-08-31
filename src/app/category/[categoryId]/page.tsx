@@ -1,9 +1,11 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { unstable_cache } from "next/cache";
-import Script from "next/script";
 import { fetchCategoryBySlugOrId } from "@/services/categoryServices";
+import { fetchCategoryProducts, fetchCategories } from "@/services/categorySeoService";
+import { SITE_URL } from "@/lib/seo";
 import CategoryProductsClient from "./CategoryProductsClient";
-import { collectionTag } from "@/data/content";
+import CategorySeoSchema from "@/components/seo/CategorySeoSchema";
 
 interface PageProps {
   params: {
@@ -11,71 +13,71 @@ interface PageProps {
   };
 }
 
-/**
- * Cached category fetch with 60-second revalidation
- */
 const getCachedCategory = unstable_cache(
   async (categoryId: string) => {
     try {
       const response = await fetchCategoryBySlugOrId(categoryId);
       return response;
     } catch (error) {
-      console.error('Error fetching category:', error);
+      console.error("Error fetching category:", error);
       return null;
     }
   },
-  ['category'],
-  { revalidate: 60 }
+  ["category"],
+  { revalidate: 60 },
 );
 
-/**
- * Generate SEO metadata for category pages
- */
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const category = await getCachedCategory(params.categoryId);
 
   if (!category) {
     return {
-      title: 'Category Not Found - Luxury Online Mart',
+      title: "Category Not Found - Luxury Online Mart",
     };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://priorbd.com';
-  const categoryName = category.name || 'Category';
-  const description = category.description
-    ? category.description
-    : `Browse our collection of ${category.name} at Luxury Online Mart - Your trusted kids fashion and lifestyle brand in Bangladesh.`;
+  const canonical = `${SITE_URL}/category/${category.slug}`;
+  const categoryName = category.seoTitle || category.name || "Category";
+  const description =
+    category.metaDescription ||
+    category.shortDescription ||
+    category.description ||
+    `Browse our collection of ${category.name} at Luxury Online Mart - Your trusted kids fashion and lifestyle brand in Bangladesh.`;
 
   return {
-    title: `${categoryName} - Luxury Online Mart`,
-    description: description,
-    keywords: [categoryName, 'kids fashion', 'Bangladesh', 'children clothing'],
+    title: categoryName,
+    description,
+    keywords: [...(category.tags || []), category.focusKeyphrase].filter(
+      Boolean,
+    ) as string[],
     openGraph: {
-      title: `${categoryName} - Luxury Online Mart`,
-      description: description,
-      type: 'website',
-      url: `${baseUrl}/category/${category.slug}`,
-      siteName: 'Luxury Online Mart',
-      locale: 'en_BD',
+      title: categoryName,
+      description,
+      type: "website",
+      url: canonical,
+      siteName: "Luxury Online Mart",
+      locale: "en_BD",
       images: category.image
         ? [
             {
               url: category.image,
               width: 1200,
               height: 630,
-              alt: categoryName,
+              alt: category.name,
             },
           ]
         : undefined,
     },
     twitter: {
-      card: 'summary_large_image',
-      title: `${categoryName} - Luxury Online Mart`,
-      description: description,
+      card: "summary_large_image",
+      title: categoryName,
+      description,
       images: category.image ? [category.image] : undefined,
     },
     alternates: {
-      canonical: `${baseUrl}/category/${category.slug}`,
+      canonical,
     },
     robots: {
       index: true,
@@ -84,18 +86,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-/**
- * Category page - Server Component with Hybrid Rendering
- *
- * Server-side rendering provides SEO benefits while client components
- * handle interactive features like filtering and infinite scroll.
- */
 export default async function SingleCategoryPage({ params }: PageProps) {
   const { categoryId } = params;
 
-  // Server-side category data fetch (cached)
   const category = await getCachedCategory(categoryId);
-
   if (!category) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -111,27 +105,23 @@ export default async function SingleCategoryPage({ params }: PageProps) {
     );
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://priorbd.com';
+  if (category.slug && category.slug !== categoryId) {
+    redirect(`/category/${category.slug}`);
+  }
 
-  // Category JSON-LD Structured Data
-  const categoryStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: category.name,
-    description: category.description || '',
-    url: `${baseUrl}/category/${category.slug}`,
-  };
+  const [categories, productsResult] = await Promise.all([
+    fetchCategories(),
+    fetchCategoryProducts(category.id, 12),
+  ]);
 
   return (
     <>
-      {/* Category Structured Data for SEO */}
-      <Script
-        id="category-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(categoryStructuredData) }}
+      <CategorySeoSchema
+        category={category}
+        categories={categories}
+        products={productsResult.products}
+        totalProducts={productsResult.totalProducts}
       />
-
-      {/* Client component for interactive features */}
       <CategoryProductsClient categoryId={category.id} category={category} />
     </>
   );
