@@ -18,6 +18,7 @@ interface IProduct {
   hasDiscount?: boolean;
   updatedPrice?: number;
   thumbnail?: string;
+  sizeGuideImage?: string; // Optional size guide / extra info chart image
   images?: string[];
   categoryId?: string; // or string, depending on your category ID type
   productCode?: string;

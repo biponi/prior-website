@@ -93,6 +93,7 @@ export type SingleProductType = {
   quantity: number;
   unitPrice: number;
   thumbnail: string;
+  sizeGuideImage?: string; // Optional size guide / extra info chart image
   images: string[];
   categoryId: string;
   productCode: string;

@@ -17,6 +17,61 @@ interface TiptapRendererProps {
   className?: string
 }
 
+// Single shared allow-list used by every sanitize path below, so tables and
+// FAQ details blocks survive the embed-split rendering too. Includes TipTap's
+// own table output wrappers (div.tableWrapper, colgroup/col with min-width
+// style) and the detailsContent wrapper div.
+const ALLOWED_TAGS = [
+  'p',
+  'br',
+  'strong',
+  'b',
+  'em',
+  'i',
+  'u',
+  's',
+  'code',
+  'pre',
+  'h1',
+  'h2',
+  'h3',
+  'ul',
+  'ol',
+  'li',
+  'blockquote',
+  'a',
+  'img',
+  'hr',
+  'table',
+  'thead',
+  'tbody',
+  'tr',
+  'th',
+  'td',
+  'colgroup',
+  'col',
+  'details',
+  'summary',
+  'div',
+]
+
+const ALLOWED_ATTR = [
+  'href',
+  'src',
+  'alt',
+  'class',
+  'width',
+  'height',
+  'target',
+  'colspan',
+  'rowspan',
+  'data-type',
+  'style',
+]
+
+const ALLOWED_URI_REGEXP =
+  /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
+
 export const TiptapRenderer: React.FC<TiptapRendererProps> = ({ content = '', className = '' }) => {
   // State for client-side parsed content
   const [parsedContent, setParsedContent] = useState<{ htmlWithoutEmbeds: string; embeds: Array<{ index: number; data: EmbedData }> }>({
@@ -55,36 +110,9 @@ export const TiptapRenderer: React.FC<TiptapRendererProps> = ({ content = '', cl
           className={className}
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(html, {
-              ALLOWED_TAGS: [
-                'p',
-                'br',
-                'strong',
-                'b',
-                'em',
-                'i',
-                'u',
-                's',
-                'code',
-                'pre',
-                'h1',
-                'h2',
-                'h3',
-                'ul',
-                'ol',
-                'li',
-                'blockquote',
-                'a',
-                'img',
-                'hr',
-                'table',
-                'thead',
-                'tbody',
-                'tr',
-                'th',
-                'td',
-              ],
-              ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'width', 'height', 'target'],
-              ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+              ALLOWED_TAGS,
+              ALLOWED_ATTR,
+              ALLOWED_URI_REGEXP,
             }),
           }}
         />
@@ -106,29 +134,9 @@ export const TiptapRenderer: React.FC<TiptapRendererProps> = ({ content = '', cl
             key={`html-${lastIndex}`}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(htmlContent, {
-                ALLOWED_TAGS: [
-                  'p',
-                  'br',
-                  'strong',
-                  'b',
-                  'em',
-                  'i',
-                  'u',
-                  's',
-                  'code',
-                  'pre',
-                  'h1',
-                  'h2',
-                  'h3',
-                  'ul',
-                  'ol',
-                  'li',
-                  'blockquote',
-                  'a',
-                  'img',
-                  'hr',
-                ],
-                ALLOWED_ATTR: ['href', 'src', 'alt', 'class'],
+                ALLOWED_TAGS,
+                ALLOWED_ATTR,
+                ALLOWED_URI_REGEXP,
               }),
             }}
           />
@@ -177,29 +185,9 @@ export const TiptapRenderer: React.FC<TiptapRendererProps> = ({ content = '', cl
           key={`html-${lastIndex}`}
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(htmlContent, {
-              ALLOWED_TAGS: [
-                'p',
-                'br',
-                'strong',
-                'b',
-                'em',
-                'i',
-                'u',
-                's',
-                'code',
-                'pre',
-                'h1',
-                'h2',
-                'h3',
-                'ul',
-                'ol',
-                'li',
-                'blockquote',
-                'a',
-                'img',
-                'hr',
-              ],
-              ALLOWED_ATTR: ['href', 'src', 'alt', 'class'],
+              ALLOWED_TAGS,
+              ALLOWED_ATTR,
+              ALLOWED_URI_REGEXP,
             }),
           }}
         />

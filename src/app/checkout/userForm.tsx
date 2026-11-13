@@ -10,9 +10,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { BDDistrictList, BDDivisions } from "@/utils/content";
-import { ChangeEvent, useState } from "react";
+import { useLocations } from "@/hooks/useLocations";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { UserFormData } from "./page";
 import { User } from "lucide-react";
+
+// Select-option shape shared by API data and the legacy constants
+interface DivisionOption {
+  id: string;
+  name: string;
+  bn_name: string;
+}
+interface DistrictOption {
+  id: string;
+  division_id: string;
+  name: string;
+  bn_name: string;
+}
 
 interface IProps {
   formData: UserFormData;
@@ -39,24 +53,64 @@ const UserInformation: React.FC<IProps> = ({
     address: "",
   });
 
+  // Server-configured locations (divisions/districts + charges). Falls back
+  // to the hardcoded constants when the API is unavailable.
+  const { locations } = useLocations();
+
+  const divisionOptions: DivisionOption[] = useMemo(() => {
+    if (!locations) return BDDivisions as DivisionOption[];
+    return locations.divisions.map((d) => ({
+      id: d.divisionId,
+      name: d.division,
+      bn_name: d.districts[0]?.bnName || "",
+    }));
+  }, [locations]);
+
+  const districtOptions: DistrictOption[] = useMemo(() => {
+    if (!locations) return BDDistrictList as DistrictOption[];
+    return locations.divisions.flatMap((d) =>
+      d.districts.map((x) => ({
+        id: x.sourceId,
+        division_id: d.divisionId,
+        name: x.name,
+        bn_name: x.bnName,
+      })),
+    );
+  }, [locations]);
+
+  // Show charge per district option when available from the server config
+  const chargeById = useMemo(() => {
+    const map = new Map<string, number>();
+    if (locations) {
+      for (const d of locations.divisions) {
+        for (const x of d.districts) map.set(x.sourceId, x.charge);
+      }
+    }
+    return map;
+  }, [locations]);
+
   const handleShippingDivChange = (id: string, name: string) => {
     if (name === "division") {
-      const filteredDivision = BDDivisions.filter(
+      const filteredDivision = divisionOptions.filter(
         (division) => division?.id === id,
       );
       if (filteredDivision.length > 0) {
         setShippingAddress({
           ...shippingAddress,
           division: filteredDivision[0],
+          district: {}, // reset district when division changes
         });
         handleInputChange2(
           "division",
           //@ts-ignore
           `${filteredDivision[0]?.name}`,
         );
+        // clear the stale district from the previous division
+        handleInputChange2("district", "");
+        handleInputChange2("districtId", "");
       }
     } else {
-      const filteredDistrict = BDDistrictList.filter(
+      const filteredDistrict = districtOptions.filter(
         (District) => District?.id === id,
       );
       if (filteredDistrict.length > 0) {
@@ -163,7 +217,7 @@ const UserInformation: React.FC<IProps> = ({
                   value={divisionQuery}
                   onChange={(e) => setDivisionQuery(e.target.value)}
                 />
-                {BDDivisions.filter(
+                {divisionOptions.filter(
                   (division) =>
                     division.name
                       .toLowerCase()
@@ -200,7 +254,7 @@ const UserInformation: React.FC<IProps> = ({
                     value={districtQuery}
                     onChange={(e) => setDistrictQuery(e.target.value)}
                   />
-                  {BDDistrictList.filter(
+                  {districtOptions.filter(
                     (district) =>
                       !!shippingAddress.division &&
                       //@ts-ignore
@@ -212,6 +266,8 @@ const UserInformation: React.FC<IProps> = ({
                   ).map((division, index: number) => (
                     <SelectItem key={index} value={division?.id}>
                       {division?.name}
+                      {chargeById.get(division?.id) !== undefined &&
+                        ` — ৳${chargeById.get(division?.id)}`}
                     </SelectItem>
                   ))}
                 </SelectContent>

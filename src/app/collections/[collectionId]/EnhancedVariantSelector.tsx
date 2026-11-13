@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, defaultProdcutImg } from "@/lib/utils";
 import { toast } from "sonner";
 import { SingleProductType, Variation } from "@/data/types";
 import Swal from "sweetalert2";
@@ -20,6 +20,12 @@ interface Props {
   ) => void;
 }
 
+// Requests a small square crop for Cloudinary-hosted images; other hosts pass through unchanged.
+const toThumbUrl = (url: string) =>
+  url.includes("res.cloudinary.com/image/upload/")
+    ? url.replace("/image/upload/", "/image/upload/w_80,h_80,c_fill,f_auto,q_auto/")
+    : url;
+
 const EnhancedVariantSelector: React.FC<Props> = ({
   type,
   selectedProduct,
@@ -36,6 +42,36 @@ const EnhancedVariantSelector: React.FC<Props> = ({
       setVariations(selectedProduct?.variation ?? []);
     }
   }, [selectedProduct]);
+
+  // Per-color thumbnail: prefer an in-stock variation's image, then its group image,
+  // then the product thumbnail. Matches by color only so out-of-stock size combos
+  // don't zero out candidates.
+  const colorThumbnails = React.useMemo(() => {
+    const map: Record<string, string> = {};
+    (list || []).forEach((color) => {
+      if (!color?.trim()) return;
+      const matches = variations.filter(
+        (v: Variation) =>
+          !!v.color &&
+          (v.color === color || v.color.includes(color) || color.includes(v.color)),
+      );
+      if (!matches.length) return;
+      const inStock = matches.filter((v) => (v.quantity ?? 0) > 0);
+      const ordered = inStock.length ? [...inStock, ...matches] : matches;
+      let src: string | undefined;
+      for (const v of ordered) if (v.image) { src = v.image; break; }
+      if (!src) for (const v of ordered) if (v.images?.[0]) { src = v.images[0]; break; }
+      if (!src)
+        for (const v of ordered) {
+          if (v.imageGroupId) {
+            const g = selectedProduct.imageGroups?.find((ig) => ig.id === v.imageGroupId);
+            if (g?.images?.[0]) { src = g.images[0]; break; }
+          }
+        }
+      map[color] = toThumbUrl(src || selectedProduct.thumbnail || defaultProdcutImg);
+    });
+    return map;
+  }, [variations, list, selectedProduct]);
 
   const handleVariantChange = (value: string) => {
     const vType: "size" | "color" = type;
@@ -143,7 +179,7 @@ const EnhancedVariantSelector: React.FC<Props> = ({
                   }
                 }}
                 className={cn(
-                  "group relative flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-200 border",
+                  "group relative flex flex-col items-center gap-1.5 px-3 pt-2 pb-1.5 rounded-xl text-xs font-medium transition-all duration-200 border",
                   isSelected &&
                     "bg-babybloom-pink/10 text-babybloom-pink border-babybloom-pink shadow-sm",
                   !isSelected &&
@@ -152,13 +188,28 @@ const EnhancedVariantSelector: React.FC<Props> = ({
                   isOutOfStock &&
                     "bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed",
                 )}>
+                <span className="relative shrink-0">
+                  <img
+                    src={colorThumbnails[value] || defaultProdcutImg}
+                    alt={value}
+                    loading="lazy"
+                    draggable={false}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = defaultProdcutImg;
+                    }}
+                    className={cn(
+                      "w-12 h-12 rounded-lg object-cover border border-gray-200 bg-gray-100",
+                      isSelected && "ring-2 ring-babybloom-pink ring-offset-1",
+                      isOutOfStock && "grayscale opacity-60",
+                    )}
+                  />
+                  {isOutOfStock && (
+                    <X className="absolute -top-1 -right-1 w-3 h-3 text-red-400 bg-white rounded-full border border-red-100" />
+                  )}
+                </span>
                 <span className="leading-none whitespace-nowrap">
                   {value.toUpperCase()}
                 </span>
-
-                {isOutOfStock && (
-                  <X className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                )}
               </button>
             );
           })}

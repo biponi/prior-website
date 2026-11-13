@@ -518,7 +518,7 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
   const [uniqueColors, setUniqueColors] = useState<string[]>([]);
   const [uniqueSizes, setUniqueSizes] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<
-    "description" | "details" | "reviews"
+    "description" | "details" | "sizeGuide" | "reviews"
   >("description");
   const [currentImageGroupId, setCurrentImageGroupId] = useState<string | null>(
     null,
@@ -848,6 +848,10 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
               {[
                 { key: "description", label: "Product Description" },
                 { key: "details", label: "Specifications" },
+                // Size guide tab only appears when the admin uploaded a chart
+                ...(product.sizeGuideImage
+                  ? [{ key: "sizeGuide", label: "Size Guide" }]
+                  : []),
               ].map((tab) => (
                 <button
                   key={tab.key}
@@ -953,6 +957,19 @@ const ProductDetailSection: React.FC<ProductDetailSectionProps> = ({
                     )}
                   </dl>
                 </div>
+              </div>
+            )}
+            {activeTab === "sizeGuide" && product.sizeGuideImage && (
+              <div className='max-w-2xl mx-auto'>
+                {/* Plain <img>: the guide lives on the CDN, so next/image
+                    remote-pattern config isn't required */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={product.sizeGuideImage}
+                  alt={`${product.name} size guide`}
+                  className='w-full h-auto rounded-lg border border-[#CD2A75]/20'
+                  loading='lazy'
+                />
               </div>
             )}
           </div>

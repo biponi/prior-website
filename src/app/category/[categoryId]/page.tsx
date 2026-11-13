@@ -4,8 +4,10 @@ import { unstable_cache } from "next/cache";
 import { fetchCategoryBySlugOrId } from "@/services/categoryServices";
 import { fetchCategoryProducts, fetchCategories } from "@/services/categorySeoService";
 import { SITE_URL } from "@/lib/seo";
+import { extractFaqItems } from "@/lib/faq";
 import CategoryProductsClient from "./CategoryProductsClient";
 import CategoryContent from "./CategoryContent";
+import CategoryFaq from "./CategoryFaq";
 import CategorySeoSchema from "@/components/seo/CategorySeoSchema";
 
 interface PageProps {
@@ -115,6 +117,8 @@ export default async function SingleCategoryPage({ params }: PageProps) {
     fetchCategoryProducts(category.id, 12),
   ]);
 
+  const faqItems = extractFaqItems(category.description || "");
+
   return (
     <>
       <CategorySeoSchema
@@ -122,6 +126,7 @@ export default async function SingleCategoryPage({ params }: PageProps) {
         categories={categories}
         products={productsResult.products}
         totalProducts={productsResult.totalProducts}
+        faqItems={faqItems}
       />
       <CategoryContent
         category={category}
@@ -129,6 +134,7 @@ export default async function SingleCategoryPage({ params }: PageProps) {
         products={productsResult.products}
         totalProducts={productsResult.totalProducts}
       />
+      <CategoryFaq items={faqItems} />
       <CategoryProductsClient categoryId={category.id} category={category} />
     </>
   );

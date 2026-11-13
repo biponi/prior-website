@@ -1,5 +1,6 @@
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL, absoluteUrl, buildBreadcrumbChain, stripHtml } from "@/lib/seo";
+import type { FaqItem } from "@/lib/faq";
 import type { Category, ProductType } from "@/data/types";
 
 interface CategorySeoSchemaProps {
@@ -7,6 +8,7 @@ interface CategorySeoSchemaProps {
   categories: Category[];
   products: ProductType[];
   totalProducts: number;
+  faqItems?: FaqItem[];
 }
 
 export default function CategorySeoSchema({
@@ -14,6 +16,7 @@ export default function CategorySeoSchema({
   categories,
   products,
   totalProducts,
+  faqItems,
 }: CategorySeoSchemaProps) {
   const url = `${SITE_URL}/category/${category.slug}`;
   const chain = buildBreadcrumbChain(
@@ -55,7 +58,7 @@ export default function CategorySeoSchema({
     };
   });
 
-  const graph = {
+  const graph: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -93,6 +96,25 @@ export default function CategorySeoSchema({
       },
     ],
   };
+
+  // FAQPage node — only when the description carries FAQ blocks. The Q&A is
+  // also rendered visibly on the page (CategoryFaq), as Google requires.
+  if (faqItems?.length) {
+    (graph["@graph"] as unknown[]).push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      url,
+      name: `${category.name} — Frequently Asked Questions`,
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answerText,
+        },
+      })),
+    });
+  }
 
   return <JsonLd data={graph} />;
 }

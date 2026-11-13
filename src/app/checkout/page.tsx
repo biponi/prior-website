@@ -21,6 +21,7 @@ import {
 import { fetchBulkProducts } from "@/services/productServices";
 import { compareProducts } from "@/utils/productComparison";
 import ProductChangesDialog from "@/components/checkout/ProductChangesDialog";
+import PrepaymentModal from "@/components/checkout/PrepaymentModal";
 import {
   Loader2,
   TrashIcon,
@@ -43,7 +44,8 @@ import {
   floorPrice,
 } from "@/utils/functions";
 import { Textarea } from "@/components/ui/textarea";
-import useCampaign from "@/hooks/useCampaign";
+import { evaluatePrepayment } from "@/services/prepaymentService";
+import { useLocations } from "@/hooks/useLocations";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -71,7 +73,6 @@ export interface UserFormData {
 
 const CheckoutPage = () => {
   useAnalytics();
-  const { checkPrepaymentProducts, calculatePrepaymentAmount } = useCampaign();
   const { cart, clearCart, updateToCart, removeFromCart, bulkUpdateCart } =
     useCart();
   const { authState } = useAuth();
@@ -108,6 +109,25 @@ const CheckoutPage = () => {
 
   const [prePaymentAmount, setPrePaymentAmount] = useState<number>(0);
   const [hasPrepayment, setHasPrepayment] = useState<boolean>(false);
+  const [prepaymentRuleName, setPrepaymentRuleName] = useState<string | null>(
+    null,
+  );
+  // Confirmation popup for placing a COD order that carries an advance
+  const [showPrepaymentModal, setShowPrepaymentModal] = useState(false);
+
+  // Server-configured delivery charges (admin-managed locations). Falls back
+  // to the hardcoded table when the API hasn't loaded / doesn't know the
+  // district. The backend recomputes the authoritative charge on order create.
+  const { locations } = useLocations();
+  const deliveryChargeForDistrict = (districtId: string): number => {
+    if (locations) {
+      const district = locations.divisions
+        .flatMap((d) => d.districts)
+        .find((x) => x.sourceId === districtId);
+      if (district?.charge) return district.charge;
+    }
+    return getDeliveryChargeByDistrictId(districtId);
+  };
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState<CouponType | null>(null);
@@ -255,25 +275,27 @@ const CheckoutPage = () => {
     //eslint-disable-next-line
   }, []);
 
-  const checkPrepaymentProductData = async () => {
-    const response = await checkPrepaymentProducts(
-      cart.map((item: CartItem) => item?.id),
-    );
-    setHasPrepayment(response?.hasPrepaymentRequirement ?? false);
-  };
-
-  const calculateOrderPrepayment = async (deliveryChargeAmount = 0) => {
-    const orderItems = cart.map((item) => ({
+  const checkPrepaymentProductData = async (deliveryChargeAmount = 0) => {
+    // Rules engine: single evaluation covering campaign products, delivery
+    // zones, order total and customer risk (replaces the old two-call flow)
+    const orderItems = cart.map((item: CartItem) => ({
       productId: item?.id,
       quantity: item?.quantity,
-      unitPrice: item?.unitPrice,
+      unitPrice: item?.updatedPrice ?? item?.unitPrice,
     }));
-    const deliveryCharge = deliveryChargeAmount;
-    const response = await calculatePrepaymentAmount(
+    const response = await evaluatePrepayment(
+      {
+        district: formData?.district,
+        division: formData?.division,
+      },
       orderItems,
-      deliveryCharge,
+      deliveryChargeAmount,
+      // needed when a rule matches on fraud risk levels
+      formData?.mobileNumber,
     );
-    setPrePaymentAmount(response?.totalPrepayment ?? 0);
+    setHasPrepayment(response?.required ?? false);
+    setPrePaymentAmount(response?.required ? response.amount : 0);
+    setPrepaymentRuleName(response?.appliedRule?.name ?? null);
   };
 
   const handleInputChange = (
@@ -325,7 +347,6 @@ const CheckoutPage = () => {
       remaining,
     });
     setOrderProduct([...cart]);
-    checkPrepaymentProductData();
     //eslint-disable-next-line
   }, [cart, appliedCoupon]);
 
@@ -335,7 +356,7 @@ const CheckoutPage = () => {
       Swal.fire("Oops!!", "Enter valid shipping address", "error");
     } else {
       const deliveryCharge = formData.districtId
-        ? getDeliveryChargeByDistrictId(formData.districtId)
+        ? deliveryChargeForDistrict(formData.districtId)
         : 150;
 
       const couponDiscount = appliedCoupon?.discountAmount || 0;
@@ -357,7 +378,7 @@ const CheckoutPage = () => {
       deliveryChargeX = 0;
     } else {
       deliveryChargeX = formData.districtId
-        ? getDeliveryChargeByDistrictId(formData.districtId)
+        ? deliveryChargeForDistrict(formData.districtId)
         : 150;
 
       const couponDiscount = appliedCoupon?.discountAmount || 0;
@@ -373,10 +394,18 @@ const CheckoutPage = () => {
         deliveryCharge: deliveryChargeX,
         remaining,
       });
-      if (hasPrepayment) calculateOrderPrepayment(deliveryChargeX);
+      // Rules decide whether prepayment applies — no hardcoded charge gate
+      if (cart.length > 0) checkPrepaymentProductData(deliveryChargeX);
     }
     //eslint-disable-next-line
-  }, [formData?.district, appliedCoupon]);
+  }, [
+    formData?.district,
+    formData?.division,
+    formData?.mobileNumber,
+    cart,
+    appliedCoupon,
+    locations,
+  ]);
 
   const renderProduct = (item: CartItem, index: number) => {
     const {
@@ -591,7 +620,7 @@ const CheckoutPage = () => {
             prePaymentAmount={
               hasPrepayment && prePaymentAmount > 0 ? prePaymentAmount : 0
             }
-            deliveryCharge={transectionData?.deliveryCharge}
+            prepaymentRuleName={prepaymentRuleName}
             paymentMethod={paymentMethod}
             handlePaymentMethodChange={(value: string) =>
               setPaymentMethod(value)
@@ -607,16 +636,10 @@ const CheckoutPage = () => {
     isSubmittingRef.current = true;
     setLoading(true);
 
-    const hasPayment =
-      paymentMethod === "bkash" ||
-      prePaymentAmount > 0 ||
-      transectionData.deliveryCharge >= 80;
-    const paymentAmount =
-      prePaymentAmount > 0
-        ? prePaymentAmount
-        : transectionData.deliveryCharge >= 80
-          ? Math.min(transectionData.deliveryCharge, transectionData?.remaining)
-          : 0;
+    // hasPayment: bkash (full) or a prepayment rule required an advance.
+    // The advance amount is exactly what the rules engine computed.
+    const hasPayment = paymentMethod === "bkash" || prePaymentAmount > 0;
+    const paymentAmount = prePaymentAmount > 0 ? prePaymentAmount : 0;
 
     const orderData = {
       customerInformation: {
@@ -758,19 +781,12 @@ const CheckoutPage = () => {
       return Swal.fire("Oops!!", "Please enter a valid phone number", "error");
     }
 
-    if (transectionData.deliveryCharge >= 80) {
-      return Swal.fire({
-        title: "Terms & Condition",
-        text: `A prepayment of ${transectionData?.deliveryCharge} taka (delivery charge) is required for your delivery zone.`,
-        showDenyButton: false,
-        showCancelButton: true,
-        confirmButtonText: "Continue",
-        denyButtonText: "Don't save",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          confirmOrderAndCreateOne();
-        }
-      });
+    // Prepayment rules engine: when a rule requires an advance and the
+    // customer is placing a COD order, confirm it in a modal before placing
+    // (bkash orders go straight to the gateway to pay it)
+    if (hasPrepayment && prePaymentAmount > 0 && paymentMethod !== "bkash") {
+      setShowPrepaymentModal(true);
+      return;
     }
 
     confirmOrderAndCreateOne();
@@ -785,6 +801,17 @@ const CheckoutPage = () => {
         onOpenChange={setShowChangesDialog}
         changes={productChanges}
         onContinue={() => setShowChangesDialog(false)}
+      />
+
+      {/* Prepayment advance confirmation */}
+      <PrepaymentModal
+        open={showPrepaymentModal}
+        onOpenChange={setShowPrepaymentModal}
+        amount={prePaymentAmount}
+        onConfirm={() => {
+          setShowPrepaymentModal(false);
+          confirmOrderAndCreateOne();
+        }}
       />
 
       {/* Header */}

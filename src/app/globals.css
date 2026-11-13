@@ -242,3 +242,83 @@ span,
   background-size: 200% 200%;
   animation: border-spin 3s ease-in-out infinite;
 } */
+
+/* ── Tiptap-rendered rich content: tables + FAQ details ───────────────────
+   Applied via the .tiptap-content wrapper in TiptapRenderer and the inline
+   CategoryFaq section. Native <details>/<summary> needs no JS to collapse. */
+.tiptap-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  display: block;
+  overflow-x: auto;
+}
+
+.tiptap-content th,
+.tiptap-content td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.875rem;
+}
+
+.tiptap-content thead th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tiptap-content tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.tiptap-content details {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.tiptap-content details[open] {
+  border-color: #fda4af;
+}
+
+.tiptap-content summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #111827;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tiptap-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.tiptap-content summary::after {
+  content: "+";
+  font-size: 1.1rem;
+  color: #cd2a75;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.tiptap-content details[open] summary::after {
+  content: "\2212";
+}
+
+.tiptap-content details > div,
+.tiptap-content details > p {
+  padding: 0 16px 14px;
+}
+
+.tiptap-content div[data-type="detailsContent"] p {
+  margin: 0 0 0.5rem;
+}

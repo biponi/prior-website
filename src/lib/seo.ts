@@ -56,10 +56,11 @@ const ALLOWED_TAGS = new Set([
   "code", "pre", "h1", "h2", "h3",
   "ul", "ol", "li", "blockquote", "a", "img", "hr",
   "table", "thead", "tbody", "tr", "th", "td",
+  "colgroup", "col", "details", "summary",
   "span", "div", "figure", "figcaption",
 ]);
 
-const KEEP_ATTRS = /^(href|src|alt|class|width|height|target|colspan|rowspan)$/i;
+const KEEP_ATTRS = /^(href|src|alt|class|width|height|target|colspan|rowspan|data-type|style)$/i;
 
 /**
  * Server-safe sanitizer producing HTML IDENTICAL to TiptapRenderer's

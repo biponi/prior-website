@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   prePaymentAmount?: number;
+  prepaymentRuleName?: string | null;
   deliveryCharge?: number;
   paymentMethod: string;
   handlePaymentMethodChange: (value: string) => void;
@@ -17,17 +18,14 @@ interface Props {
 
 const PaymentMethod: FC<Props> = ({
   prePaymentAmount = 0,
-  deliveryCharge = 0,
+  prepaymentRuleName,
   paymentMethod,
   handlePaymentMethodChange,
 }) => {
   const codLabel =
     !!prePaymentAmount && prePaymentAmount > 0
       ? `Cash on Delivery (Advance ৳${prePaymentAmount})`
-      : deliveryCharge >= 80
-        ? `Cash on Delivery (Advance ৳${deliveryCharge})`
-        : "Cash on Delivery";
-
+      : "Cash on Delivery";
   return (
     <Card className="rounded-2xl border-neutral-200">
       <CardHeader className="pb-3">
@@ -60,17 +58,12 @@ const PaymentMethod: FC<Props> = ({
             </div>
             <div className="min-w-0">
               <p className="text-sm font-medium text-neutral-900 truncate">
-                Cash on Delivery
+                {codLabel}
               </p>
-              {(!!prePaymentAmount && prePaymentAmount > 0) ||
-              deliveryCharge >= 80 ? (
+              {!!prePaymentAmount && prePaymentAmount > 0 ? (
                 <p className="text-[11px] text-neutral-500 mt-0.5">
-                  Advance ৳
-                  {(prePaymentAmount > 0
-                    ? prePaymentAmount
-                    : deliveryCharge
-                  ).toLocaleString()}{" "}
-                  required
+                  Advance ৳{prePaymentAmount.toLocaleString()}
+                  {prepaymentRuleName ? ` required (${prepaymentRuleName})` : " required"}
                 </p>
               ) : (
                 <p className="text-[11px] text-neutral-500 mt-0.5">

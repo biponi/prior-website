@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { absoluteUrl } from "@/lib/seo";
+import { TiptapRenderer } from "@/components/TiptapRenderer";
 
 interface CategoryInfoDialogProps {
   name: string;
@@ -89,7 +90,8 @@ export default function CategoryInfoDialog({
         {/* Description */}
         <ScrollArea className='flex-1 min-h-0 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
           {description ? (
-            <div
+            <TiptapRenderer
+              content={description}
               className='prose prose-sm max-w-none text-gray-600 leading-relaxed
                 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-5 [&_h2]:mb-2
                 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-gray-800 [&_h3]:mt-4 [&_h3]:mb-1.5
@@ -102,7 +104,6 @@ export default function CategoryInfoDialog({
                 [&_a]:text-rose-500 [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-rose-200 hover:[&_a]:decoration-rose-400
                 [&_blockquote]:border-l-2 [&_blockquote]:border-rose-200 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_blockquote]:my-4
                 [&_img]:rounded-xl [&_img]:my-4 [&_img]:shadow-sm'
-              dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
             <div className='flex flex-col items-center justify-center py-10 text-center'>
