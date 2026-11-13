@@ -1,7 +1,7 @@
 // Thank You / Order Success Page
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { Suspense, useEffect, useState, useRef, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -66,34 +66,14 @@ const ThankYouPage = () => {
               payment_type: isBkash ? "bkash" : "cod",
               items:
                 orderData?.products?.map((product: any) => ({
-                  item_id: product?.sku,
+                  item_id: product?.sku || product?.productId,
                   item_name: product?.name,
+                  item_brand: "Prior",
+                  item_category: product?.categoryName || "",
                   price: product?.unitPrice,
                   quantity: product?.quantity,
                 })) || [],
             });
-
-            if (typeof window !== "undefined" && window.dataLayer) {
-              window.dataLayer.push({
-                event: "purchase",
-                ecommerce: {
-                  transaction_id: orderData?.orderNumber || orderNumber,
-                  affiliation: "Web-Site",
-                  value: orderData?.totalPrice || totalFromQuery || 0,
-                  shipping: orderData?.deliveryCharge || 0,
-                  discount: orderData?.discount || 0,
-                  currency: "BDT",
-                  payment_type: isBkash ? "bkash" : "cod",
-                  items:
-                    orderData?.products?.map((product: any) => ({
-                      item_id: product?.sku,
-                      item_name: product?.name,
-                      price: product?.unitPrice,
-                      quantity: product?.quantity,
-                    })) || [],
-                },
-              });
-            }
           } else {
             // Bkash payment not yet completed — don't fire event
             hasFiredPurchaseEvent.current = false;
@@ -128,6 +108,27 @@ const ThankYouPage = () => {
         if (orderData && (orderData.paid || 0) > 0) {
           clearInterval(retryInterval);
           setOrder(orderData);
+
+          if (!hasFiredPurchaseEvent.current) {
+            hasFiredPurchaseEvent.current = true;
+            trackPurchase({
+              transaction_id: orderData?.orderNumber || orderNumber,
+              value: orderData?.totalPrice || 0,
+              shipping: orderData?.deliveryCharge || 0,
+              discount: orderData?.discount || 0,
+              currency: "BDT",
+              payment_type: "bkash",
+              items:
+                orderData?.products?.map((product: any) => ({
+                  item_id: product?.sku || product?.productId,
+                  item_name: product?.name,
+                  item_brand: "Prior",
+                  item_category: product?.categoryName || "",
+                  price: product?.unitPrice,
+                  quantity: product?.quantity,
+                })) || [],
+            });
+          }
         }
       } catch (error) {
         console.error("Retry fetch failed:", error);
@@ -419,4 +420,12 @@ const ThankYouPage = () => {
   );
 };
 
-export default ThankYouPage;
+// useSearchParams() needs a Suspense boundary to prerender — the root
+// loading.tsx no longer provides one.
+const ThankYouPageWithSuspense = () => (
+  <Suspense fallback={null}>
+    <ThankYouPage />
+  </Suspense>
+);
+
+export default ThankYouPageWithSuspense;

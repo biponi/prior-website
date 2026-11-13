@@ -676,16 +676,9 @@ const CheckoutPage = () => {
 
       if (response.success) {
         clearCart();
-        trackCustomEvent("purchase", {
-          transaction_id: hasPayment
-            ? response?.data?.orderId
-            : response.data?.order?.id,
-          affiliation: "Web-Site",
-          value: transectionData?.totalPrice,
-          shipping: transectionData?.deliveryCharge,
-          discount: transectionData?.discount,
-          currency: "BDT",
-        });
+
+        // Purchase event is fired on the Thank You page instead, so it only
+        // tracks completed orders (and, for bkash, only after payment lands)
 
         const orderId = hasPayment
           ? response?.data?.orderId
@@ -703,32 +696,10 @@ const CheckoutPage = () => {
             formData?.mobileNumber,
           );
         } else {
-          let timerInterval: NodeJS.Timeout;
-          Swal.fire({
-            title: "Order Placed Successfully",
-            html: "Our agent will contact you shortly<br><br><strong>Redirecting in <b id='swal-timer'>3</b> seconds...</strong>",
-            icon: "success",
-            timer: 3000,
-            showConfirmButton: false,
-            timerProgressBar: true,
-            didOpen: () => {
-              const timer =
-                Swal.getHtmlContainer()?.querySelector("#swal-timer");
-              if (timer) {
-                timerInterval = setInterval(() => {
-                  const currentTimer = parseInt(timer.textContent || "3");
-                  if (currentTimer > 0) {
-                    timer.textContent = (currentTimer - 1).toString();
-                  }
-                }, 1000);
-              }
-            },
-            willClose: () => {
-              clearInterval(timerInterval);
-            },
-          }).then(() => {
-            window.location.href = `/order/${orderId}`;
-          });
+          // Redirect to Thank You page for COD orders
+          const orderNumber = response.data?.order?.orderNumber;
+          const total = transectionData?.totalPrice;
+          window.location.href = `/order/thank-you?orderNumber=${orderNumber}&method=cod&total=${total}`;
         }
       } else {
         Swal.fire(
