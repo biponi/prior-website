@@ -14,7 +14,6 @@ const getCachedBlogs = unstable_cache(
   async () => {
     try {
       const response = await fetch(`${apiUrl}/prior/blog/all`, {
-        cache: 'no-store',
         headers: {
           'Accept': 'application/json',
         },

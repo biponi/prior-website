@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
+import { config } from '@/lib/config';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://priorbd.com';
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.luxuryonlinemart.com';
 
 /**
  * Generate dynamic sitemap for SEO
@@ -12,48 +12,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // Fetch all products
-    let products = [];
+    let products: any[] = [];
     try {
-      const productResponse = await fetch(`${apiUrl}/product/all`, {
+      const productResponse = await fetch(config.product.getProducts(), {
         next: { revalidate: 3600 }, // Cache for 1 hour
       });
       if (productResponse.ok) {
-        products = await productResponse.json();
+        const json = await productResponse.json();
+        products = json?.products || json?.data || json || [];
+        if (!Array.isArray(products)) products = [];
       }
     } catch (error) {
       console.error('Failed to fetch products for sitemap:', error);
     }
 
     // Fetch all categories
-    let categories = [];
+    let categories: any[] = [];
     try {
-      const categoryResponse = await fetch(`${apiUrl}/category/all`, {
+      const categoryResponse = await fetch(config.product.getCategories(), {
         next: { revalidate: 3600 }, // Cache for 1 hour
       });
       if (categoryResponse.ok) {
-        categories = await categoryResponse.json();
+        const json = await categoryResponse.json();
+        categories = json?.data || json || [];
+        if (!Array.isArray(categories)) categories = [];
       }
     } catch (error) {
       console.error('Failed to fetch categories for sitemap:', error);
     }
 
-    // Fetch all blog posts (when implemented)
-    let blogs = [];
-    try {
-      const blogResponse = await fetch(`${apiUrl}/blog/all`, {
-        next: { revalidate: 3600 }, // Cache for 1 hour
-      });
-      if (blogResponse.ok) {
-        blogs = await blogResponse.json();
-      }
-    } catch (error) {
-      // Blog API might not be ready yet, that's fine
-      console.log('Blog API not available for sitemap yet');
-    }
-
     // Build product URLs
     const productUrls = products
-      .filter((product: any) => product.slug && product.active)
+      .filter((product: any) => product.slug && product.active !== false)
       .map((product: any) => ({
         url: `${baseUrl}/collections/${product.slug}`,
         lastModified: product.updatedAt ? new Date(product.updatedAt) : currentDate,
@@ -69,16 +59,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: currentDate,
         changeFrequency: 'daily' as const,
         priority: 0.7,
-      }));
-
-    // Build blog URLs
-    const blogUrls = blogs
-      .filter((blog: any) => blog.slug && blog.status === 'published')
-      .map((blog: any) => ({
-        url: `${baseUrl}/blog/${blog.slug}`,
-        lastModified: blog.publishedAt ? new Date(blog.publishedAt) : new Date(blog.createdAt),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
       }));
 
     // Static pages
@@ -143,7 +123,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...staticPages,
       ...productUrls,
       ...categoryUrls,
-      ...blogUrls,
     ];
   } catch (error) {
     console.error('Sitemap generation error:', error);
